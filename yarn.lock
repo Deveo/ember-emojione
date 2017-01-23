@@ -1873,6 +1873,12 @@ ember-source@^2.11.0-beta.8:
     rsvp "^3.3.3"
     simple-dom "^0.3.0"
 
+ember-string-ishtmlsafe-polyfill@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ember-string-ishtmlsafe-polyfill/-/ember-string-ishtmlsafe-polyfill-1.0.1.tgz#b40a8c98663be5c16d16f31dc686102bb655abbd"
+  dependencies:
+    ember-cli-babel "^5.1.6"
+
 ember-test-helpers@^0.6.0-beta.1:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/ember-test-helpers/-/ember-test-helpers-0.6.0.tgz#1f644fd303437ef4d19430a3e18447d57a97cf36"
