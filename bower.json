@@ -1,4 +1,6 @@
 {
   "name": "ember-emojione",
-  "dependencies": {}
+  "dependencies": {
+    "emojione-js": "https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/lib/js/emojione.js"
+  }
 }

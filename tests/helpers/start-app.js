@@ -1,14 +1,13 @@
-import Ember from 'ember';
+import run from 'ember-runloop';
 import Application from '../../app';
 import config from '../../config/environment';
 
 export default function startApp(attrs) {
   let application;
 
-  let attributes = Ember.merge({}, config.APP);
-  attributes = Ember.merge(attributes, attrs); // use defaults, but you can override;
+  let attributes = { ...config.APP, ...attrs };
 
-  Ember.run(() => {
+  run(() => {
     application = Application.create(attributes);
     application.setupForTesting();
     application.injectTestHelpers();

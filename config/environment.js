@@ -1,6 +1,6 @@
-/*jshint node:true*/
+/* globals module */
 'use strict';
 
-module.exports = function(/* environment, appConfig */) {
+module.exports = function (/* environment, appConfig */) {
   return { };
 };
