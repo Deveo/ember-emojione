@@ -21,7 +21,7 @@ module.exports = {
     "generator-star-spacing": ["error", "both"],
     "no-constant-condition": ["error", { "checkLoops": false }],
     quotes: "off",
-    "space-before-function-paren": ["error", { "anonymous": "always", "named": "never" }]
+    "space-before-function-paren": ["error", { "anonymous": "ignore", "named": "never" }]
   },
   globals: {
     // "Autolinker": true,
