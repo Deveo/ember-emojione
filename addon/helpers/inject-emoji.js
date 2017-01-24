@@ -5,7 +5,10 @@ import isHTMLSafe from 'ember-string-ishtmlsafe-polyfill';
 import config from 'ember-get-config';
 import { getProperties } from 'ember-metal/get';
 
+
+
 const InjectEmoji = Helper.extend({
+
   compute([inputStr], options) {
     if (!inputStr) {
       return htmlSafe('');
@@ -16,11 +19,13 @@ const InjectEmoji = Helper.extend({
     }
 
     return this
-      ._initializeEmojiOne(options, () => {
-        const resultStr = emojione.toImage(inputStr.toString());
+      ._runEmojiOneWithOptionsOnce(options, () => {
+        const resultStr = this._injectEmoji(inputStr, options);
         return htmlSafe(resultStr);
       });
   },
+
+
 
   _emojiOneOptionKeys: [
     'imagePathPNG',
@@ -33,13 +38,15 @@ const InjectEmoji = Helper.extend({
     'ascii',
   ],
 
+
+
   /**
    * A decorator that:
    * 1. Initializes the EmojiOne library with given options.
    * 2. Runs it.
    * 3. Restores its original state.
    **/
-  _initializeEmojiOne(overrideOptions, callback) {
+  _runEmojiOneWithOptionsOnce(overrideOptions, callback) {
     const currentEmojiOneOptions = this._mergeEmojiOneOptions(overrideOptions);
     const initialEmojiOneOptions = this._captureEmojiOneInitialState();
 
@@ -50,17 +57,23 @@ const InjectEmoji = Helper.extend({
     return result;
   },
 
+
+
   _mergeEmojiOneOptions(overrideOptions = {}) {
     const defaultOptions          = config[ 'ember-emojione' ] || {};
-    const defaultOptionsEmojiOne  = defaultOptions.emojione || {};
-    const overrideOptionsEmojiOne = overrideOptions.emojione || {};
+    const defaultOptionsEmojiOne  = defaultOptions.emojione    || {};
+    const overrideOptionsEmojiOne = overrideOptions.emojione   || {};
     return { ...defaultOptionsEmojiOne, ...overrideOptionsEmojiOne };
   },
+
+
 
   _captureEmojiOneInitialState() {
     const keys = this.get('_emojiOneOptionKeys');
     return getProperties(emojione, keys);
   },
+
+
 
   _applyOptionsToEmojiOne(options) {
     this
@@ -70,10 +83,52 @@ const InjectEmoji = Helper.extend({
         if (value == null) return;
         emojione[key] = value;
       });
+  },
+
+
+
+  _injectEmoji(inputStr, {
+    regexToSkip = /<code[\s\S]*?>[\s\S]*?<\/code>/gm
+  } = {}) {
+    if (!regexToSkip) {
+      return this._injectEmojiWithEmojiOne(inputStr);
+    }
+
+    // Collecting substrings-to-skip into an array
+    const skippedStrs = inputStr.toString().match(regexToSkip);
+
+    if (!skippedStrs || !skippedStrs.length) {
+      return this._injectEmojiWithEmojiOne(inputStr);
+    }
+
+    return inputStr
+      .toString()
+
+      // Collecting substrings-to-parse into an array
+      .split(regexToSkip)
+
+      // Injecting emoji into substrings
+      .map(this._injectEmojiWithEmojiOne)
+
+      // Merging parsed substings with their ignored counterparts
+      .map((substr, index) => {
+        if (!index) return substr;
+        const skippedStr = skippedStrs[index - 1];
+        return skippedStr + substr;
+      })
+      .join("");
+  },
+
+
+
+  _injectEmojiWithEmojiOne(inputStr) {
+    return emojione.toImage(inputStr.toString());
   }
 });
 
 export default InjectEmoji;
+
+
 
 // Single instance for programmatic usage
 let injectEmojiInstance;

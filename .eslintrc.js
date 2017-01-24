@@ -23,6 +23,7 @@ module.exports = {
     "generator-star-spacing": ["error", "both"],
     "key-spacing": "off",
     "no-constant-condition": ["error", { "checkLoops": false }],
+    "no-multiple-empty-lines": "off",
     quotes: "off",
     "space-before-function-paren": ["error", { "anonymous": "ignore", "named": "never" }],
     "spaced-comment": "off",

@@ -44,6 +44,7 @@ To configure `ember-emojione` and override `emojione` options, add these options
 Configuration is optional.
 
 
+
 ## Usage
 
 ### `inject-emoji` helper
@@ -76,6 +77,8 @@ Result:
 </div>
 ```
 
+
+
 ### Overriding options
 
 You can override `ember-emojione` and `emojione.js` options for a single invocation of `inject-emoji`:
@@ -93,6 +96,7 @@ You can override `ember-emojione` and `emojione.js` options for a single invocat
 ```
 
 
+
 ### Use from JS
 
 You can use the `inject-emoji` helper in JS via the `injectEmoji` convenience function:
@@ -102,9 +106,20 @@ import {htmlSafe} from 'ember-string';
 import {injectEmoji} from 'ember-emojione/helpers/inject-emoji';
 
 const inputSafeString  = htmlSafe(':D');
-const options          = {emojiOne: {ascii: true}};
+const options          = {regexToSkip: false, emojiOne: {ascii: true}};
 const resultSafeString = injectEmoji(inputSafeString, options);
 ```
+
+
+### Skipping code blocks
+
+`inject-emoji` will ignore emoji located within portions of the input string that match given regular expression.
+
+The regex can be configured via the `regexToSkip` option.
+
+By default, the regex matches `<code>...</code>` elements.
+
+To disable skipping, set `regexToSkip` to `false`.
 
 
 
@@ -118,16 +133,22 @@ const resultSafeString = injectEmoji(inputSafeString, options);
 * `yarn install` :warning:
 * `bower install`
 
+
+
 ### Running
 
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
+
+
 
 ### Running Tests
 
 * `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
 * `ember test`
 * `ember test --server`
+
+
 
 ### Do not use `npm` or `ember install`, use `yarn`
 
