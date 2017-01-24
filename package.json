@@ -1,17 +1,27 @@
 {
   "name": "ember-emojione",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "EmojiOne helper and components for your Ember App.",
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "emoji",
+    "emojione",
+    "helper"
   ],
   "license": "MIT",
-  "author": "",
+  "author": "Andrey Mikhaylov @lolmaus <lolmaus@gmail.com> (http://lolma.us)",
+  "contributors": [
+    "Deveo (https://github.com/Deveo)"
+  ],
+  "homepage": "https://github.com/Deveo/ember-emojione",
+  "bugs": {
+    "url": "https://github.com/Deveo/ember-emojione/issues"
+  },
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": "Deveo/ember-emojione",
   "scripts": {
     "build": "ember build",
     "start": "ember server",
