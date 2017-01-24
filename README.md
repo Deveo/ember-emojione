@@ -17,6 +17,20 @@ Currently a work in progress, here's what it's gonna offer:
 
 
 
+## Comparison to ember-cli-emojione
+
+`ember-cli-emojione` is an addon that wraps the `emojione` Bower package into an ES module. The `emojione` global is still available.
+
+The `emojione` Bower package is over 90 MiB large, making installation and CI builds substantially slower. If you're serving your emoji from the free JSDelivr CDN or your own hosting, `emojione` assets aren't needed in the Ember app.
+
+This addon, `ember-emojione`, imports only the `emojione.js` library (~50 KiB large gzipped).
+
+If you want, you can still import the whole `emojione` Bower package manually, see below.
+
+For the simplicity of manual Bower import, `ember-emojione` does not offer an ES module. If you need low-level access to the EmojiOne JS library, please use the `emojione` global var.
+
+
+
 ## Installation
 
 With npm:
