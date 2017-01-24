@@ -111,6 +111,7 @@ import {injectEmoji} from 'ember-emojione/helpers/inject-emoji';
 const inputSafeString  = htmlSafe(':D');
 const options          = {regexToSkip: false, emojiOne: {ascii: true}};
 const resultSafeString = injectEmoji(inputSafeString, options);
+const resultString     = resultSafeString.toString();
 ```
 
 
