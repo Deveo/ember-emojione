@@ -5,7 +5,7 @@ import isHTMLSafe from 'ember-string-ishtmlsafe-polyfill';
 import config from 'ember-get-config';
 import { getProperties } from 'ember-metal/get';
 
-export default Helper.extend({
+const InjectEmoji = Helper.extend({
   compute([inputStr], options) {
     if (!inputStr) {
       return htmlSafe('');
@@ -39,7 +39,7 @@ export default Helper.extend({
    * 2. Runs it.
    * 3. Restores its original state.
    **/
-  _initializeEmojiOne(overrideOptions = {}, callback) {
+  _initializeEmojiOne(overrideOptions, callback) {
     const currentEmojiOneOptions = this._mergeEmojiOneOptions(overrideOptions);
     const initialEmojiOneOptions = this._captureEmojiOneInitialState();
 
@@ -50,7 +50,7 @@ export default Helper.extend({
     return result;
   },
 
-  _mergeEmojiOneOptions(overrideOptions) {
+  _mergeEmojiOneOptions(overrideOptions = {}) {
     const defaultOptions          = config[ 'ember-emojione' ] || {};
     const defaultOptionsEmojiOne  = defaultOptions.emojione || {};
     const overrideOptionsEmojiOne = overrideOptions.emojione || {};
@@ -72,3 +72,16 @@ export default Helper.extend({
       });
   }
 });
+
+export default InjectEmoji;
+
+// Single instance for programmatic usage
+let injectEmojiInstance;
+
+export function injectEmoji(input, options) {
+  if (!injectEmojiInstance) {
+    injectEmojiInstance = InjectEmoji.create();
+  }
+
+  return injectEmojiInstance.compute([input], options);
+}

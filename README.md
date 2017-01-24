@@ -93,6 +93,20 @@ You can override `ember-emojione` and `emojione.js` options for a single invocat
 ```
 
 
+### Use from JS
+
+You can use the `inject-emoji` helper in JS via the `injectEmoji` convenience function:
+
+```js
+import {htmlSafe} from 'ember-string';
+import {injectEmoji} from 'ember-emojione/helpers/inject-emoji';
+
+const inputSafeString  = htmlSafe(':D');
+const options          = {emojiOne: {ascii: true}};
+const resultSafeString = injectEmoji(inputSafeString, options);
+```
+
+
 
 ## Development
 

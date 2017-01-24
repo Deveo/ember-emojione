@@ -1,4 +1,4 @@
-import InjectEmoji from 'dummy/helpers/inject-emoji';
+import InjectEmoji, { injectEmoji } from 'dummy/helpers/inject-emoji';
 import { module, test/*, skip*/ } from 'qunit';
 import { withChai } from 'ember-cli-chai/qunit';
 import { htmlSafe } from 'ember-string';
@@ -73,6 +73,15 @@ test('it should respect emojione settings from named argument `emojione`', withC
   const inputStr = htmlSafe("<p>Foo :scream_cat: 🤓 <span>Bar :)</span></p>");
   const expected = "<p>Foo <object class=\"emojione\" data=\"SVGLOL1f640.svg?v=2.2.7\" type=\"image/svg+xml\" standby=\":scream_cat:\">:scream_cat:</object> <img class=\"emojione\" alt=\":nerd_face:\"  src=\"SVGLOL1f913.svg?v=2.2.7\"/> <span>Bar :)</span></p>";
   const result = this.subject.compute([inputStr], options);
+
+  expect(result.toString()).equal(expected);
+}));
+
+test('use from JS', withChai(function(expect) {
+  const inputStr = htmlSafe(":D");
+  const options  = { emojione: { ascii: true } };
+  const expected = "<img class=\"emojione\" alt=\"😃\" title=\":D\" src=\"https://cdn.jsdelivr.net/emojione/assets/png/1f603.png?v=2.2.7\"/>";
+  const result   = injectEmoji(inputStr, options);
 
   expect(result.toString()).equal(expected);
 }));
