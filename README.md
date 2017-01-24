@@ -41,7 +41,7 @@ With Yarn:
 
     yarn add -D ember-emojione
 
-As of #24, the default blueprint (`ember g ember-emojione`) won't install the Bower dependency for some reason. You have to install it manually:
+As of [#24](https://github.com/Deveo/ember-emojione/issues/24), the default blueprint (`ember g ember-emojione`) won't install the Bower dependency for some reason. You have to install it manually:
 
     bower install -S emojione-js=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/lib/js/emojione.js
 
