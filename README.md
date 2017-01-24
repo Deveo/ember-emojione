@@ -14,6 +14,8 @@ As of #24, the default blueprint (`ember g ember-emojione`) won't install the Bo
 
     bower install -S emojione-js=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/lib/js/emojione.js
 
+This addon does not include [EmojiOne CSS styles](https://github.com/Ranks/emojione/blob/master/assets/css/emojione.css). Please include them manually into your project, making necessary adjustments.
+
 
 
 ## Configuration
@@ -170,3 +172,18 @@ To install an Ember addon into this addon, do:
 An error message "no such blueprint" is expected in case the addon does not want to do boilerplate customizations.
 
 For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
+
+
+
+### Branch names
+
+Main branches are named as `gen-1`, `gen-2`, etc. Default branch on GitHub is where active development happens.
+
+This naming scheme is due to the fact that this project uses SemVer. As a result, major version number will rise very quickly, without any correlation with actual major changes in the app.
+
+The number in the branch name, "generation", is supposed to be incremented in these cases:
+* A huge improvement or change happens in the addon.
+* There's a change in the addon's API or architecture which introduces a necessity to maintain more than one branch at a time.
+* The codebase is started from scratch.
+
+Pull requests are welcome from feature branches. Make sure to discus proposed changes with addon maintainers to avoid wasted effort.
