@@ -218,3 +218,15 @@ The number in the branch name, "generation", is supposed to be incremented in th
 * The codebase is started from scratch.
 
 Pull requests are welcome from feature branches. Make sure to discus proposed changes with addon maintainers to avoid wasted effort.
+
+
+
+## Credits
+
+Created by [@lolmaus](https://github.com/lolmaus) in [@Deveo](https://github.com/Deveo), https://deveo.com.
+
+
+
+## License
+
+[MIT](https://github.com/Deveo/ember-emojione/blob/gen-1/LICENSE.md).
