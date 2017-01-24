@@ -25,7 +25,7 @@ To configure `ember-emojione` and override `emojione` options, add these options
   // Used to skip certain portions of the input string.
   // Useful for Markdown code blocks. Apply after Markdown transformation.
   // Set to `false` to disable.
-  ignoreRegex: /<code[\s\S]*?>[\s\S]*?<\/code>/gm
+  regexToSkip: /<code[\s\S]*?>[\s\S]*?<\/code>/gm
   
   // EmojiOne library options
   emojione: {
@@ -80,9 +80,17 @@ Result:
 
 You can override `ember-emojione` and `emojione.js` options for a single invocation of `inject-emoji`:
 
-
-
-`
+```hbs
+<div>
+  {{{inject-emoji inputStr (hash
+    regexToSkip = false
+    emojione = (hash
+      imageType = 'svg'
+      sprites   = true
+    )
+  )}}}
+</div>
+```
 
 
 
