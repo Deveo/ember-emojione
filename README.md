@@ -7,6 +7,14 @@
 ![ember-versions 1.13+](https://img.shields.io/badge/ember--versions-1.13%2B-yellowgreen.svg)
 ![ember-cli 2.11.0-beta.2](https://img.shields.io/badge/uses%20ember--cli-2.11.0--beta.2-blue.svg)
 
+`ember-emojione` is your emoji solution for Ember, based on the [EmojiOne](http://emojione.com/) project.
+
+Currently a work in progress, here's what it's gonna offer:
+
+* [x] `inject-emoji` helper to hydrate a string containing emoji codes with emoji HTML tags.
+* [ ] `emoji-picker` component to select/insert emoji.
+* [ ] Components to help you insert emoji while typing.
+
 
 
 ## Installation
@@ -223,7 +231,9 @@ Pull requests are welcome from feature branches. Make sure to discus proposed ch
 
 ## Credits
 
-Created by [@lolmaus](https://github.com/lolmaus) in [@Deveo](https://github.com/Deveo), https://deveo.com.
+Proudly built in [@Deveo](https://github.com/Deveo) by [@lolmaus](https://github.com/lolmaus) and [contributors](https://github.com/Deveo/ember-emojione/graphs/contributors).
+
+https://deveo.com.
 
 
 
