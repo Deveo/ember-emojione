@@ -61,7 +61,7 @@ To configure `ember-emojione` and override `emojione` options, add these options
   // Used to skip certain portions of the input string.
   // Useful for Markdown code blocks. Apply after Markdown transformation.
   // Set to `false` to disable.
-  regexToSkip: /<code[\s\S]*?>[\s\S]*?<\/code>/gm
+  regexToSkip: /<code[\s\S]*?>[\s\S]*?<\/code>/gm,
   
   // EmojiOne library options
   emojione: {
