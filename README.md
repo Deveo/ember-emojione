@@ -129,6 +129,28 @@ To disable skipping, set `regexToSkip` to `false`.
 
 
 
+## Installing the `emojione` dependency manually
+
+For quicker installation and CI builds, this addon only imports EmojiOne's [js file](https://github.com/Ranks/emojione/blob/master/lib/js/emojione.js) directly.
+
+If you want to install the full [emojione](https://github.com/Ranks/emojione) library, which is over 90 MiB large, you can use disable addon import. Add this option to your app's `ember-cli-build.js`:
+
+```js
+"ember-emojione": {
+  skipBowerImport: true
+}
+```
+
+Then install the `emojione` library:
+
+    bower install -S emojione
+
+Now you can manually import `emojione.js` and EmojiOne assets from `ember-cli-build.js`.
+
+This addon relies on the `emojione` global var.
+
+
+
 ## Development
 
 ### Installation

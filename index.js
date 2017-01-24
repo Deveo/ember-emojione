@@ -7,11 +7,9 @@ module.exports = {
   included(app) {
     this._super.included(app);
 
-    app.import(`${app.bowerDirectory}/emojione-js/index.js`);
-    app.import('vendor/emojione.js', {
-      exports: {
-        emojione: ['default']
-      }
-    });
+    if (!app.options['ember-emojione'] || !app.options['ember-emojione'].skipBowerImport) {
+      app.import(`${app.bowerDirectory}/emojione-js/index.js`);
+    }
+
   }
 };

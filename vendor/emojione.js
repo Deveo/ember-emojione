@@ -11,3 +11,4 @@
 
   generateModule('emojione', { 'default': emojione });
 })();
+i

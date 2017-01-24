@@ -1,5 +1,6 @@
+/* globals emojione */
+
 import Helper from 'ember-helper';
-import emojione from 'emojione';
 import { htmlSafe } from 'ember-string';
 import isHTMLSafe from 'ember-string-ishtmlsafe-polyfill';
 import config from 'ember-get-config';
