@@ -1,8 +1,94 @@
 # ember-emojione
 
-This README outlines the details of collaborating on this Ember addon.
-
 ## Installation
+
+With npm:
+
+    ember install ember-emojione
+    
+With Yarn:
+
+    yarn add -D ember-emojione
+    ember g ember-emojione
+
+
+
+## Configuration
+
+`ember-emojione` relies on [emojione.js defaults](https://github.com/Ranks/emojione/blob/v2.2.7/lib/js/emojione.js#L150-L157).
+
+To configure `ember-emojione` and override `emojione` options, add these options to your app's `config/environment.js`. Default values are shown:
+
+```js
+"ember-emojione": {
+
+  // Used to skip certain portions of the input string.
+  // Useful for Markdown code blocks. Apply after Markdown transformation.
+  // Set to `false` to disable.
+  ignoreRegex: /<code[\s\S]*?>[\s\S]*?<\/code>/gm
+  
+  // EmojiOne library options
+  emojione: {
+    imagePathPNG:        'https://cdn.jsdelivr.net/emojione/assets/png/',
+    imagePathSVG:        'https://cdn.jsdelivr.net/emojione/assets/svg/',
+    imagePathSVGSprites: './../assets/sprites/emojione.sprites.svg',
+    imageType:           'png', // or svg
+    imageTitleTag:       true,  //set to false to remove title attribute from img tag
+    sprites:             false, // if this is true then sprite markup will be used (if SVG image type is set then you must include the SVG sprite file locally)
+    unicodeAlt:          true,  // use the unicode char as the alt attribute (makes copy and pasting the resulting text better)
+    ascii:               false, // change to true to convert ascii smileys
+  }
+}
+```
+
+Configuration is optional.
+
+
+## Usage
+
+### `inject-emoji` helper
+
+This helper is used to convert a string with emoji codes into a string of HTML with emoji images.
+
+You must manually mark the input string as HTML-safe:
+
+```js
+{
+  inputStr: Ember.String.htmlSafe("Hi! :sunglasses:")
+}
+```
+
+By doing so you acknowledge responsibility that the input string will never contain malicious code. Neglecting this responsibility will make your app/website prone to XSS attacks.
+
+Use triple curlies to inject HTML into your template:
+
+```handlebars
+<div>
+  {{{inject-emoji inputStr}}}
+</div>
+```
+
+Result:
+
+```handlebars
+<div>
+  Hi! <img class="emojione" alt="😎" title=":sunglasses:" src="https://cdn.jsdelivr.net/emojione/assets/png/1f60e.png?v=2.2.7"/>
+</div>
+```
+
+### Overriding options
+
+You can override `ember-emojione` and `emojione.js` options for a single invocation of `inject-emoji`:
+
+
+
+`
+
+
+
+## Development
+
+### Installation
 
 * `npm i -g yarn`
 * `git clone <repository-url>` this repository
@@ -10,18 +96,16 @@ This README outlines the details of collaborating on this Ember addon.
 * `yarn install` :warning:
 * `bower install`
 
-## Running
+### Running
 
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
-## Running Tests
+### Running Tests
 
 * `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
 * `ember test`
 * `ember test --server`
-
-## Development
 
 ### Do not use `npm` or `ember install`, use `yarn`
 

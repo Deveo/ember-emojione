@@ -20,6 +20,7 @@
   "dependencies": {
     "ember-cli-babel": "^5.1.7",
     "ember-cli-eslint": "^3.0.2",
+    "ember-get-config": "^0.2.0",
     "eslint-plugin-ember-suave": "^1.0.0"
   },
   "devDependencies": {

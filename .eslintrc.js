@@ -13,15 +13,20 @@ module.exports = {
     "browser": true
   },
   rules: {
-    strict: "off",
     "array-bracket-spacing": ["error", "never"],
+    "arrow-parens": "off",
     "camelcase": "off",
+    "comma-dangle": "off",
+    "curly": "off",
     "ember-suave/no-const-outside-module-scope": "off",
     "ember-suave/require-access-in-comments": "off",
     "generator-star-spacing": ["error", "both"],
+    "key-spacing": "off",
     "no-constant-condition": ["error", { "checkLoops": false }],
     quotes: "off",
-    "space-before-function-paren": ["error", { "anonymous": "ignore", "named": "never" }]
+    "space-before-function-paren": ["error", { "anonymous": "ignore", "named": "never" }],
+    "spaced-comment": "off",
+    strict: "off",
   },
   globals: {
     // "Autolinker": true,

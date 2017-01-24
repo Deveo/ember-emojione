@@ -681,7 +681,7 @@ broccoli-config-replace@^1.1.2:
     debug "^2.2.0"
     fs-extra "^0.24.0"
 
-broccoli-file-creator@^1.0.0:
+broccoli-file-creator@^1.0.0, broccoli-file-creator@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/broccoli-file-creator/-/broccoli-file-creator-1.1.1.tgz#1b35b67d215abdfadd8d49eeb69493c39e6c3450"
   dependencies:
@@ -1817,6 +1817,13 @@ ember-export-application-global@^1.0.5:
   resolved "https://registry.yarnpkg.com/ember-export-application-global/-/ember-export-application-global-1.1.1.tgz#f257d5271268932a89d7392679ce4db89d7154af"
   dependencies:
     ember-cli-babel "^5.1.10"
+
+ember-get-config@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/ember-get-config/-/ember-get-config-0.2.0.tgz#01da4d86eec66c38876daa58de5e42ee406c3725"
+  dependencies:
+    broccoli-file-creator "^1.1.1"
+    ember-cli-babel "^5.1.6"
 
 ember-inflector@^1.9.4:
   version "1.11.0"
