@@ -243,6 +243,14 @@ Pull requests are welcome from feature branches. Make sure to discus proposed ch
 
 
 
+### Demo deployment
+
+This command will deploy the app to https://deveo.github.io/ember-emojione/ :
+
+    ember deploy prod
+
+
+
 ## Credits
 
 Proudly built in [@Deveo](https://github.com/Deveo) by [@lolmaus](https://github.com/lolmaus) and [contributors](https://github.com/Deveo/ember-emojione/graphs/contributors).
