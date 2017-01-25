@@ -15,6 +15,9 @@ Currently a work in progress, here's what it's gonna offer:
 * [ ] `emoji-picker` component to select/insert emoji.
 * [ ] Components to help you insert emoji while typing.
 
+Demo: https://deveo.github.io/ember-emojione/ :sparkles:
+ 
+
 
 
 ## Comparison to ember-cli-emojione
