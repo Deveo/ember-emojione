@@ -22,6 +22,17 @@ let m;
 
 
 test('it should inject emoji into a simple string', withChai(function(expect) {
+  const inputStr = "<p>Foo :scream_cat: 🤓 <span>Bar :)</span></p>";
+  const expected = "<p>Foo <img class=\"emojione\" alt=\"🙀\" title=\":scream_cat:\" src=\"https://cdn.jsdelivr.net/emojione/assets/png/1f640.png?v=2.2.7\"/> <img class=\"emojione\" alt=\"🤓\" title=\":nerd_face:\" src=\"https://cdn.jsdelivr.net/emojione/assets/png/1f913.png?v=2.2.7\"/> <span>Bar :)</span></p>";
+  const result   = this.subject.compute([inputStr]);
+
+  m = "Result should contain emoji";
+  expect(result, m).equal(expected);
+}));
+
+
+
+test('it should inject emoji into an html-safe string, returning an html-safe string', withChai(function(expect) {
   const inputStr = htmlSafe("<p>Foo :scream_cat: 🤓 <span>Bar :)</span></p>");
   const expected = "<p>Foo <img class=\"emojione\" alt=\"🙀\" title=\":scream_cat:\" src=\"https://cdn.jsdelivr.net/emojione/assets/png/1f640.png?v=2.2.7\"/> <img class=\"emojione\" alt=\"🤓\" title=\":nerd_face:\" src=\"https://cdn.jsdelivr.net/emojione/assets/png/1f913.png?v=2.2.7\"/> <span>Bar :)</span></p>";
   const result   = this.subject.compute([inputStr]);
@@ -31,18 +42,6 @@ test('it should inject emoji into a simple string', withChai(function(expect) {
 
   m = "Result should be html-safe";
   expect(isHTMLSafe(result), m).true;
-}));
-
-
-
-test('it should error out on unsafe string', withChai(function(expect) {
-  const inputStr = "<p>Foo :scream_cat: 🤓 <span>Bar :)</span></p>";
-
-  m = `inject-emoji was passed an unsafe string: "${inputStr}"`;
-  expect(() => {
-    this.subject.compute([inputStr]);
-  }, m)
-    .throw(m);
 }));
 
 
@@ -59,11 +58,11 @@ test('it should respect emojione settings from env', withChai(function(expect) {
     }
   };
 
-  const inputStr = htmlSafe("<p>Foo :scream_cat: 🤓 <span>Bar :)</span></p>");
+  const inputStr = "<p>Foo :scream_cat: 🤓 <span>Bar :)</span></p>";
   const expected = "<p>Foo <svg class=\"emojione\"><description>:scream_cat:</description><use xlink:href=\"SVGSPRITE.svg#emoji-1f640\"></use></svg> <svg class=\"emojione\"><description><svg class=\"emojione\"><description>:nerd_face:</description><use xlink:href=\"SVGSPRITE.svg#emoji-1f913\"></use></svg></description><use xlink:href=\"SVGSPRITE.svg#emoji-1f913\"></use></svg> <span>Bar :)</span></p>";
   const result   = this.subject.compute([inputStr]);
 
-  expect(result.toString()).equal(expected);
+  expect(result).equal(expected);
 }));
 
 
@@ -80,49 +79,41 @@ test('it should respect emojione settings from named argument `emojione`', withC
     }
   };
 
-  const inputStr = htmlSafe("<p>Foo :scream_cat: 🤓 <span>Bar :)</span></p>");
+  const inputStr = "<p>Foo :scream_cat: 🤓 <span>Bar :)</span></p>";
   const expected = "<p>Foo <object class=\"emojione\" data=\"SVGLOL1f640.svg?v=2.2.7\" type=\"image/svg+xml\" standby=\":scream_cat:\">:scream_cat:</object> <img class=\"emojione\" alt=\":nerd_face:\"  src=\"SVGLOL1f913.svg?v=2.2.7\"/> <span>Bar :)</span></p>";
   const result   = this.subject.compute([inputStr], options);
 
-  expect(result.toString()).equal(expected);
+  expect(result).equal(expected);
 }));
 
 
 
 test('use from JS', withChai(function(expect) {
-  const inputStr = htmlSafe(":D");
+  const inputStr = ":D";
   const options  = { emojione: { ascii: true } };
   const expected = "<img class=\"emojione\" alt=\"😃\" title=\":D\" src=\"https://cdn.jsdelivr.net/emojione/assets/png/1f603.png?v=2.2.7\"/>";
   const result   = injectEmoji(inputStr, options);
 
-  expect(result.toString()).equal(expected);
+  expect(result).equal(expected);
 }));
 
 
 
 test('it should parse code blocks', withChai(function(expect) {
-  const inputStr = htmlSafe("<p>Foo :scream_cat: 🤓 <em>Bar :)</em> <code>some :pig_nose: code</code></p>\n<pre><code class=\"language-js\">\nasdf :crocodile: asdf\n</code></pre>");
+  const inputStr = "<p>Foo :scream_cat: 🤓 <em>Bar :)</em> <code>some :pig_nose: code</code></p>\n<pre><code class=\"language-js\">\nasdf :crocodile: asdf\n</code></pre>";
   const expected = "<p>Foo <img class=\"emojione\" alt=\"🙀\" title=\":scream_cat:\" src=\"https://cdn.jsdelivr.net/emojione/assets/png/1f640.png?v=2.2.7\"/> <img class=\"emojione\" alt=\"🤓\" title=\":nerd_face:\" src=\"https://cdn.jsdelivr.net/emojione/assets/png/1f913.png?v=2.2.7\"/> <em>Bar :)</em> <code>some <img class=\"emojione\" alt=\"🐽\" title=\":pig_nose:\" src=\"https://cdn.jsdelivr.net/emojione/assets/png/1f43d.png?v=2.2.7\"/> code</code></p>\n<pre><code class=\"language-js\">\nasdf <img class=\"emojione\" alt=\"🐊\" title=\":crocodile:\" src=\"https://cdn.jsdelivr.net/emojione/assets/png/1f40a.png?v=2.2.7\"/> asdf\n</code></pre>";
   const options  = { regexToSkip: false };
   const result   = this.subject.compute([inputStr], options);
 
-  m = "Result should contain emoji";
-  expect(result.toString(), m).equal(expected);
-
-  m = "Result should be html-safe";
-  expect(isHTMLSafe(result), m).true;
+  expect(result).equal(expected);
 }));
 
 
 
 test('it should ignore code blocks', withChai(function(expect) {
-  const inputStr = htmlSafe("<p>Foo :scream_cat: 🤓 <em>Bar :)</em> <code>some :pig_nose: code</code></p>\n<pre><code class=\"language-js\">\nasdf :crocodile: asdf\n</code></pre>");
+  const inputStr = "<p>Foo :scream_cat: 🤓 <em>Bar :)</em> <code>some :pig_nose: code</code></p>\n<pre><code class=\"language-js\">\nasdf :crocodile: asdf\n</code></pre>";
   const expected = "<p>Foo <img class=\"emojione\" alt=\"🙀\" title=\":scream_cat:\" src=\"https://cdn.jsdelivr.net/emojione/assets/png/1f640.png?v=2.2.7\"/> <img class=\"emojione\" alt=\"🤓\" title=\":nerd_face:\" src=\"https://cdn.jsdelivr.net/emojione/assets/png/1f913.png?v=2.2.7\"/> <em>Bar :)</em> <code>some :pig_nose: code</code></p>\n<pre><code class=\"language-js\">\nasdf :crocodile: asdf\n</code></pre>";
   const result   = this.subject.compute([inputStr]);
 
-  m = "Result should contain emoji";
-  expect(result.toString(), m).equal(expected);
-
-  m = "Result should be html-safe";
-  expect(isHTMLSafe(result), m).true;
+  expect(result).equal(expected);
 }));

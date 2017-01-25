@@ -19,8 +19,9 @@
 <pre>inputStr: 'OMG! :scream:',
 
 inputStrHtmlSafe: Ember.computed('inputStr', function () {
-  const inputStr = this.get('inputStr');
-  return Ember.String.htmlSafe(inputStr);
+  return Ember.String.htmlSafe(
+    this.get('inputStr')
+  );
 })
 
 <hr>

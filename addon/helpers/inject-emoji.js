@@ -10,20 +10,18 @@ import { getProperties } from 'ember-metal/get';
 
 const InjectEmoji = Helper.extend({
 
-  compute([inputStr], options) {
-    if (!inputStr) {
-      return htmlSafe('');
-    }
+  compute([inputStr], overrideOptions) {
+    const currentOptions         = this._mergeOptions(overrideOptions);
+    const initialEmojiOneOptions = this._captureEmojiOneInitialState();
+    const isInputHtmlSafe        = isHTMLSafe(inputStr);
 
-    if (!isHTMLSafe(inputStr)) {
-      throw new Error(`inject-emoji was passed an unsafe string: "${inputStr}"`);
-    }
+    this._applyOptionsToEmojiOne(currentOptions.emojione);
+    const result = this._injectEmoji(inputStr.toString(), currentOptions);
+    this._applyOptionsToEmojiOne(initialEmojiOneOptions);
 
-    return this
-      ._runEmojiOneWithOptionsOnce(options, () => {
-        const resultStr = this._injectEmoji(inputStr, options);
-        return htmlSafe(resultStr);
-      });
+    return isInputHtmlSafe
+      ? htmlSafe(result)
+      : result;
   },
 
 
@@ -41,30 +39,18 @@ const InjectEmoji = Helper.extend({
 
 
 
-  /**
-   * A decorator that:
-   * 1. Initializes the EmojiOne library with given options.
-   * 2. Runs it.
-   * 3. Restores its original state.
-   **/
-  _runEmojiOneWithOptionsOnce(overrideOptions, callback) {
-    const currentEmojiOneOptions = this._mergeEmojiOneOptions(overrideOptions);
-    const initialEmojiOneOptions = this._captureEmojiOneInitialState();
-
-    this._applyOptionsToEmojiOne(currentEmojiOneOptions);
-    const result = callback();
-    this._applyOptionsToEmojiOne(initialEmojiOneOptions);
-
-    return result;
-  },
-
-
-
-  _mergeEmojiOneOptions(overrideOptions = {}) {
+  _mergeOptions(overrideOptions = {}) {
     const defaultOptions          = config[ 'ember-emojione' ] || {};
-    const defaultOptionsEmojiOne  = defaultOptions.emojione    || {};
-    const overrideOptionsEmojiOne = overrideOptions.emojione   || {};
-    return { ...defaultOptionsEmojiOne, ...overrideOptionsEmojiOne };
+
+    return {
+      ...defaultOptions,
+      ...overrideOptions,
+
+      emojione: {
+        ...defaultOptions.emojione  || {},
+        ...overrideOptions.emojione || {},
+      }
+    };
   },
 
 
@@ -96,14 +82,13 @@ const InjectEmoji = Helper.extend({
     }
 
     // Collecting substrings-to-skip into an array
-    const skippedStrs = inputStr.toString().match(regexToSkip);
+    const skippedStrs = inputStr.match(regexToSkip);
 
     if (!skippedStrs || !skippedStrs.length) {
       return this._injectEmojiWithEmojiOne(inputStr);
     }
 
     return inputStr
-      .toString()
 
       // Collecting substrings-to-parse into an array
       .split(regexToSkip)
@@ -123,7 +108,7 @@ const InjectEmoji = Helper.extend({
 
 
   _injectEmojiWithEmojiOne(inputStr) {
-    return emojione.toImage(inputStr.toString());
+    return emojione.toImage(inputStr);
   }
 });
 

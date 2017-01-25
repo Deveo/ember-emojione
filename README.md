@@ -138,17 +138,42 @@ You can override `ember-emojione` and `emojione.js` options for a single invocat
 
 ### Use from JS
 
-You can use the `inject-emoji` helper in JS via the `injectEmoji` convenience function:
+You can inject emoji programmatically via the `injectEmoji` convenience function:
+
+```js
+import {injectEmoji} from 'ember-emojione/helpers/inject-emoji';
+
+injectEmoji(inputString, options);
+```
+
+
+It returns an html-safe string if the input was html-safe. Otherwise, it returns a regular string.
 
 ```js
 import {htmlSafe} from 'ember-string';
+import isHTMLSafe from 'ember-string-ishtmlsafe-polyfill';
 import {injectEmoji} from 'ember-emojione/helpers/inject-emoji';
 
-const inputSafeString  = htmlSafe(':D');
-const options          = {regexToSkip: false, emojiOne: {ascii: true}};
+const options = {regexToSkip: false, emojiOne: {ascii: true}};
+
+
+
+const inputUnsafeString  = ':D';
+const resultUnsafeString = injectEmoji(inputUnsafeString, options);
+
+isHTMLSafe(resultUnsafeString) // => false
+typeof resultUnsafeString;     // => "string"
+
+
+
+const inputSafeString  = htmlSafe(inputUnsafeString);
 const resultSafeString = injectEmoji(inputSafeString, options);
-const resultString     = resultSafeString.toString();
+
+isHTMLSafe(resultSafeString);       // => true
+typeof resultSafeString;            // => "object"
+typeof resultSafeString.toString(); // => "string"
 ```
+
 
 
 ### Skipping code blocks
