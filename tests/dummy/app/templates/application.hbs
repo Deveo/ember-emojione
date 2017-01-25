@@ -1,5 +1,29 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
+<h1>ember-emojione demo</h1>
 
-{{outlet}}
+<p>
+  <a href="https://github.com/Deveo/ember-emojione">Source on GitHub</a>
+</p>
+
+<h2>Input</h2>
+<p>
+  {{textarea value=inputStr}}
+</p>
+
+<h2>Output</h2>
+<p>
+  {{{inject-emoji inputStrHtmlSafe}}}
+</p>
+
+<h2>Source</h2>
+
+<pre>inputStr: 'OMG! :scream:',
+
+inputStrHtmlSafe: Ember.computed('inputStr', function () {
+  const inputStr = this.get('inputStr');
+  return Ember.String.htmlSafe(inputStr);
+})
+
+<hr>
+&lbrace;&lbrace;textarea value=inputStr}}
+
+&lbrace;&lbrace;&lbrace;inject-emoji inputStrHtmlSafe}}}</pre>

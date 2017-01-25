@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Dependencies
 - Upgraded Ember CLI to 2.11.0 stable.
 
+### Documentation
+- Added demo.
+
 ## [0.1.0] - 2017.01.24 (not published)
 
 Initial version.
