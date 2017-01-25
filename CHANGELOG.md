@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [0.2.0] - 2017.01.25
 ### Changes
 - Simplify convenience function footprint: produce an htmlSafe string only if the input was htmlSafe (#25)
 
