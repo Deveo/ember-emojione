@@ -11,9 +11,9 @@
 
 Currently a work in progress, here's what it's gonna offer:
 
-* [x] `inject-emoji` helper to hydrate a string containing emoji codes with emoji HTML tags.
-* [ ] `emoji-picker` component to select/insert emoji.
-* [ ] Components to help you insert emoji while typing.
+* [x] `inject-emoji` helper to hydrate a string containing emoji codes with emoji HTML tags ([#13](https://github.com/Deveo/ember-emojione/issues/13))
+* [ ] `emoji-picker` component to select/insert emoji ([#17](https://github.com/Deveo/ember-emojione/issues/17))
+* [ ] Components to help you insert emoji while typing ([#26](https://github.com/Deveo/ember-emojione/issues/26))
 
 Demo: https://deveo.github.io/ember-emojione/ :sparkles:
  
