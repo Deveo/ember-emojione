@@ -44,7 +44,7 @@ const InjectEmoji = Helper.extend({
 
 
   _mergeOptions(overrideOptions = {}) {
-    const defaultOptions          = config[ 'ember-emojione' ] || {};
+    const defaultOptions = config[ 'ember-emojione' ] || {};
 
     return {
       ...defaultOptions,
