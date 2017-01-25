@@ -11,6 +11,10 @@ import { getProperties } from 'ember-metal/get';
 const InjectEmoji = Helper.extend({
 
   compute([inputStr], overrideOptions) {
+    if (!inputStr) {
+      return '';
+    }
+
     const currentOptions         = this._mergeOptions(overrideOptions);
     const initialEmojiOneOptions = this._captureEmojiOneInitialState();
     const isInputHtmlSafe        = isHTMLSafe(inputStr);

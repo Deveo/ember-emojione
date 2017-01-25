@@ -117,3 +117,25 @@ test('it should ignore code blocks', withChai(function(expect) {
 
   expect(result).equal(expected);
 }));
+
+
+
+test('edge cases', withChai(function(expect) {
+  m = "Empty string";
+  expect(this.subject.compute(['']), m).equal('');
+
+  m = "`false`";
+  expect(this.subject.compute([null]), m).equal('');
+
+  m = "`null`";
+  expect(this.subject.compute([null]), m).equal('');
+
+  m = "`undefined` 1";
+  expect(this.subject.compute([undefined]), m).equal('');
+
+  m = "`undefined` 2";
+  expect(this.subject.compute([]), m).equal('');
+
+  m = "number";
+  expect(this.subject.compute([2]), m).equal('2');
+}));
