@@ -48,7 +48,9 @@ As of [#24](https://github.com/Deveo/ember-emojione/issues/24), the default blue
 
     bower install -S emojione-js=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/lib/js/emojione.js
 
-This addon does not include [EmojiOne CSS styles](https://github.com/Ranks/emojione/blob/master/assets/css/emojione.css). Please include them manually into your project, making necessary adjustments.
+This addon does not include EmojiOne CSS styles: [normal version](https://github.com/Ranks/emojione/blob/master/assets/css/emojione.css) or [PNG sprite version](https://github.com/Ranks/emojione/blob/master/assets/sprites/emojione.sprites.css). Please include them manually into your project, making necessary adjustments.
+
+Note that you can choose to import the whole `emojione` Bower package with all the assets. This way you can import the CSS file from `bower_components/` rather than checking it into your repo. Read below, how to do that. Unfortunately the `emojione` Bower package is over 90 MiB large, so it's a tough choice.
 
 
 
@@ -81,6 +83,14 @@ To configure `ember-emojione` and override `emojione` options, add these options
 ```
 
 Configuration is optional.
+
+Note: the path PNG sprite file is configured elsewhere. If you need to customize it, override the background image:
+
+```css
+.emojione {
+  background-image: url('path/to/your/emojione.sprites.png');
+}
+```
 
 
 
