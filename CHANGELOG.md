@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## [Unreleased]
 ### Documentation
 - Explained how to customize path to PNG sprite file
+- Explained how to import sprite sheets as individual Bower packages
 
 ## [0.2.0] - 2017.01.25
 ### Changes

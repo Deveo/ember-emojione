@@ -28,9 +28,9 @@ The `emojione` Bower package is over 90 MiB large, making installation and CI bu
 
 This addon, `ember-emojione`, imports only the `emojione.js` library (~50 KiB large gzipped).
 
-If you want, you can still import the whole `emojione` Bower package manually, see below.
+If you want, you can manually import EmojiOne CSS and sprite files, or even the whole `emojione` Bower package. Please see below how to do that.
 
-For the simplicity of manual Bower import, `ember-emojione` does not offer an ES module. If you need low-level access to the EmojiOne JS library, please use the `emojione` global var.
+For the simplicity of importing manually, `ember-emojione` does not offer an ES module. If you need low-level access to the EmojiOne JS library, please use the `emojione` global var.
 
 
 
@@ -198,11 +198,42 @@ To disable skipping, set `regexToSkip` to `false`.
 
 
 
-## Installing the `emojione` dependency manually
+## Importing `emojione` CSS and JS assets
 
 For quicker installation and CI builds, this addon only imports EmojiOne's [js file](https://github.com/Ranks/emojione/blob/master/lib/js/emojione.js) directly.
 
-If you want to install the full [emojione](https://github.com/Ranks/emojione) library, which is over 90 MiB large, you can use disable addon import. Add this option to your app's `ember-cli-build.js`:
+By default, EmojiOne assets are served from the "free and super-fast" [JSDelivr](http://jsdelivr.com) CDN, so no EmojiOne images have to be downloaded into your project.
+
+If you want to add a sprite sheet as a local asset, it is recommended to include SVG or CSS and PNG files as individual packages:
+
+    bower i -S emojione-css=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.css
+    bower i -S emojione-png=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.png
+
+Then you can import them from your `ember-cli-build.js` file:
+
+```js
+var Funnel = require("broccoli-funnel");
+
+module.exports = function (defaults) {
+  /* ... */
+  
+  app.import(app.bowerDirectory + "/emojione-css/index.css");
+  
+  var emojiOneSprite = new Funnel(app.bowerDirectory, {
+      srcDir: "emojione-png",
+      destDir: "assets",
+      include: ['*.png']
+  });
+
+  return app.toTree([emojiOneSprite]);
+};
+```
+
+
+
+## Installing the `emojione` dependency manually
+
+If you want to install the full [emojione](https://github.com/Ranks/emojione) library, which is over 90 MiB large, you should remove the `emojione-js` entry from your app's `bower.json` and tell the addon not to import it. Add this to your app's `ember-cli-build.js`:
 
 ```js
 "ember-emojione": {
@@ -210,7 +241,7 @@ If you want to install the full [emojione](https://github.com/Ranks/emojione) li
 }
 ```
 
-Then install the `emojione` library:
+Then you can install the `emojione` library normally:
 
     bower install -S emojione
 
