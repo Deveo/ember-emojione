@@ -1,12 +1,25 @@
-/* global require, module */
+/* global require, module, require, __dirname */
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
+
+const path = require('path');
+const fs = require('fs');
+const emojiDefFileName = path.join(__dirname, 'bower_components/emojione-defs/index.json');
+if (!fs.existsSync(emojiDefFileName)) throw new Error(`Missing asset: ${emojiDefFileName}`);
+const emojiDefStr = fs.readFileSync(emojiDefFileName, 'utf8');
 
 module.exports = function(defaults) {
   const app = new EmberAddon(defaults, {
     // Add options here
     "ember-cli-babel": {
       includePolyfill: true
-    }
+    },
+
+    fileCreator: [
+      {
+        filename: '/fixtures/emojione-defs.js',
+        content: `export default ${emojiDefStr}`
+      }
+    ]
   });
 
   /*

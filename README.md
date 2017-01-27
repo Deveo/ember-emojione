@@ -2,7 +2,7 @@
 
 [![Travis build status](https://img.shields.io/travis/Deveo/ember-emojione.svg)](https://travis-ci.org/Deveo/ember-emojione)
 [![Ember Observer Score](http://emberobserver.com/badges/ember-emojione.svg)](http://emberobserver.com/addons/ember-emojione)
-[![npm package version](https://img.shields.io/npm/v/ember-emojione.svg)](https://www.npmjs.com/package/ember-emojione)
+[![npm package version](https://img.shields.io/npm/v/ember-emojione.svg)](https://www.npmjs.com/package/ember-emojione)opts.separatePackages
 [![license MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/Deveo/ember-emojione/blob/gen-1/LICENSE.md)
 ![ember-versions 1.13+](https://img.shields.io/badge/ember--versions-1.13%2B-yellowgreen.svg?bump)
 ![ember-cli 2.11.0](https://img.shields.io/badge/uses%20ember--cli-2.11.0-blue.svg?bump)
@@ -12,7 +12,7 @@
 Currently a work in progress, here's what it's gonna offer:
 
 * [x] `inject-emoji` helper to hydrate a string containing emoji codes with emoji HTML tags ([#13](https://github.com/Deveo/ember-emojione/issues/13))
-* [ ] `emoji-picker` component to select/insert emoji ([#17](https://github.com/Deveo/ember-emojione/issues/17))
+* [x] `emoji-picker` component to select/insert emoji ([#17](https://github.com/Deveo/ember-emojione/issues/17))
 * [ ] Components to help you insert emoji while typing ([#26](https://github.com/Deveo/ember-emojione/issues/26))
 
 Demo: https://deveo.github.io/ember-emojione/ :sparkles:
@@ -36,6 +36,14 @@ For the simplicity of importing manually, `ember-emojione` does not offer an ES 
 
 ## Installation
 
+In order not to increase you app's distro size more than you need, this addon does not bundle any of it's dependencies.
+
+You'll have to install the dependencies manually, depending your your preference. This makes the installation process quite elaborate. Please read carefully.
+
+
+
+### 1. Installing the addon itself
+
 With npm:
 
     ember install ember-emojione
@@ -44,13 +52,131 @@ With Yarn:
 
     yarn add -D ember-emojione
 
-As of [#24](https://github.com/Deveo/ember-emojione/issues/24), the default blueprint (`ember g ember-emojione`) won't install the Bower dependency for some reason. You have to install it manually:
+
+
+
+### 2. Installing the EmojiOne library
+
+The `emojione` package is very large: over 90 MiB. For many developers, having it on `bower.json` is a burden. For this reason, `ember-emojione` is not bundling this dependency.
+
+You'll have to include the dependency manually, and there are options
+
+
+
+
+#### Option 1: including only the necessary assets (recommended)
+
+As EmojiOne by default works with the free JSDevilr CDN, you don't actually need to fetch EmojiOne assets.
+
+The bare minimum for the `inject-emoji` helper are the JS and CSS files. To use the components, you'll also need the JSON file with emoji definitions.
+
+Luckily, Bower allows downloading individual files as individual dependencies:
+
+First, include the EmojiOne JS library (note that the package name is `emojione-js` and not simply `emojione`):
 
     bower install -S emojione-js=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/lib/js/emojione.js
 
-This addon does not include EmojiOne CSS styles: [normal version](https://github.com/Ranks/emojione/blob/master/assets/css/emojione.css) or [PNG sprite version](https://github.com/Ranks/emojione/blob/master/assets/sprites/emojione.sprites.css). Please include them manually into your project, making necessary adjustments.
+Then include the CSS. Here you have two options.
 
-Note that you can choose to import the whole `emojione` Bower package with all the assets. This way you can import the CSS file from `bower_components/` rather than checking it into your repo. Read below, how to do that. Unfortunately the `emojione` Bower package is over 90 MiB large, so it's a tough choice.
+Normal CSS, works with: individual PNGs, individual SVGs and SVG sprite sheet:
+
+    bower install -S emojione-css=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/css/emojione.css
+ 
+ Or, if you want to use PNG sprite sheet, add this CSS:
+ 
+    bower install -S emojione-css=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.css
+
+If you're gonna use the components, you'll also need emoji definitons:
+
+    bower install -S emojione-defs=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/emoji.json
+
+You can also include the sprite sheet this way. You only need this if you don't want to use the free CDN and instead want to serve assets locally. Use **one** of the following:
+
+    bower install -S emojione-png=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.png
+    bower install -S emojione-svg=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.svg
+
+
+
+#### Option 2: including the whole `emojione` package
+
+Including the whole package, which is over 90 MiB large, is only reasonable if you want to use individual images rather than sprite sheets AND you want to serve them locally rather than via the free CDN.
+
+Simply install it via:
+
+    bower install -S emojione
+
+Note: your app's distro size will not grow by 90 MiB. In the next installation step, you'll decide what assets to include into the distro.
+
+But every clean `bower install` will likely be substantially slower. That includes your CI builds.
+
+
+
+### 3. Including the assets
+
+Open your app's `ember-cli-build.js`:
+
+
+
+#### 3.1 Include the CSS and JS files
+
+```js
+var Funnel = require("broccoli-funnel");
+
+module.exports = function (defaults) {
+  /* ... */
+  
+  app.import(app.bowerDirectory + "/emojione-js/index.js");
+  app.import(app.bowerDirectory + "/emojione-css/index.css");
+
+  return app.toTree();
+};
+```
+
+
+
+#### 3.2 Include the assets (optional)
+
+Skip this step if you are happy to serve assets from the free CDN (or own CDN, independently from your app's distro).
+
+If you want to serve assets from within your app's distro, you have to tell Ember CLI to move the assets into the public folder.
+
+Use [broccoli-funnel](https://github.com/broccolijs/broccoli-funnel) to import assets. You'll have to figure out how to it yourself, taking into consideration:
+ 
+ * which package installation method you chose;
+ * the path to assets within the `bower_components/` folder.
+
+Here are a couple of examples:
+
+##### PNG sprites with a custom package (installation method 1)
+
+```js
+  var emojiOneSprite = new Funnel(app.bowerDirectory, {
+      srcDir: "emojione-png",
+      destDir: "assets/emojione",
+      include: ['*.png']
+  });
+
+  return app.toTree([emojiOneSprite]);
+```
+
+
+
+#### individual SVGs with the full package (installation method 2)
+
+```js
+  var emojiOneSVGs = new Funnel(app.bowerDirectory + "/emojione", {
+    srcDir: "assets/svg",
+    destDir: "assets/emojione/svg"
+  })
+
+  return app.toTree([emojiOneSVGs]);
+```
+
+
+
+### 3. Include emoji definitions
+
+This step is necessary only if you're gonna use this addon's components. If you only need the helper to render emoji, skip this step.
 
 
 
@@ -228,26 +354,6 @@ module.exports = function (defaults) {
   return app.toTree([emojiOneSprite]);
 };
 ```
-
-
-
-## Installing the `emojione` dependency manually
-
-If you want to install the full [emojione](https://github.com/Ranks/emojione) library, which is over 90 MiB large, you should remove the `emojione-js` entry from your app's `bower.json` and tell the addon not to import it. Add this to your app's `ember-cli-build.js`:
-
-```js
-"ember-emojione": {
-  skipBowerImport: true
-}
-```
-
-Then you can install the `emojione` library normally:
-
-    bower install -S emojione
-
-Now you can manually import `emojione.js` and EmojiOne assets from `ember-cli-build.js`.
-
-This addon relies on the `emojione` global var.
 
 
 
