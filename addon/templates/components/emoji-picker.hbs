@@ -1,0 +1,21 @@
+<p>
+  Tone:
+  <a href {{action 'setTone' 'default'}}>0</a>
+  <a href {{action 'setTone' '1'}}>1</a>
+  <a href {{action 'setTone' '2'}}>2</a>
+  <a href {{action 'setTone' '3'}}>3</a>
+  <a href {{action 'setTone' '4'}}>4</a>
+  <a href {{action 'setTone' '5'}}>5</a>
+</p>
+
+{{#each emojiService.categories as |category|}}
+  <h2>{{category}}</h2>
+
+  <p>
+    {{#with (concat category '__tone_' emojiService.currentSkinTone) as |categoryWithTone|}}
+      {{#each (get emojiService categoryWithTone) as |emojo|}}
+        {{{inject-emoji emojo.shortname}}}
+      {{/each}}
+    {{/with}}
+  </p>
+{{/each}}

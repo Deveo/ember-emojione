@@ -30,6 +30,7 @@
   "dependencies": {
     "ember-cli-babel": "^5.1.7",
     "ember-cli-eslint": "^3.0.2",
+    "ember-cli-htmlbars": "^1.1.1",
     "ember-get-config": "^0.2.0",
     "ember-string-ishtmlsafe-polyfill": "^1.0.1",
     "eslint-plugin-ember-suave": "^1.0.0"
@@ -51,7 +52,6 @@
     "ember-cli-deploy-build": "^0.1.1",
     "ember-cli-deploy-ghpages": "^0.2.0",
     "ember-cli-file-creator": "^0.4.0",
-    "ember-cli-htmlbars": "^1.1.1",
     "ember-cli-htmlbars-inline-precompile": "^0.3.3",
     "ember-cli-inject-live-reload": "^1.4.1",
     "ember-cli-qunit": "^3.0.1",

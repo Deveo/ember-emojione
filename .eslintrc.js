@@ -24,6 +24,7 @@ module.exports = {
     "key-spacing": "off",
     "no-constant-condition": ["error", { "checkLoops": false }],
     "no-multiple-empty-lines": "off",
+    "object-curly-spacing": "off",
     "operator-linebreak": "off",
     quotes: "off",
     "space-before-function-paren": ["error", { "anonymous": "ignore", "named": "never" }],
