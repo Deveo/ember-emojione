@@ -52,7 +52,6 @@ test('it should respect emojione settings from env', withChai(function(expect) {
       imagePathSVGSprites: 'SVGSPRITE.svg',
       imageType:           'svg',
       imageTitleTag:       false,
-      sprites:             true,
       unicodeAlt:          false,
       ascii:               true,
     }
@@ -60,7 +59,7 @@ test('it should respect emojione settings from env', withChai(function(expect) {
 
   const inputStr = "<p>Foo :scream_cat: 🤓 <span>Bar :)</span></p>";
   const expected = "<p>Foo <svg class=\"emojione\"><description>:scream_cat:</description><use xlink:href=\"SVGSPRITE.svg#emoji-1f640\"></use></svg> <svg class=\"emojione\"><description><svg class=\"emojione\"><description>:nerd_face:</description><use xlink:href=\"SVGSPRITE.svg#emoji-1f913\"></use></svg></description><use xlink:href=\"SVGSPRITE.svg#emoji-1f913\"></use></svg> <span>Bar :)</span></p>";
-  const result   = this.subject.compute([inputStr]);
+  const result   = this.subject.compute([inputStr], { emojione: { sprites: true } });
 
   expect(result).equal(expected);
 }));

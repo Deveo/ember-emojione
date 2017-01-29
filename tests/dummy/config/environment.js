@@ -20,7 +20,14 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
+
+    // 'ember-emojione': {
+    //   emojione: {
+    //     imageType: 'png',
+    //     sprites: true
+    //   }
+    // }
   };
 
   if (environment === 'development') {
