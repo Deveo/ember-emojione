@@ -4,7 +4,7 @@ import get from 'ember-metal/get';
 
 
 export default function getCPMacro(objectPropName, targetPropName) {
-  return computed(objectPropName, function() {
+  return computed(objectPropName, targetPropName, function() {
     const object = this.get(objectPropName);
     const target = this.get(targetPropName);
 

@@ -1,16 +1,26 @@
-<p>
-  Tone:
-  <a href {{action 'setTone' 'default'}}>0</a>
-  <a href {{action 'setTone' '1'}}>1</a>
-  <a href {{action 'setTone' '2'}}>2</a>
-  <a href {{action 'setTone' '3'}}>3</a>
-  <a href {{action 'setTone' '4'}}>4</a>
-  <a href {{action 'setTone' '5'}}>5</a>
-</p>
+<div class = "eeo-emojiPicker-tones">
+  <a href class = "eeo-emojiPicker-tone _default" {{action 'setTone' 'default'}}>0</a>
+  <a href class = "eeo-emojiPicker-tone _1"       {{action 'setTone' '1'}}>1</a>
+  <a href class = "eeo-emojiPicker-tone _2"       {{action 'setTone' '2'}}>2</a>
+  <a href class = "eeo-emojiPicker-tone _3"       {{action 'setTone' '3'}}>3</a>
+  <a href class = "eeo-emojiPicker-tone _4"       {{action 'setTone' '4'}}>4</a>
+  <a href class = "eeo-emojiPicker-tone _5"       {{action 'setTone' '5'}}>5</a>
+</div>
+
+<div class = "eeo-emojiPicker-filter">
+  {{one-way-input
+    searchInput
+    class  = "eeo-emojiPicker-filter-input"
+    update = (action 'filter')
+  }}
+
+  {{filterInput}}
+</div>
 
 {{#each emojiService.categories as |category|}}
   {{emoji-picker/category
     category     = category
+    filterInput  = filterInput
     selectAction = selectAction
   }}
 {{/each}}

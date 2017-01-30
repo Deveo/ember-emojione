@@ -5,6 +5,7 @@ import emojiPicker from '../../pages/components/emoji-picker';
 import { withChai } from 'ember-cli-chai/qunit';
 import emojiDefs from 'ember-emojione/emoji-defs';
 import sinon from 'sinon';
+import wait from 'ember-test-helpers/wait';
 
 
 
@@ -108,3 +109,111 @@ test('it should trigger an action when emoji is clicked', withChai(function(expe
 }));
 
 
+
+
+
+test('it should switch tones', withChai(function(expect) {
+  this.set("dummyAction", function() {});
+
+  this.render(hbs`{{emoji-picker selectAction=(action dummyAction)}}`);
+
+  m = "Initially should contain toneless emoji";
+  expect(component.contains('img[title=":v:"]'), m).true;
+
+  m = "Initially should not contain toned emoji";
+  expect(component.contains('img[title=":v_tone1:"]'), `${m} (trying tone 1)`).false;
+  expect(component.contains('img[title=":v_tone2:"]'), `${m} (trying tone 2)`).false;
+  expect(component.contains('img[title=":v_tone3:"]'), `${m} (trying tone 3)`).false;
+  expect(component.contains('img[title=":v_tone4:"]'), `${m} (trying tone 4)`).false;
+  expect(component.contains('img[title=":v_tone5:"]'), `${m} (trying tone 5)`).false;
+
+  component.tones(1).click();
+
+  m = "Should contain tone 1 emoji after click on tone 1";
+  expect(component.contains('img[title=":v_tone1:"]'), m).true;
+
+  m = "Should not contain emoji of other tones after click on tone 1";
+  expect(component.contains('img[title=":v:"]'),       `${m} (trying toneless)`).false;
+  expect(component.contains('img[title=":v_tone2:"]'), `${m} (trying tone 2)`).false;
+  expect(component.contains('img[title=":v_tone3:"]'), `${m} (trying tone 3)`).false;
+  expect(component.contains('img[title=":v_tone4:"]'), `${m} (trying tone 4)`).false;
+  expect(component.contains('img[title=":v_tone5:"]'), `${m} (trying tone 5)`).false;
+
+  component.tones(2).click();
+
+  m = "Should contain tone 1 emoji after click on tone 2";
+  expect(component.contains('img[title=":v_tone2:"]'), m).true;
+
+  m = "Should not contain emoji of other tones after click on tone 2";
+  expect(component.contains('img[title=":v:"]'),       `${m} (trying toneless)`).false;
+  expect(component.contains('img[title=":v_tone1:"]'), `${m} (trying tone 1)`).false;
+  expect(component.contains('img[title=":v_tone3:"]'), `${m} (trying tone 3)`).false;
+  expect(component.contains('img[title=":v_tone4:"]'), `${m} (trying tone 4)`).false;
+  expect(component.contains('img[title=":v_tone5:"]'), `${m} (trying tone 5)`).false;
+
+  component.tones(3).click();
+
+  m = "Should contain tone 1 emoji after click on tone 3";
+  expect(component.contains('img[title=":v_tone3:"]'), m).true;
+
+  m = "Should not contain emoji of other tones after click on tone 3";
+  expect(component.contains('img[title=":v:"]'),       `${m} (trying toneless)`).false;
+  expect(component.contains('img[title=":v_tone1:"]'), `${m} (trying tone 1)`).false;
+  expect(component.contains('img[title=":v_tone2:"]'), `${m} (trying tone 2)`).false;
+  expect(component.contains('img[title=":v_tone4:"]'), `${m} (trying tone 4)`).false;
+  expect(component.contains('img[title=":v_tone5:"]'), `${m} (trying tone 5)`).false;
+
+  component.tones(4).click();
+
+  m = "Should contain tone 1 emoji after click on tone 4";
+  expect(component.contains('img[title=":v_tone4:"]'), m).true;
+
+  m = "Should not contain emoji of other tones after click on tone 4";
+  expect(component.contains('img[title=":v:"]'),       `${m} (trying toneless)`).false;
+  expect(component.contains('img[title=":v_tone1:"]'), `${m} (trying tone 1)`).false;
+  expect(component.contains('img[title=":v_tone2:"]'), `${m} (trying tone 2)`).false;
+  expect(component.contains('img[title=":v_tone3:"]'), `${m} (trying tone 3)`).false;
+  expect(component.contains('img[title=":v_tone5:"]'), `${m} (trying tone 5)`).false;
+
+  component.tones(5).click();
+
+  m = "Should contain tone 1 emoji after click on tone 5";
+  expect(component.contains('img[title=":v_tone5:"]'), m).true;
+
+  m = "Should not contain emoji of other tones after click on tone 5";
+  expect(component.contains('img[title=":v:"]'),       `${m} (trying toneless)`).false;
+  expect(component.contains('img[title=":v_tone1:"]'), `${m} (trying tone 1)`).false;
+  expect(component.contains('img[title=":v_tone2:"]'), `${m} (trying tone 2)`).false;
+  expect(component.contains('img[title=":v_tone3:"]'), `${m} (trying tone 3)`).false;
+  expect(component.contains('img[title=":v_tone4:"]'), `${m} (trying tone 4)`).false;
+
+  component.tones(0).click();
+
+  m = "Should contain toneless emoji after clicking on tone 0";
+  expect(component.contains('img[title=":v:"]'), m).true;
+
+  m = "Should not contain toned emoji after clicking on tone 0";
+  expect(component.contains('img[title=":v_tone1:"]'), `${m} (trying tone 1)`).false;
+  expect(component.contains('img[title=":v_tone2:"]'), `${m} (trying tone 2)`).false;
+  expect(component.contains('img[title=":v_tone3:"]'), `${m} (trying tone 3)`).false;
+  expect(component.contains('img[title=":v_tone4:"]'), `${m} (trying tone 4)`).false;
+  expect(component.contains('img[title=":v_tone5:"]'), `${m} (trying tone 5)`).false;
+}));
+
+
+
+test('it should filter emoji', withChai(async function(expect) {
+  const actionSpy = sinon.spy();
+  this.setProperties({ actionSpy });
+
+  this.render(hbs`{{emoji-picker selectAction=(action actionSpy)}}`);
+
+  m = "Initially should contain 1369 emoji";
+  expect(component.emoji().count).equal(1369);
+
+  component.filterInput.fill("fo");
+  await wait();
+
+  m = "Should contain 93 emoji after filling 'fo' into search field";
+  expect(component.emoji().count).equal(93);
+}));

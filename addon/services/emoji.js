@@ -2,6 +2,8 @@ import Service from 'ember-service';
 import computed, {filterBy/*, sort*/} from 'ember-computed';
 import emojiDefs from 'ember-emojione/emoji-defs';
 import {assert} from  'ember-metal/utils';
+import {A} from 'ember-array/utils';
+import {setProperties} from 'ember-metal/set';
 
 
 
@@ -13,13 +15,16 @@ function filterEmojiBySkinToneCP(tone) {
   return computed('emojiDefs', 'emoji.@each.id', function () {
     const emojiDefs = this.get('emojiDefs');
 
-    return this
-      .get('emoji')
-      .filter(({id}) => {
-        if (regexThisTone.test(id)) return true;
-        if (regexAnyTone.test(id))  return false;
-        return !emojiDefs[`${id}_tone${anotherTone}`];
-      });
+    const emoji =
+      this
+        .get('emoji')
+        .filter(({id}) => {
+          if (regexThisTone.test(id)) return true;
+          if (regexAnyTone.test(id))  return false;
+          return !emojiDefs[`${id}_tone${anotherTone}`];
+        });
+
+    return A(emoji);
   });
 }
 
@@ -66,11 +71,7 @@ export default Service.extend({
 
     return Object
       .keys(emojiDefs)
-      .map(id => {
-        const emojo = emojiDefs[id];
-        emojo.id = id;
-        return emojo;
-      });
+      .map(id => this._prepareEmojo(emojiDefs, id));
   }),
 
   // emojiSortOrder: ['id'],
@@ -88,9 +89,12 @@ export default Service.extend({
   modifier: filterBy('emoji', 'category', 'modifier'),
 
   emoji__tone_default: computed('emoji.@each.id', function () {
-    return this
-      .get('emoji')
-      .filter(({id}) => !/_tone\d$/.test(id));
+    const emoji =
+      this
+        .get('emoji')
+        .filter(({id}) => !/_tone\d$/.test(id));
+
+    return A(emoji);
   }),
 
   emoji__tone_1: filterEmojiBySkinToneCP(1),
@@ -164,4 +168,25 @@ export default Service.extend({
   flags__tone_5:    filterBy('emoji__tone_5', 'category', 'flags'),
   regional__tone_5: filterBy('emoji__tone_5', 'category', 'regional'),
   modifier__tone_5: filterBy('emoji__tone_5', 'category', 'modifier'),
+
+  _prepareEmojo(emojiDefs, id) {
+    const emojo = emojiDefs[id];
+    emojo.id    = id;
+
+    // Prepare search field
+    const filterable =
+      [
+        [emojo.name, emojo.code_decimal, emojo.shortname, emojo.unicode],
+        emojo.aliases,
+        emojo.aliases_ascii,
+        emojo.keywords
+      ]
+        .reduce((result, arr) => result.concat(arr), []) // flatten
+        .filter(item => item && item.length) // remove empty
+        .join(' ');
+
+    setProperties(emojo, {filterable});
+
+    return emojo;
+  }
 });

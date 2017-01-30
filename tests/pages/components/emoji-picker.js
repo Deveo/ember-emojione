@@ -21,4 +21,12 @@ export default c('.eeo-emojiPicker', {
       }),
     }),
   }),
+
+  tones: collection({
+    scope:     '.eeo-emojiPicker-tones',
+    itemScope: '.eeo-emojiPicker-tone',
+    item:      c()
+  }),
+
+  filterInput: c('.eeo-emojiPicker-filter-input'),
 });

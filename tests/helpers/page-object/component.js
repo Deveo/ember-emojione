@@ -43,6 +43,7 @@ export default function component(scope = '', descriptor = {}) {
     blur:      jquery($el => $el.blur()),
     checked:   jquery($el => $el.is(':checked')),
     click:     clickable(),
+    contains:  jquery($el => selector => $el.find(selector).length > 0, false),
     disabled:  jquery($el => $el.is('[disabled]')),
     exists:    jquery($el => $el.length > 0, false), // false: don't spit an error if element isn't found
     fill:      fillable(),

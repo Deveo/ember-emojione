@@ -1,11 +1,13 @@
-<h2 class = "eeo-emojiPicker-category-title">
-  {{category.name}}
-</h2>
+{{#if emoji.length}}
+  <h2 class = "eeo-emojiPicker-category-title">
+    {{category.name}}
+  </h2>
 
-<div class = "eeo-emojiPicker-category-emoji">
-  {{#each emoji as |emojo|}}
-    <a href class = "eeo-emojiPicker-category-emoji-emojo" {{action selectAction emojo}}>
-      {{{inject-emoji emojo.shortname}}}
-    </a>
-  {{/each}}
-</div>{{! .eeo-emojiPicker-category-emoji }}
+  <div class = "eeo-emojiPicker-category-emoji">
+    {{#each emoji as |emojo|}}
+      <a href class = "eeo-emojiPicker-category-emoji-emojo" {{action selectAction emojo}}>
+        {{{inject-emoji emojo.shortname}}}
+      </a>
+    {{/each}}
+  </div>{{! .eeo-emojiPicker-category-emoji }}
+{{/if}}
