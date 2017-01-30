@@ -2,11 +2,11 @@
 import { test } from 'qunit';
 import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
 
-moduleForAcceptance('Acceptance | module');
+moduleForAcceptance('Acceptance | smoke test');
 
 let m;
 
-test('visiting /module', async function (assert) {
+test('visiting /', async function (assert) {
   await visit('/');
 
   m = "`emojione` should be available in the global namespace";

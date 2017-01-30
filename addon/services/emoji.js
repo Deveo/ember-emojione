@@ -1,5 +1,5 @@
 import Service from 'ember-service';
-import computed, {filterBy} from 'ember-computed';
+import computed, {filterBy/*, sort*/} from 'ember-computed';
 import emojiDefs from 'ember-emojione/emoji-defs';
 import {assert} from  'ember-metal/utils';
 
@@ -27,16 +27,16 @@ export default Service.extend({
   emojiDefs,
 
   categories: [
-    "people",
-    "nature",
-    "food",
-    "activity",
-    "travel",
-    "objects",
-    "symbols",
-    "flags",
-    "regional",
-    "modifier",
+    {id: "people",   name: "Smileys & People"},
+    {id: "nature",   name: "Animals & Nature"},
+    {id: "food",     name: "Food & Drink"},
+    {id: "activity", name: "Activity"},
+    {id: "travel",   name: "Travel & Places"},
+    {id: "objects",  name: "Objects"},
+    {id: "symbols",  name: "Symbols"},
+    {id: "flags",    name: "Flags"},
+    // "regional",
+    // "modifier",
   ],
 
   _currentSkinTone: 'default',
@@ -72,6 +72,9 @@ export default Service.extend({
         return emojo;
       });
   }),
+
+  // emojiSortOrder: ['id'],
+  // emoji:          sort('emojiUnsorted', 'emojiSortOrder'),
 
   people:   filterBy('emoji', 'category', 'people'),
   nature:   filterBy('emoji', 'category', 'nature'),

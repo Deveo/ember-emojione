@@ -8,5 +8,11 @@ export default Controller.extend({
   inputStrHtmlSafe: computed('inputStr', function () {
     const inputStr = this.get('inputStr');
     return htmlSafe(inputStr);
-  })
+  }),
+
+  actions: {
+    selectEmoji() {
+
+    }
+  }
 });
