@@ -134,12 +134,6 @@ export default Component.extend({
 
 
   actions: {
-    setTone(tone) {
-      this
-        .get('emojiService')
-        .set('currentSkinTone', tone);
-    },
-
     filter(filterInput) {
       scheduleOnce('afterRender', this, this._applyFilterInput, filterInput);
     }
