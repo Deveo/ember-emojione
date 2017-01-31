@@ -4,6 +4,7 @@ import { htmlSafe } from 'ember-string';
 
 export default Controller.extend({
   inputStr: 'OMG! :scream:',
+  isPickerVisible: false,
 
   inputStrHtmlSafe: computed('inputStr', function () {
     const inputStr = this.get('inputStr');
@@ -11,8 +12,13 @@ export default Controller.extend({
   }),
 
   actions: {
-    selectEmoji() {
+    togglePicker() {
+      this.toggleProperty('isPickerVisible');
+    },
 
+    selectEmoji(emojo) {
+      const text = this.get('inputStr') + emojo.shortname;
+      this.set('inputStr', text);
     }
   }
 });
