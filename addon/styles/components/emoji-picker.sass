@@ -1,64 +1,166 @@
-////------------------------------------------
-.eeo-emojiPicker
-  //------------------------------------------
+@at-root
 
-  // ----- Layout -----
-  max-width:  300px
+  $emoji-size:        20px
+  $menu-item-padding: 10px
 
-  // ----- Looks -----
-  border-radius: 6px
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
+  ////------------------------------------------
+  .eeo-emojiPicker
+    //------------------------------------------
 
+    // ----- Layout -----
+    width:    ($emoji-size + $menu-item-padding * 2) * 8
+    overflow: hidden
 
-
-////------------------------------------------
-.eeo-emojiPicker-nav
-  //------------------------------------------
-
-  // ----- Layout -----
-  display: flex
+    // ----- Looks -----
+    border-radius: 6px
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
 
 
 
-////------------------------------------------
-.eeo-emojiPicker-nav-item
-  //------------------------------------------
+  ////------------------------------------------
+  .eeo-emojiPicker-nav
+    //------------------------------------------
 
-  // ----- Layout -----
-  position: relative
-  overflow: hidden
+    // ----- Layout -----
+    display:          flex
+    background-color: #eee
 
-  // ----- Content layout -----
+
+
+  ////------------------------------------------
+  .eeo-emojiPicker-nav-item
+    //------------------------------------------
+
+    // ----- Layout -----
+    position: relative
+    overflow: hidden
+
+    // ----- Content layout -----
+    .eeo-emojiPicker-nav-item-bar
+      position: absolute
+      bottom:   0
+      height:   5px
+
+    .emojione
+      transition: transform 0.2s cubic-bezier(0.5, 2, 0.75, 0.75)
+      +emojione-size($emoji-size)
+
+    // ----- Behavior -----
+    &.-hasNoItems
+      opacity: 0.4
+
+    &:hover .emojione
+      +emojione-size-transform(23px)
+
+
+
+  ////------------------------------------------
+  .eeo-emojiPicker-nav-item-link
+    //------------------------------------------
+
+    // ----- Layout -----
+    display: block
+    padding: $menu-item-padding $menu-item-padding ($menu-item-padding / 2)
+
+
+
+  ////------------------------------------------
   .eeo-emojiPicker-nav-item-bar
-    position: absolute
-    bottom:   0
-    height:   5px
+    //------------------------------------------
+
+    // ----- Looks -----
+    background-color: red
 
 
 
-////------------------------------------------
-.eeo-emojiPicker-nav-item-bar
-  //------------------------------------------
+  ////------------------------------------------
+  .eeo-emojiPicker-scrollable
+    //------------------------------------------
 
-  // ----- Looks -----
-  background-color: red
-
-
-
-////------------------------------------------
-.eeo-emojiPicker-scrollable
-  //------------------------------------------
-
-  // ----- Layout -----
-  position:   relative
-  height:     400px
-  overflow-y: scroll
+    // ----- Layout -----
+    position:   relative
+    height:     400px
+    overflow-x: hidden
+    overflow-y: scroll
 
 
 
-////------------------------------------------
-.eeo-emojiPicker-category-title
-  //------------------------------------------
+  ////------------------------------------------
+  .eeo-emojiPicker-category
+    //------------------------------------------
 
-  // ----- Layout -----
-  margin-top: 0
+    // ----- Layout -----
+    padding: $menu-item-padding / 2
+
+    // ----- Content layout -----
+    .eeo-emojiPicker-category-title
+      margin-bottom: 10px
+
+
+
+  ////------------------------------------------
+  .eeo-emojiPicker-category-title
+    //------------------------------------------
+
+    // ----- Layout -----
+    margin: 0
+
+
+
+  ////------------------------------------------
+  .eeo-emojiPicker-category-emoji
+    //------------------------------------------
+
+    // ----- Layout -----
+    display:   flex
+    flex-wrap: wrap
+
+    margin-right:  -$menu-item-padding
+    margin-bottom: -$menu-item-padding
+
+    // ----- Content layout -----
+    .eeo-emojiPicker-category-emoji-emojo
+      margin-right:  $menu-item-padding
+      margin-bottom: $menu-item-padding
+
+
+
+
+  ////------------------------------------------
+  .eeo-emojiPicker-category-emoji-emojo
+    //------------------------------------------
+
+    // ----- Looks -----
+    text-decoration: none
+
+    // ----- Content layout -----
+    .emojione
+      transition: transform 0.2s cubic-bezier(0.5, 2, 0.75, 0.75)
+      +emojione-size-transform(22px)
+
+    // ----- Behavior -----
+    &:hover .emojione
+      transform: scale(0.6)
+
+
+
+
+  ////------------------------------------------
+  .eeo-emojiPicker-footer
+    //------------------------------------------
+
+    // ----- Layout -----
+    display:          flex
+    justify-content:  space-between
+    background-color: #eee
+    padding:          $menu-item-padding / 2
+
+
+
+  ////------------------------------------------
+  .eeo-emojiPicker-filter-input
+    //------------------------------------------
+
+    // ----- Layout -----
+    padding: 2px
+

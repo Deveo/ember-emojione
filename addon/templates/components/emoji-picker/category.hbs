@@ -5,8 +5,13 @@
 
   <div class = "eeo-emojiPicker-category-emoji">
     {{#each emoji as |emojo|}}
-      <a href class = "eeo-emojiPicker-category-emoji-emojo" {{action selectAction emojo}}>
-        {{{inject-emoji emojo.shortname}}}
+      <a
+        href
+        class = "eeo-emojiPicker-category-emoji-emojo"
+        title = {{emojo.title}}
+        {{action selectAction emojo}}
+      >
+        {{{inject-emoji emojo.shortname emojione = (hash imageTitleTag = false)}}}
       </a>
     {{/each}}
   </div>{{! .eeo-emojiPicker-category-emoji }}

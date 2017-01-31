@@ -1,40 +1,12 @@
 <nav class = "eeo-emojiPicker-nav">
   {{#each categorySections as |categoryObj index|}}
-    <div class = "eeo-emojiPicker-nav-item">
-      {{#scroll-to
-        class      = "eeo-emojiPicker-nav-item-link"
-        target     = (concat '.eeo-emojiPicker-category._' categoryObj.category.id)
-        scrollable = (concat '#' scrollableId)
-      }}
-        {{{inject-emoji categoryObj.category.icon}}}
-      {{/scroll-to}}
-
-      <div
-        class = "eeo-emojiPicker-nav-item-bar"
-        style = {{categoryObj.style}}
-      ></div>
-    </div>{{! eeo-emojiPicker-nav-item }}
+    {{emoji-picker/label
+      categoryObj  = categoryObj
+      emoji        = (get emojiByCategoryIdFiltered categoryObj.category.id)
+      scrollableId = scrollableId
+    }}
   {{/each}}
 </nav>
-
-<div class = "eeo-emojiPicker-tones">
-  <a href class = "eeo-emojiPicker-tone _default" {{action 'setTone' 'default'}}>0</a>
-  <a href class = "eeo-emojiPicker-tone _1"       {{action 'setTone' '1'}}>1</a>
-  <a href class = "eeo-emojiPicker-tone _2"       {{action 'setTone' '2'}}>2</a>
-  <a href class = "eeo-emojiPicker-tone _3"       {{action 'setTone' '3'}}>3</a>
-  <a href class = "eeo-emojiPicker-tone _4"       {{action 'setTone' '4'}}>4</a>
-  <a href class = "eeo-emojiPicker-tone _5"       {{action 'setTone' '5'}}>5</a>
-</div>
-
-<div class = "eeo-emojiPicker-filter">
-  {{one-way-input
-    searchInput
-    class  = "eeo-emojiPicker-filter-input"
-    update = (action 'filter')
-  }}
-
-  {{filterInput}}
-</div>{{! .eeo-emojiPicker-filter }}
 
 <div
   class = "eeo-emojiPicker-scrollable"
@@ -42,9 +14,33 @@
 >
   {{#each emojiService.categories as |category|}}
     {{emoji-picker/category
+      emoji        = (get emojiByCategoryIdFiltered category.id)
       category     = category
       filterInput  = filterInput
       selectAction = selectAction
     }}
   {{/each}}
 </div>{{! .eeo-emojiPicker-scrollable }}
+
+
+
+<div class = "eeo-emojiPicker-footer">
+  <div class = "eeo-emojiPicker-filter">
+    {{one-way-input
+      searchInput
+      class       = "eeo-emojiPicker-filter-input"
+      update      = (action 'filter')
+      placeholder = "Search"
+    }}
+  </div>{{! .eeo-emojiPicker-filter }}
+
+
+  <div class = "eeo-emojiPicker-tones">
+    <a href class = "eeo-emojiPicker-tone _default" {{action 'setTone' 'default'}}>0</a>
+    <a href class = "eeo-emojiPicker-tone _1"       {{action 'setTone' '1'      }}>1</a>
+    <a href class = "eeo-emojiPicker-tone _2"       {{action 'setTone' '2'      }}>2</a>
+    <a href class = "eeo-emojiPicker-tone _3"       {{action 'setTone' '3'      }}>3</a>
+    <a href class = "eeo-emojiPicker-tone _4"       {{action 'setTone' '4'      }}>4</a>
+    <a href class = "eeo-emojiPicker-tone _5"       {{action 'setTone' '5'      }}>5</a>
+  </div>
+</div>{{! .eeo-emojiPicker-footer }}

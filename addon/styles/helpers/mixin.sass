@@ -1,3 +1,6 @@
-=emojione-size($target-size, $original-size: 64px)
+=emojione-size-transform($target-size, $original-size: 64px)
   transform: scale(#{$target-size / $original-size})
-  margin:    ($target-size - $original-size) / 2
+
+=emojione-size($target-size, $original-size: 64px)
+  +emojione-size-transform($target-size, $original-size)
+  margin: ($target-size - $original-size) / 2

@@ -45,6 +45,39 @@ export default Component.extend({
     return A(objs);
   }),
 
+  emojiByCategoryIdFiltered: computed(
+    'filterInput',
+    'emojiService.categories.@each.id',
+    'emojiService.currentSkinToneEmoji__people',
+    'emojiService.currentSkinToneEmoji__nature',
+    'emojiService.currentSkinToneEmoji__food',
+    'emojiService.currentSkinToneEmoji__activity',
+    'emojiService.currentSkinToneEmoji__travel',
+    'emojiService.currentSkinToneEmoji__objects',
+    'emojiService.currentSkinToneEmoji__symbols',
+    'emojiService.currentSkinToneEmoji__flags',
+    function () {
+      const filterInput = this.get('filterInput');
+      const filterStrs  = filterInput.length ? filterInput.split(' ') : null;
+
+      return this
+        .get('emojiService.categories')
+        .reduce((result, category) => {
+          const categoryId      = category.get('id');
+          const emojiPropName   = `emojiService.currentSkinToneEmoji__${categoryId}`;
+          const emojiUnfiltered = this.get(emojiPropName);
+
+          const emojiFiltered =
+            filterStrs
+            ? emojiUnfiltered.filter(emojo => filterStrs.every(str => emojo.filterable.indexOf(str) > -1))
+            : emojiUnfiltered;
+
+          result.set(categoryId, emojiFiltered);
+          return result;
+        }, O());
+    }
+  ),
+
 
 
   _applyFilterInput(filterInput) {
@@ -62,7 +95,7 @@ export default Component.extend({
       .get('categorySections')
       .forEach(section => {
         if (!section.get('$category')) {
-          const $category = this.$(`.eeo-emojiPicker-category._${section.category.get('id')}`);
+          const $category = this.$(`.eeo-emojiPicker-category._${section.category.get('id')} .eeo-emojiPicker-category-emoji`);
           section.setProperties({$category});
         }
 
