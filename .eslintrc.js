@@ -22,6 +22,7 @@ module.exports = {
     "ember-suave/require-access-in-comments": "off",
     "generator-star-spacing": ["error", "both"],
     "key-spacing": "off",
+    "new-cap": "off",
     "no-constant-condition": ["error", { "checkLoops": false }],
     "no-multiple-empty-lines": "off",
     "object-curly-spacing": "off",

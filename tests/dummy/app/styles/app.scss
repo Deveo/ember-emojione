@@ -1,0 +1,5 @@
+@import 'ember-emojione';
+
+.emojione {
+  @include emojione-size(20px);
+}

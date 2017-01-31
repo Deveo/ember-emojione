@@ -1,3 +1,22 @@
+<nav class = "eeo-emojiPicker-nav">
+  {{#each categorySections as |categoryObj index|}}
+    <div class = "eeo-emojiPicker-nav-item">
+      {{#scroll-to
+        class      = "eeo-emojiPicker-nav-item-link"
+        target     = (concat '.eeo-emojiPicker-category._' categoryObj.category.id)
+        scrollable = (concat '#' scrollableId)
+      }}
+        {{{inject-emoji categoryObj.category.icon}}}
+      {{/scroll-to}}
+
+      <div
+        class = "eeo-emojiPicker-nav-item-bar"
+        style = {{categoryObj.style}}
+      ></div>
+    </div>{{! eeo-emojiPicker-nav-item }}
+  {{/each}}
+</nav>
+
 <div class = "eeo-emojiPicker-tones">
   <a href class = "eeo-emojiPicker-tone _default" {{action 'setTone' 'default'}}>0</a>
   <a href class = "eeo-emojiPicker-tone _1"       {{action 'setTone' '1'}}>1</a>
@@ -15,12 +34,17 @@
   }}
 
   {{filterInput}}
-</div>
+</div>{{! .eeo-emojiPicker-filter }}
 
-{{#each emojiService.categories as |category|}}
-  {{emoji-picker/category
-    category     = category
-    filterInput  = filterInput
-    selectAction = selectAction
-  }}
-{{/each}}
+<div
+  class = "eeo-emojiPicker-scrollable"
+  id    = {{scrollableId}}
+>
+  {{#each emojiService.categories as |category|}}
+    {{emoji-picker/category
+      category     = category
+      filterInput  = filterInput
+      selectAction = selectAction
+    }}
+  {{/each}}
+</div>{{! .eeo-emojiPicker-scrollable }}

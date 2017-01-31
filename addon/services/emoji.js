@@ -4,6 +4,10 @@ import emojiDefs from 'ember-emojione/emoji-defs';
 import {assert} from  'ember-metal/utils';
 import {A} from 'ember-array/utils';
 import {setProperties} from 'ember-metal/set';
+import {htmlSafe} from 'ember-string';
+
+import {default as EObject} from 'ember-object';
+const  O = EObject.create.bind(EObject);
 
 
 
@@ -31,18 +35,18 @@ function filterEmojiBySkinToneCP(tone) {
 export default Service.extend({
   emojiDefs,
 
-  categories: [
-    {id: "people",   name: "Smileys & People"},
-    {id: "nature",   name: "Animals & Nature"},
-    {id: "food",     name: "Food & Drink"},
-    {id: "activity", name: "Activity"},
-    {id: "travel",   name: "Travel & Places"},
-    {id: "objects",  name: "Objects"},
-    {id: "symbols",  name: "Symbols"},
-    {id: "flags",    name: "Flags"},
+  categories: A([
+    O({id: "people",   name: "Smileys & People", icon: htmlSafe(":grinning:")}),
+    O({id: "nature",   name: "Animals & Nature", icon: htmlSafe(":deciduous_tree:")}),
+    O({id: "food",     name: "Food & Drink",     icon: htmlSafe(":pizza:")}),
+    O({id: "activity", name: "Activity",         icon: htmlSafe(":cartwheel:")}),
+    O({id: "travel",   name: "Travel & Places",  icon: htmlSafe(":ship:")}),
+    O({id: "objects",  name: "Objects",          icon: htmlSafe(":hammer:")}),
+    O({id: "symbols",  name: "Symbols",          icon: htmlSafe(":heart:")}),
+    O({id: "flags",    name: "Flags",            icon: htmlSafe(":flag_aq:")}),
     // "regional",
     // "modifier",
-  ],
+  ]),
 
   _currentSkinTone: 'default',
 

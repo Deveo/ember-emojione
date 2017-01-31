@@ -3,7 +3,7 @@
   "dependencies": {
     "emojione-js": "https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/lib/js/emojione.js",
     "emojione-defs": "https://raw.githubusercontent.com/Ranks/emojione/master/emoji.json",
-    "emojione-css": "https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/css/emojione.css",
+    "emojione-css": "https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.css",
     "emojione-png": "https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.png",
     "emojione-svg": "https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.svg"
   }

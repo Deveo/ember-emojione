@@ -16,8 +16,9 @@ export default Component.extend({
 
   emojiService: service('emoji'),
 
-  classNames: ['eeo-emojiPicker-category'],
+  classNameBindings: [':eeo-emojiPicker-category', 'categoryClass'],
 
+  categoryClass:      templateString('_${category.id}'),
   categoryIdWithTone: templateString('${category.id}__tone_${emojiService.currentSkinTone}'),
 
   emojiUnfiltered: getCP('emojiService', 'categoryIdWithTone'),
@@ -28,5 +29,17 @@ export default Component.extend({
     return this
       .get('emojiUnfiltered')
       .filter(emojo => filterStrs.every(str => emojo.filterable.indexOf(str) > -1));
-  })
+  }),
+
+
+
+  // didEnterViewport() {
+  //   console.log(this.get('category.name'), true)
+  //   this.set('category.inViewport', true);
+  // },
+  //
+  // didExitViewport() {
+  //   console.log(this.get('category.name'), false)
+  //   this.set('category.inViewport', false);
+  // }
 });

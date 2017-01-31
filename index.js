@@ -69,9 +69,9 @@ module.exports = {
     shouldImportCss:        true,
     shouldImportDefs:       true,
 
-    spriteSheet:            false,
+    spriteSheet:            true,
 
-    shouldIncludePngSprite: false,
+    shouldIncludePngSprite: true,
     shouldIncludeSvgSprite: false,
     shouldIncludePngImages: false,
     shouldIncludeSvgImages: false,
@@ -161,7 +161,7 @@ module.exports = {
     if (!opts.shouldIncludePngSprite) return;
 
     const packageDir = opts.separatePackages ? opts.packageNamePngSprite : opts.packageNameMain;
-    const baseDir    = `${opts.bowerDir}/${packageDir}/assets/sprites`;
+    const baseDir    = `${opts.bowerDir}/${packageDir}${opts.separatePackages ? '' : '/assets/sprites'}`;
 
     return new Funnel(baseDir, {
       include: ['*.png'],

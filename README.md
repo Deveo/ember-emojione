@@ -26,16 +26,18 @@ If you don't want to go into the nuances of installation and configuration, use 
 
 Quick installation will use these defaults:
 
-* EmojiOne assets are not installed into your app and instead served from the free JSDelivr CDN.
-* Emoji are rendered as individual PNG images.
+* Emoji are rendered as PNG sprites.
+* Sprite size is 64×64 px.
+* The sprite sheet is included into your app's distro (it's not available on JSDelivr).
 * Emoji picker and typing assistance components are available.
 
 Run these console commands in your app:
 
     ember install ember-emojione
     bower install -S emojione-js=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/lib/js/emojione.js
-    bower install -S emojione-css=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/css/emojione.css
+    bower install -S emojione-css=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.css
     bower install -S emojione-defs=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/emoji.json
+    bower install -S emojione-png=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.png
 
 You should be good to go. If your development server has been running, don't forget to restart it.
 
@@ -46,15 +48,6 @@ You should be good to go. If your development server has been running, don't for
 The `emojione` Bower package, which this addon relies on, is over 90 MiB large. As EmojiOne assets can be served from the "free and super-fast" [JSDelivr](http://jsdelivr.com) CDN, many developers don't need any EmojiOne images locally.
 
 This addon can be configured to include as few or as much assets and dependencies as you need.
-
-In order to proceed with the installation, you must first answer these questions:
-
-1. Are you happy with emoji being served from JSDelivr (or your own CDN, separate from your app's distro), or you want to include EmojiOne assets into your app's distro? (recommended: JSDelivr)
-2. Do you want PNG and SVG emoji? (PNG is recommended to prevent flickering)
-3. Do you want emoji be predownloaded for each user in one enormous sprite sheet or do you want them to be downloaded individually? (recommended: sprite sheet, so that all emoji are displayed simultaneously)
-4. Are you going to use emoji picker and typing assistant from this addon, you do you only need to render emoji in existing texts?
-
-Keep your answers in mind as yuou proceed with the following steps.
 
 
 
@@ -145,11 +138,11 @@ Values shown below are the defaults. If you're happy with them, you don't need t
       shouldImportDefs: true,
       
       // Whether to use a sprite sheet or individual images
-      spriteSheet: false,
+      spriteSheet: true,
   
       // Enable one of these options if you want to include
       // EmojiOne assets into your app's distro. 
-      shouldIncludePngSprite: false,
+      shouldIncludePngSprite: true,
       shouldIncludeSvgSprite: false,
       shouldIncludePngImages: false,
       shouldIncludeSvgImages: false,
