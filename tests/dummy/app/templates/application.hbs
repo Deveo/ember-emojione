@@ -10,21 +10,22 @@
 </p>
 
 <h2>Input</h2>
-<p>
   {{textarea value=inputStr}}
 
-  <button
-    class = "toggleEmoji"
-    {{action 'togglePicker'}}
-  >
-    {{{inject-emoji ":smile:"}}}
+
+  <span class="togglePickerWrapper">
+    <button
+      class = "toggleEmoji"
+      {{action 'togglePicker'}}
+    >
+      {{{inject-emoji ":smile:"}}}
+    </button>
 
     {{emoji-picker
       class = (if isPickerVisible '-visible' '-hidden')
       selectAction = (action 'selectEmoji')
     }}
-  </button>
-</p>
+  </span>
 
 <h2>Source</h2>
 

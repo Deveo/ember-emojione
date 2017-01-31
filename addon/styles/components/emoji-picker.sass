@@ -110,9 +110,12 @@
   .eeo-emojiPicker-category-title
     //------------------------------------------
 
-    // ----- Looks -----
-    color:         darkgrey
+    // ----- Border -----
     border-bottom: 1px solid lightgrey
+
+    // ----- Text -----
+    text-align: left
+    color:      darkgrey
 
 
 
@@ -221,9 +224,10 @@
     //------------------------------------------
 
     // ----- Layout -----
-    display: inline-block
-    width:   $emoji-size * 0.8
-    height:  $emoji-size * 0.8
+    display:     inline-block
+    width:       $emoji-size * 0.8
+    height:      $emoji-size * 0.8
+    padding-top: 3px // Compensate for uneven emoji
 
     // ----- Looks -----
     border-radius: 50%
