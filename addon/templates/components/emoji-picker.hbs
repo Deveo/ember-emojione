@@ -8,17 +8,21 @@
   {{/each}}
 </nav>
 
+
+
 <div
   class = "eeo-emojiPicker-scrollable"
   id    = {{scrollableId}}
 >
   {{#each emojiService.categories as |category|}}
-    {{emoji-picker/category
-      emoji        = (get emojiByCategoryIdFiltered category.id)
-      category     = category
-      filterInput  = filterInput
-      selectAction = selectAction
-    }}
+    {{#with (get emojiByCategoryIdFiltered category.id) as |emoji|}}
+      {{emoji-picker/category
+        emoji        = emoji
+        category     = category
+        filterInput  = filterInput
+        selectAction = selectAction
+      }}
+    {{/with}}
   {{/each}}
 </div>{{! .eeo-emojiPicker-scrollable }}
 
@@ -27,11 +31,19 @@
 <div class = "eeo-emojiPicker-footer">
   <div class = "eeo-emojiPicker-filter">
     {{one-way-input
-      searchInput
+      filterInput
       class       = "eeo-emojiPicker-filter-input"
       update      = (action 'filter')
       placeholder = "Search"
     }}
+
+    <a
+      href
+      class = "eeo-emojiPicker-filter-clear {{if filterInput.length '' '_disabled'}}"
+      {{action 'filter' ''}}
+    >
+      {{{inject-emoji ":heavy_multiplication_x:"}}}
+    </a>
   </div>{{! .eeo-emojiPicker-filter }}
 
 

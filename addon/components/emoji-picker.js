@@ -94,26 +94,21 @@ export default Component.extend({
     this
       .get('categorySections')
       .forEach(section => {
-        if (!section.get('$category')) {
-          const $category = this.$(`.eeo-emojiPicker-category._${section.category.get('id')} .eeo-emojiPicker-category-emoji`);
-          section.setProperties({$category});
+        const $category = this.$(`.eeo-emojiPicker-category._${section.category.get('id')} .eeo-emojiPicker-category-emoji`);
+
+        if (!$category.length) {
+          section.set('style', htmlSafe(''));
+          return;
         }
 
-        const $category = section.get('$category');
         const catTop    = $category.position().top;
         const catHeight = $category.outerHeight();
         const catBottom = catTop + catHeight;
+        const left      = (-catTop) / catHeight;
+        const right     = (catBottom - parHeight) / catHeight;
+        const style     = htmlSafe(`left: ${left  * 100}%; right: ${right * 100}%;`);
 
-        const left = (-catTop) / catHeight;
-
-        const right = (catBottom - parHeight) / catHeight;
-
-        section.setProperties({
-          left,
-          right,
-          style: htmlSafe(`left: ${left  * 100}%; right: ${right * 100}%;`),
-        });
-
+        section.setProperties({style});
       });
   },
 

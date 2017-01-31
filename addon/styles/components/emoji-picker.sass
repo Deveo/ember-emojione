@@ -48,9 +48,11 @@
     // ----- Behavior -----
     &.-hasNoItems
       opacity: 0.4
+      &, a
+        cursor:  default
 
-    &:hover .emojione
-      +emojione-size-transform(23px)
+    &:not(.-hasNoItems):hover .emojione
+      +emojione-size-transform(28px)
 
 
 
@@ -83,6 +85,11 @@
     overflow-x: hidden
     overflow-y: scroll
 
+    // ----- Content layout -----
+    .eeo-emojiPicker-category
+      margin-top: 10px
+
+
 
 
   ////------------------------------------------
@@ -102,8 +109,9 @@
   .eeo-emojiPicker-category-title
     //------------------------------------------
 
-    // ----- Layout -----
-    margin: 0
+    // ----- Looks -----
+    color:         darkgrey
+    border-bottom: 1px solid lightgrey
 
 
 
@@ -136,11 +144,10 @@
     // ----- Content layout -----
     .emojione
       transition: transform 0.2s cubic-bezier(0.5, 2, 0.75, 0.75)
-      +emojione-size-transform(22px)
-
     // ----- Behavior -----
     &:hover .emojione
-      transform: scale(0.6)
+      +emojione-size-transform(28px)
+
 
 
 
@@ -158,9 +165,40 @@
 
 
   ////------------------------------------------
+  .eeo-emojiPicker-filter
+    //------------------------------------------
+
+    // ----- Layout -----
+    position: relative
+
+    // ----- Content layout -----
+    .eeo-emojiPicker-filter-clear
+      position:   absolute
+      right:      4px
+      top:        50%
+      transform:  translate(0, -50%)
+      margin-top: 2px // Compensate for uncentered emoji
+
+
+
+  ////------------------------------------------
   .eeo-emojiPicker-filter-input
     //------------------------------------------
 
     // ----- Layout -----
-    padding: 2px
+    padding: 2px 22px 2px 2px
 
+
+
+  ////------------------------------------------
+  .eeo-emojiPicker-filter-clear
+    //------------------------------------------
+
+    // ----- Content Layout -----
+    .emojione
+      +emojione-size(14px)
+
+    // ----- Behavior -----
+    &._disabled
+      opacity: 0.2
+      cursor:  default
