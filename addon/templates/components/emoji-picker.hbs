@@ -30,17 +30,19 @@
 
 <div class = "eeo-emojiPicker-footer">
   <div class = "eeo-emojiPicker-filter">
-    {{one-way-input
-      _filterInput
-      class       = "eeo-emojiPicker-filter-input"
-      update      = (action 'inputFilteringText')
-      placeholder = "Search"
-    }}
+    {{#auto-focus disabled=disableAutoFocus}}
+      {{one-way-input
+        _filterInput
+        class       = "eeo-emojiPicker-filter-input"
+        update      = (action 'inputFilteringText')
+        placeholder = "Search"
+      }}
+    {{/auto-focus}}
 
     <a
       href
       class = "eeo-emojiPicker-filter-clear {{if filterInput.length '' '_disabled'}}"
-      {{action 'filter' ''}}
+      {{action 'inputFilteringText' ''}}
     >
       {{{inject-emoji ":heavy_multiplication_x:"}}}
     </a>

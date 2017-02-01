@@ -21,10 +21,11 @@
       {{{inject-emoji ":smile:"}}}
     </button>
 
-    {{emoji-picker
-      class = (if isPickerVisible '-visible' '-hidden')
-      selectAction = (action 'selectEmoji')
-    }}
+    {{#if isPickerVisible}}
+      {{emoji-picker
+        selectAction = (action 'selectEmoji')
+      }}
+    {{/if}}
   </span>
 
 <h2>Source</h2>

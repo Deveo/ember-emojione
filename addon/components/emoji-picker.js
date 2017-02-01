@@ -12,7 +12,8 @@ const  O = EObject.create.bind(EObject);
 
 export default Component.extend({
 
-  selectAction: undefined,
+  selectAction:     undefined,
+  disableAutoFocus: false,
 
 
 
