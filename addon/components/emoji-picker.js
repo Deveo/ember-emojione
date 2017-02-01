@@ -1,19 +1,21 @@
 import Component from 'ember-component';
 import computed from 'ember-computed';
 import {htmlSafe} from 'ember-string';
-import {debounce, later, throttle} from 'ember-runloop';
+import {debounce, next, throttle} from 'ember-runloop';
 import layout from '../templates/components/emoji-picker';
 import service from 'ember-service/inject';
 import observer from 'ember-metal/observer';
+import ClickOutsideMixin from 'ember-click-outside/mixins/click-outside';
 
 import {A} from 'ember-array/utils';
 import {default as EObject} from 'ember-object';
 const  O = EObject.create.bind(EObject);
 
-export default Component.extend({
+export default Component.extend(ClickOutsideMixin, {
 
   selectAction:     undefined,
   toneSelectAction: undefined,
+  closeAction:      undefined,
   disableAutoFocus: false,
   textNoEmojiFound: "No emoji found.",
   textSearch:       "Search",
@@ -175,7 +177,7 @@ export default Component.extend({
     if (this.get('isDestroying') || this.get('isDestroyed')) return;
 
     this.setProperties({filterInput});
-    later(() => this._updateScroll());
+    next(() => this._updateScroll());
   },
 
 
@@ -224,6 +226,8 @@ export default Component.extend({
     this
       .$('.eeo-emojiPicker-scrollable')
       .on('scroll.eeo', () => throttle(this, this._updateScroll, 200, false));
+
+    next(() => this.addClickOutsideListener());
   },
 
 
@@ -234,6 +238,15 @@ export default Component.extend({
     this
       .$('.eeo-emojiPicker-scrollable')
       .off('scroll.eeo');
+
+    this.removeClickOutsideListener();
+  },
+
+
+
+  clickOutside() {
+    const closeAction = this.get('closeAction');
+    if (closeAction) this.sendAction('closeAction');
   },
 
 

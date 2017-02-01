@@ -24,6 +24,7 @@
     {{#if isPickerVisible}}
       {{emoji-picker
         selectAction = (action 'selectEmoji')
+        closeAction  = (action 'togglePicker')
       }}
     {{/if}}
   </span>
