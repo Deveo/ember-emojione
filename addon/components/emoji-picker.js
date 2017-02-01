@@ -1,7 +1,7 @@
 import Component from 'ember-component';
 import computed from 'ember-computed';
 import {htmlSafe} from 'ember-string';
-import {later, scheduleOnce} from 'ember-runloop';
+import {throttle} from 'ember-runloop';
 import layout from '../templates/components/emoji-picker';
 import service from 'ember-service/inject';
 
@@ -82,7 +82,7 @@ export default Component.extend({
 
   _applyFilterInput(filterInput) {
     this.setProperties({filterInput});
-    later(this, this._updateScroll);
+    this._updateScroll();
   },
 
 
@@ -117,11 +117,11 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
 
-    later(() => this._updateScroll());
+    this._updateScroll();
 
     this
       .$('.eeo-emojiPicker-scrollable')
-      .on('scroll.eeo', () => scheduleOnce('afterRender', this, this._updateScroll));
+      .on('scroll.eeo', () => throttle(this, this._updateScroll, 200, false));
   },
 
 
@@ -135,7 +135,7 @@ export default Component.extend({
 
   actions: {
     filter(filterInput) {
-      scheduleOnce('afterRender', this, this._applyFilterInput, filterInput);
+      throttle(this, this._applyFilterInput, filterInput, 400, false);
     }
   }
 });
