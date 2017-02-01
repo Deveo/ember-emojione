@@ -9,8 +9,6 @@ export default Component.extend({
   category:            undefined,
   emoji:               undefined,
   selectAction:        undefined,
-  closeAction:         undefined,
-  shouldCloseOnSelect: false,
 
   emojiService: service('emoji'),
 
@@ -18,14 +16,4 @@ export default Component.extend({
   classNameBindings: [':eeo-emojiPicker-category', 'categoryClass'],
 
   categoryClass:      templateString('_${category.id}'),
-
-  actions: {
-    select(emojo) {
-      this.sendAction('selectAction', emojo);
-
-      if (this.get('closeAction') && this.get('shouldCloseOnSelect')) {
-        this.sendAction('closeAction');
-      }
-    }
-  }
 });

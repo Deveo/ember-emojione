@@ -21,7 +21,7 @@
           emoji               = emoji
           category            = category
           filterInput         = filterInput
-          selectAction        = selectAction
+          selectAction        = (action 'selectEmojo')
           closeAction         = closeAction
           shouldCloseOnSelect = shouldCloseOnSelect
         }}
@@ -46,6 +46,7 @@
         class       = "eeo-emojiPicker-filter-input"
         update      = (action 'inputFilteringText')
         placeholder = textSearch
+        onenter = (action 'enterPressedInInput')
       }}
     {{/auto-focus}}
 

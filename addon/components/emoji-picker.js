@@ -5,6 +5,7 @@ import {debounce, next, throttle} from 'ember-runloop';
 import layout from '../templates/components/emoji-picker';
 import service from 'ember-service/inject';
 import observer from 'ember-metal/observer';
+import get from 'ember-metal/get';
 import ClickOutsideMixin from 'ember-click-outside/mixins/click-outside';
 
 import {A} from 'ember-array/utils';
@@ -125,7 +126,6 @@ export default Component.extend(ClickOutsideMixin, {
     'emojiService.modifier__tone_5',
 
     function () {
-      const currentSkinTone = this.get('emojiService.currentSkinTone');
       const filterInput     = this.get('filterInput');
       const filterStrs      = filterInput.length ? filterInput.split(' ') : null;
 
@@ -133,8 +133,7 @@ export default Component.extend(ClickOutsideMixin, {
         .get('emojiService.categories')
         .reduce((result, category) => {
           const categoryId      = category.get('id');
-          const emojiPropName   = `emojiService.${categoryId}__tone_${currentSkinTone}`;
-          const emojiUnfiltered = this.get(emojiPropName);
+          const emojiUnfiltered = this._getEmojiForCategory(category);
 
           const emojiFiltered =
             filterStrs
@@ -219,6 +218,23 @@ export default Component.extend(ClickOutsideMixin, {
 
 
 
+  _getEmojiForCategory(category) {
+    if (typeof category !== 'string') category = get(category, 'id');
+    const currentSkinTone = this.get('emojiService.currentSkinTone');
+    const emojiPropName = `emojiService.${category}__tone_${currentSkinTone}`;
+    return this.get(emojiPropName);
+  },
+
+
+
+  _getFilteredEmojiForCategory(category) {
+    if (typeof category !== 'string') category = get(category, 'id');
+    const emojiPropName = `emojiByCategoryIdFiltered.${category}`;
+    return this.get(emojiPropName);
+  },
+
+
+
   didInsertElement() {
     this._super(...arguments);
 
@@ -253,8 +269,32 @@ export default Component.extend(ClickOutsideMixin, {
 
 
   actions: {
+    selectEmojo(emojo) {
+      this.sendAction('selectAction', emojo);
+
+      if (this.get('closeAction') && this.get('shouldCloseOnSelect')) {
+        this.sendAction('closeAction');
+      }
+    },
+
     inputFilteringText(_filterInput) {
       this.setProperties({_filterInput});
-    }
+    },
+
+    enterPressedInInput() {
+      let emojo = null;
+
+      this
+        .get('emojiService.categories')
+        .find(category => {
+          const emoji = this._getFilteredEmojiForCategory(category);
+          if (emoji.length > 0) {
+            emojo = emoji[0];
+            return true;
+          }
+        });
+
+      if (emojo) this.send('selectEmojo', emojo);
+    },
   }
 });
