@@ -18,10 +18,12 @@
     {{#each emojiService.categories as |category|}}
       {{#with (get emojiByCategoryIdFiltered category.id) as |emoji|}}
         {{emoji-picker/category
-          emoji        = emoji
-          category     = category
-          filterInput  = filterInput
-          selectAction = selectAction
+          emoji               = emoji
+          category            = category
+          filterInput         = filterInput
+          selectAction        = selectAction
+          closeAction         = closeAction
+          shouldCloseOnSelect = shouldCloseOnSelect
         }}
       {{/with}}
     {{/each}}

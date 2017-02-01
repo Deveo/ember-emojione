@@ -112,6 +112,43 @@ test('it should trigger an action when emoji is clicked', withChai(function(expe
 
 
 
+test('it should trigger the close action when emoji is clicked and shouldCloseOnSelect is true', withChai(function(expect) {
+  const selectSpy = sinon.spy();
+  const closeSpy  = sinon.spy();
+  this.setProperties({selectSpy, closeSpy, shouldCloseOnSelect: true});
+
+  this.render(hbs`{{emoji-picker
+    selectAction        = (action selectSpy)
+    closeAction         = (action closeSpy)
+    shouldCloseOnSelect = shouldCloseOnSelect
+  }}`);
+
+  component.emoji(0).click();
+
+  m = "Select action should've been called once";
+  expect(selectSpy.calledOnce, m).ok;
+
+  m = "Select action should've been called with the grinning emoji definition";
+  expect(selectSpy.calledWith(emojiDefs.grinning), m).ok;
+
+  m = "Close action should've been called once";
+  expect(closeSpy.calledOnce, m).ok;
+
+  this.set('shouldCloseOnSelect', false);
+
+  component.emoji(0).click();
+
+  m = "After second click, elect action should've been called twice";
+  expect(selectSpy.calledTwice, m).ok;
+
+  m = "After second click, close action should've been called once";
+  expect(closeSpy.calledOnce, m).ok;
+
+
+}));
+
+
+
 
 
 test('it should switch tones', withChai(function(expect) {

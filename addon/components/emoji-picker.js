@@ -13,13 +13,14 @@ const  O = EObject.create.bind(EObject);
 
 export default Component.extend(ClickOutsideMixin, {
 
-  selectAction:     undefined,
-  toneSelectAction: undefined,
-  closeAction:      undefined,
-  disableAutoFocus: false,
-  textNoEmojiFound: "No emoji found.",
-  textSearch:       "Search",
-  textClearSearch:  "Clear search",
+  selectAction:        undefined,
+  toneSelectAction:    undefined,
+  closeAction:         undefined,
+  shouldCloseOnSelect: false,
+  disableAutoFocus:    false,
+  textNoEmojiFound:    "No emoji found.",
+  textSearch:          "Search",
+  textClearSearch:     "Clear search",
 
 
 
