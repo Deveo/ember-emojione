@@ -1,9 +1,10 @@
 import Component from 'ember-component';
 import computed from 'ember-computed';
 import {htmlSafe} from 'ember-string';
-import {throttle} from 'ember-runloop';
+import {debounce, later, throttle} from 'ember-runloop';
 import layout from '../templates/components/emoji-picker';
 import service from 'ember-service/inject';
+import observer from 'ember-metal/observer';
 
 import {A} from 'ember-array/utils';
 import {default as EObject} from 'ember-object';
@@ -20,10 +21,9 @@ export default Component.extend({
 
 
   layout,
-  classNames: ['eeo-emojiPicker'],
+  classNames:   ['eeo-emojiPicker'],
+  _filterInput: '',
   filterInput: '',
-
-
 
   scrollableId: computed(function () {
     return Math.random().toString(36).substr(2, 5);
@@ -81,13 +81,24 @@ export default Component.extend({
 
 
   _applyFilterInput(filterInput) {
+    if (this.get('isDestroying') || this.get('isDestroyed')) return;
+
     this.setProperties({filterInput});
-    this._updateScroll();
+    later(() => this._updateScroll());
   },
 
 
 
+  _applyFilterInputDebounced: observer('_filterInput', function () {
+    const filterInput = this.get('_filterInput');
+    debounce(this, this._applyFilterInput, filterInput, 200, false);
+  }),
+
+
+
   _updateScroll() {
+    if (this.get('isDestroying') || this.get('isDestroyed')) return;
+
     const $scrollable = this.get('$scrollable');
     const parHeight   = $scrollable.innerHeight();
 
@@ -129,13 +140,16 @@ export default Component.extend({
   willDestroyElement() {
     this._super(...arguments);
 
+    this
+      .$('.eeo-emojiPicker-scrollable')
+      .off('scroll.eeo');
   },
 
 
 
   actions: {
-    filter(filterInput) {
-      throttle(this, this._applyFilterInput, filterInput, 400, false);
+    inputFilteringText(_filterInput) {
+      this.setProperties({_filterInput});
     }
   }
 });
