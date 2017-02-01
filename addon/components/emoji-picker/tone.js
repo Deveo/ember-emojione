@@ -6,7 +6,8 @@ import templateString from 'ember-computed-template-string';
 
 
 export default Component.extend({
-  tone: undefined,
+  tone:             undefined,
+  toneSelectAction: undefined,
 
   emojiService: service('emoji'),
 
@@ -22,8 +23,14 @@ export default Component.extend({
   toneClass: templateString("_${tone}"),
 
   click() {
-    this
-      .get('emojiService')
-      .set('currentSkinTone', this.get('tone'));
+    const oldSkinTone = this.get('emojiService.currentSkinTone');
+    const newSkinTone = this.get('tone');
+
+    if (oldSkinTone === newSkinTone) return;
+
+    this.set('emojiService.currentSkinTone', newSkinTone);
+
+    const toneSelectAction = this.get('toneSelectAction');
+    if (toneSelectAction) this.sendAction('toneSelectAction', newSkinTone);
   }
 });

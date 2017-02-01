@@ -13,6 +13,7 @@ const  O = EObject.create.bind(EObject);
 export default Component.extend({
 
   selectAction:     undefined,
+  toneSelectAction: undefined,
   disableAutoFocus: false,
   textNoEmojiFound: "No emoji found.",
   textSearch:       "Search",

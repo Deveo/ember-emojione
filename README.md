@@ -372,13 +372,14 @@ Render it like this:
 
 #### Options
 
-| Option             | Type    | Default value     | Description                                             |
-|:-------------------|:--------|:------------------|:--------------------------------------------------------|
-| `selectAction`     | action  | mandatory         | Action to execute when an emoji is clicked              |
-| `disableAutoFocus` | Boolean | `false`           | Prevents from focusing on component when first rendered |
-| `textNoEmojiFound` | String  | "No emoji found." | Override for i18n.                                      |
-| `textSearch`       | String  | "Search"          | Override for i18n.                                      |
-| `textClearSearch`  | String  | "Clear search"    | Override for i18n.                                      |
+| Option             | Type    | Default value       | Description                                             |
+|:-------------------|:--------|:--------------------|:--------------------------------------------------------|
+| `selectAction`     | action  | mandatory           | Action to execute when an emoji is clicked              |
+| `toneSelectAction` | action  | `undefined`         | Action to execute when skin tone is changed             |
+| `disableAutoFocus` | Boolean | `false`             | Prevents from focusing on component when first rendered |
+| `textNoEmojiFound` | String  | `"No emoji found."` | Override for i18n.                                      |
+| `textSearch`       | String  | `"Search"`          | Override for i18n.                                      |
+| `textClearSearch`  | String  | `"Clear search"`    | Override for i18n.                                      |
 
 
 

@@ -105,6 +105,8 @@ test('it should trigger an action when emoji is clicked', withChai(function(expe
 
   m = "Action should've been called once";
   expect(actionSpy.calledOnce, m).ok;
+
+  m = "Action should've been called with the grinning emoji definition";
   expect(actionSpy.calledWith(emojiDefs.grinning), m).ok;
 }));
 
@@ -216,4 +218,29 @@ test('it should filter emoji', withChai(async function(expect) {
 
   m = "Should contain 93 emoji after filling 'fo' into search field";
   expect(component.emoji().count).equal(93);
+}));
+
+
+
+test('it should trigger an action when tone is changed', withChai(function(expect) {
+  const toneActionSpy = sinon.spy();
+  this.setProperties({toneActionSpy, dummyAction() {}});
+
+  this.render(hbs`{{emoji-picker
+    selectAction     = (action dummyAction)
+    toneSelectAction = (action toneActionSpy)
+  }}`);
+
+  component.tones(3).click();
+
+  m = "Action should've been called once";
+  expect(toneActionSpy.calledOnce, m).ok;
+
+  m = "Action should've been called with '3'";
+  expect(toneActionSpy.calledWith('3'), m).ok;
+
+  component.tones(3).click();
+
+  m = "Action should not be called again if skin tone isn't changed.";
+  expect(toneActionSpy.calledOnce, m).ok;
 }));
