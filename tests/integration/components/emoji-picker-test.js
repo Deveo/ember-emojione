@@ -50,43 +50,43 @@ test('it renders', withChai(function(expect) {
   m = "Category 0 should contain 225 emoji";
   expect(component.categories(0).emoji().count, m).equal(225);
 
-  m = "Category 1 title should be 'Smileys & People'";
+  m = "Category 1 title should be 'Animals & Nature'";
   expect(component.categories(1).title.text, m).equal('Animals & Nature');
 
   m = "Category 1 should contain 225 emoji";
   expect(component.categories(1).emoji().count, m).equal(160);
 
-  m = "Category 2 title should be 'Smileys & People'";
+  m = "Category 2 title should be 'Food & Drink'";
   expect(component.categories(2).title.text, m).equal('Food & Drink');
 
   m = "Category 2 should contain 225 emoji";
   expect(component.categories(2).emoji().count, m).equal(85);
 
-  m = "Category 3 title should be 'Smileys & People'";
+  m = "Category 3 title should be 'Activity'";
   expect(component.categories(3).title.text, m).equal('Activity');
 
   m = "Category 3 should contain 225 emoji";
   expect(component.categories(3).emoji().count, m).equal(69);
 
-  m = "Category 4 title should be 'Smileys & People'";
+  m = "Category 4 title should be 'Travel & Places'";
   expect(component.categories(4).title.text, m).equal('Travel & Places');
 
   m = "Category 4 should contain 225 emoji";
   expect(component.categories(4).emoji().count, m).equal(118);
 
-  m = "Category 5 title should be 'Smileys & People'";
+  m = "Category 5 title should be 'Objects'";
   expect(component.categories(5).title.text, m).equal('Objects');
 
   m = "Category 5 should contain 225 emoji";
   expect(component.categories(5).emoji().count, m).equal(180);
 
-  m = "Category 6 title should be 'Smileys & People'";
+  m = "Category 6 title should be 'Symbols'";
   expect(component.categories(6).title.text, m).equal('Symbols');
 
   m = "Category 6 should contain 225 emoji";
   expect(component.categories(6).emoji().count, m).equal(275);
 
-  m = "Category 7 title should be 'Smileys & People'";
+  m = "Category 7 title should be 'Flags'";
   expect(component.categories(7).title.text, m).equal('Flags');
 
   m = "Category 7 should contain 225 emoji";
