@@ -3,13 +3,18 @@
   $emoji-size:        20px
   $menu-item-padding: 10px
 
+
+
   ////------------------------------------------
   .eeo-emojiPicker
     //------------------------------------------
 
     // ----- Layout -----
-    width:    ($emoji-size + $menu-item-padding * 2) * 8
-    overflow: hidden
+    width:      ($emoji-size + $menu-item-padding * 2) * 8
+    overflow:   hidden
+    box-sizing: border-box
+    *
+      box-sizing: inherit
 
     // ----- Looks -----
     background-color: white
@@ -73,6 +78,7 @@
 
     // ----- Looks -----
     background-color: red
+    transition: left 0.2s, right 0.2s
 
 
 
@@ -166,6 +172,10 @@
     background-color: #eee
     padding:          $menu-item-padding / 2
 
+    // ----- Content layout -----
+    .eeo-emojiPicker-filter
+      width: 50%
+
 
 
   ////------------------------------------------
@@ -176,6 +186,9 @@
     position: relative
 
     // ----- Content layout -----
+    .eeo-emojiPicker-filter-input
+      width: 100%
+
     .eeo-emojiPicker-filter-clear
       position:   absolute
       right:      4px
