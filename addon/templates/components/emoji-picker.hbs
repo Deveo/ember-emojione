@@ -14,16 +14,24 @@
   class = "eeo-emojiPicker-scrollable"
   id    = {{scrollableId}}
 >
-  {{#each emojiService.categories as |category|}}
-    {{#with (get emojiByCategoryIdFiltered category.id) as |emoji|}}
-      {{emoji-picker/category
-        emoji        = emoji
-        category     = category
-        filterInput  = filterInput
-        selectAction = selectAction
-      }}
-    {{/with}}
-  {{/each}}
+  {{#if filteredEmojiCount}}
+    {{#each emojiService.categories as |category|}}
+      {{#with (get emojiByCategoryIdFiltered category.id) as |emoji|}}
+        {{emoji-picker/category
+          emoji        = emoji
+          category     = category
+          filterInput  = filterInput
+          selectAction = selectAction
+        }}
+      {{/with}}
+    {{/each}}
+  {{else}}
+    <div class = "eeo-emojiPicker-category">
+      <div class = "eeo-emojiPicker-category-title">
+        No emoji found.
+      </div>
+    </div>
+  {{/if}}
 </div>{{! .eeo-emojiPicker-scrollable }}
 
 

@@ -81,6 +81,31 @@ export default Component.extend({
 
 
 
+  filteredEmojiCount: computed(
+    'emojiByCategoryIdFiltered.people.length',
+    'emojiByCategoryIdFiltered.nature.length',
+    'emojiByCategoryIdFiltered.food.length',
+    'emojiByCategoryIdFiltered.activity.length',
+    'emojiByCategoryIdFiltered.travel.length',
+    'emojiByCategoryIdFiltered.objects.length',
+    'emojiByCategoryIdFiltered.symbols.length',
+    'emojiByCategoryIdFiltered.flags.length',
+    function () {
+      return (
+        this.get('emojiByCategoryIdFiltered.people.length')
+        + this.get('emojiByCategoryIdFiltered.nature.length')
+        + this.get('emojiByCategoryIdFiltered.food.length')
+        + this.get('emojiByCategoryIdFiltered.activity.length')
+        + this.get('emojiByCategoryIdFiltered.travel.length')
+        + this.get('emojiByCategoryIdFiltered.objects.length')
+        + this.get('emojiByCategoryIdFiltered.symbols.length')
+        + this.get('emojiByCategoryIdFiltered.flags.length')
+      );
+    }
+  ),
+
+
+
   _applyFilterInput(filterInput) {
     if (this.get('isDestroying') || this.get('isDestroyed')) return;
 
