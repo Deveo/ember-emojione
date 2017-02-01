@@ -167,6 +167,19 @@ Values shown below are the defaults. If you're happy with them, you don't need t
 ```
 
 
+### Including component styles
+
+Skip this section if you're not using this addon's components.
+
+Until [#38](https://github.com/Deveo/ember-emojione/issues/38) is implemented, this addon requires [ember-cli-sass](https://github.com/aexmachina/ember-cli-sass) to be installed in your app.
+
+Import the addon's own stylesheet into your Sass:
+
+```scss
+@import 'ember-emojione';
+```
+
+
 ## Runtime Configuration in `config/environment.js`
 
 Configuration is optional. If you're happy with defaults shown below, you don't need to edit `config/environment.js`.
@@ -290,7 +303,7 @@ For a [cross-browser](http://caniuse.com/#feat=transforms2d) solution, use the c
 
 
 
-### Using from JS
+#### Using from JS
 
 You can inject emoji programmatically via the `injectEmoji` convenience function:
 
@@ -329,7 +342,7 @@ typeof resultSafeString.toString(); // => "string"
 
 
 
-### Skipping code blocks
+#### Skipping code blocks
 
 `inject-emoji` will ignore emoji located within portions of the input string that match given regular expression.
 
@@ -341,7 +354,35 @@ To disable skipping, set `regexToSkip` to `false`.
 
 
 
-## Using the `emojione` JS library directly
+### `emoji-picker` component
+
+This component is used to select emoji from a list.
+
+Render it like this:
+
+```handlebars
+{{#if isPickerVisible}}
+  {{emoji-picker
+    selectAction = (action 'selectEmoji')
+  }}
+{{/if}}
+```
+
+
+
+#### Options
+
+| Option             | Type    | Default value     | Description                                             |
+|:-------------------|:--------|:------------------|:--------------------------------------------------------|
+| `selectAction`     | action  | mandatory         | Action to execute when an emoji is clicked              |
+| `disableAutoFocus` | Boolean | `false`           | Prevents from focusing on component when first rendered |
+| `textNoEmojiFound` | String  | "No emoji found." | Override for i18n.                                      |
+| `textSearch`       | String  | "Search"          | Override for i18n.                                      |
+| `textClearSearch`  | String  | "Clear search"    | Override for i18n.                                      |
+
+
+
+### Using the `emojione` JS library directly
 
 The `emojione` library makes itself available as a global.
 
@@ -350,6 +391,15 @@ To help you stay true to the Ember way, this addon lets you import the library a
 ```js
 import emojione from 'emojione';
 ```
+
+
+### i18n
+
+The addon itself does not integrate with any i18n solution.
+
+Components accept i18n strings as arguments. You can subclass components to change defaults.
+
+In order to translate emoji descriptions (visibile on some emoji on hover), you'll have to override the `emojiDefs` property on the `emoji` service.
 
 
 

@@ -14,6 +14,9 @@ export default Component.extend({
 
   selectAction:     undefined,
   disableAutoFocus: false,
+  textNoEmojiFound: "No emoji found.",
+  textSearch:       "Search",
+  textClearSearch:  "Clear search",
 
 
 
@@ -48,24 +51,85 @@ export default Component.extend({
 
   emojiByCategoryIdFiltered: computed(
     'filterInput',
+    'emojiService.currentSkinTone',
     'emojiService.categories.@each.id',
-    'emojiService.currentSkinToneEmoji__people',
-    'emojiService.currentSkinToneEmoji__nature',
-    'emojiService.currentSkinToneEmoji__food',
-    'emojiService.currentSkinToneEmoji__activity',
-    'emojiService.currentSkinToneEmoji__travel',
-    'emojiService.currentSkinToneEmoji__objects',
-    'emojiService.currentSkinToneEmoji__symbols',
-    'emojiService.currentSkinToneEmoji__flags',
+
+    'emojiService.people__tone_default',
+    'emojiService.nature__tone_default',
+    'emojiService.food__tone_default',
+    'emojiService.activity__tone_default',
+    'emojiService.travel__tone_default',
+    'emojiService.objects__tone_default',
+    'emojiService.symbols__tone_default',
+    'emojiService.flags__tone_default',
+    'emojiService.regional__tone_default',
+    'emojiService.modifier__tone_default',
+
+    'emojiService.people__tone_1',
+    'emojiService.nature__tone_1',
+    'emojiService.food__tone_1',
+    'emojiService.activity__tone_1',
+    'emojiService.travel__tone_1',
+    'emojiService.objects__tone_1',
+    'emojiService.symbols__tone_1',
+    'emojiService.flags__tone_1',
+    'emojiService.regional__tone_1',
+    'emojiService.modifier__tone_1',
+
+    'emojiService.people__tone_2',
+    'emojiService.nature__tone_2',
+    'emojiService.food__tone_2',
+    'emojiService.activity__tone_2',
+    'emojiService.travel__tone_2',
+    'emojiService.objects__tone_2',
+    'emojiService.symbols__tone_2',
+    'emojiService.flags__tone_2',
+    'emojiService.regional__tone_2',
+    'emojiService.modifier__tone_2',
+
+    'emojiService.people__tone_3',
+    'emojiService.nature__tone_3',
+    'emojiService.food__tone_3',
+    'emojiService.activity__tone_3',
+    'emojiService.travel__tone_3',
+    'emojiService.objects__tone_3',
+    'emojiService.symbols__tone_3',
+    'emojiService.flags__tone_3',
+    'emojiService.regional__tone_3',
+    'emojiService.modifier__tone_3',
+
+    'emojiService.people__tone_4',
+    'emojiService.nature__tone_4',
+    'emojiService.food__tone_4',
+    'emojiService.activity__tone_4',
+    'emojiService.travel__tone_4',
+    'emojiService.objects__tone_4',
+    'emojiService.symbols__tone_4',
+    'emojiService.flags__tone_4',
+    'emojiService.regional__tone_4',
+    'emojiService.modifier__tone_4',
+
+    'emojiService.people__tone_5',
+    'emojiService.nature__tone_5',
+    'emojiService.food__tone_5',
+    'emojiService.activity__tone_5',
+    'emojiService.travel__tone_5',
+    'emojiService.objects__tone_5',
+    'emojiService.symbols__tone_5',
+    'emojiService.flags__tone_5',
+    'emojiService.regional__tone_5',
+    'emojiService.modifier__tone_5',
+
     function () {
-      const filterInput = this.get('filterInput');
-      const filterStrs  = filterInput.length ? filterInput.split(' ') : null;
+      const currentSkinTone = this.get('emojiService.currentSkinTone');
+      const filterInput     = this.get('filterInput');
+      const filterStrs      = filterInput.length ? filterInput.split(' ') : null;
 
       return this
         .get('emojiService.categories')
         .reduce((result, category) => {
           const categoryId      = category.get('id');
-          const emojiPropName   = `emojiService.currentSkinToneEmoji__${categoryId}`;
+          const emojiPropName   = `emojiService.${categoryId}__tone_${currentSkinTone}`;
           const emojiUnfiltered = this.get(emojiPropName);
 
           const emojiFiltered =

@@ -28,7 +28,7 @@
   {{else}}
     <div class = "eeo-emojiPicker-category">
       <div class = "eeo-emojiPicker-category-title">
-        No emoji found.
+        {{textNoEmojiFound}}
       </div>
     </div>
   {{/if}}
@@ -43,16 +43,17 @@
         _filterInput
         class       = "eeo-emojiPicker-filter-input"
         update      = (action 'inputFilteringText')
-        placeholder = "Search"
+        placeholder = textSearch
       }}
     {{/auto-focus}}
 
     <a
       href
       class = "eeo-emojiPicker-filter-clear {{if filterInput.length '' '_disabled'}}"
+      title = {{textClearSearch}}
       {{action 'inputFilteringText' ''}}
     >
-      {{{inject-emoji ":heavy_multiplication_x:"}}}
+      {{{inject-emoji ":heavy_multiplication_x:" emojione = (hash imageTitleTag = false)}}}
     </a>
   </div>{{! .eeo-emojiPicker-filter }}
 

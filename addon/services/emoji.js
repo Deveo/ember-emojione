@@ -5,8 +5,6 @@ import {assert} from  'ember-metal/utils';
 import {A} from 'ember-array/utils';
 import {setProperties} from 'ember-metal/set';
 import {htmlSafe} from 'ember-string';
-import getFromSelfCP from 'ember-emojione/cp-macros/get-from-self';
-import templateString from 'ember-computed-template-string';
 
 import {default as EObject} from 'ember-object';
 const  O = EObject.create.bind(EObject);
@@ -174,24 +172,6 @@ export default Service.extend({
   flags__tone_5:    filterBy('emoji__tone_5', 'category', 'flags'),
   regional__tone_5: filterBy('emoji__tone_5', 'category', 'regional'),
   modifier__tone_5: filterBy('emoji__tone_5', 'category', 'modifier'),
-
-  currentCategoryName_people:   templateString("people__tone_${currentSkinTone}"),
-  currentCategoryName_nature:   templateString("nature__tone_${currentSkinTone}"),
-  currentCategoryName_food:     templateString("food__tone_${currentSkinTone}"),
-  currentCategoryName_activity: templateString("activity__tone_${currentSkinTone}"),
-  currentCategoryName_travel:   templateString("travel__tone_${currentSkinTone}"),
-  currentCategoryName_objects:  templateString("objects__tone_${currentSkinTone}"),
-  currentCategoryName_symbols:  templateString("symbols__tone_${currentSkinTone}"),
-  currentCategoryName_flags:    templateString("flags__tone_${currentSkinTone}"),
-
-  currentSkinToneEmoji__people:   getFromSelfCP('currentCategoryName_people'),
-  currentSkinToneEmoji__nature:   getFromSelfCP('currentCategoryName_nature'),
-  currentSkinToneEmoji__food:     getFromSelfCP('currentCategoryName_food'),
-  currentSkinToneEmoji__activity: getFromSelfCP('currentCategoryName_activity'),
-  currentSkinToneEmoji__travel:   getFromSelfCP('currentCategoryName_travel'),
-  currentSkinToneEmoji__objects:  getFromSelfCP('currentCategoryName_objects'),
-  currentSkinToneEmoji__symbols:  getFromSelfCP('currentCategoryName_symbols'),
-  currentSkinToneEmoji__flags:    getFromSelfCP('currentCategoryName_flags'),
 
   _prepareEmojo(emojiDefs, id) {
     const emojo = emojiDefs[id];
