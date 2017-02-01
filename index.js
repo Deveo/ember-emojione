@@ -159,13 +159,11 @@ module.exports = {
   _generateTreeForPngSprite() {
     const opts       = this._emojiOptions;
 
-    console.log('options', opts)
     if (!opts.shouldIncludePngSprite) return;
 
     const packageDir = opts.separatePackages ? opts.packageNamePngSprite : opts.packageNameMain;
     const baseDir    = `${opts.bowerDir}/${packageDir}${opts.separatePackages ? '' : '/assets/sprites'}`;
 
-    console.log('baseDir', baseDir)
     return new Funnel(baseDir, {
       include: ['*.png'],
       getDestinationPath() {

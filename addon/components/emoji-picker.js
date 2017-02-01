@@ -19,7 +19,7 @@ export default Component.extend(ClickOutsideMixin, {
   closeAction:         undefined,
   shouldCloseOnSelect: false,
   disableAutoFocus:    false,
-  textNoEmojiFound:    "No emoji found.",
+  textNoEmojiFound:    "No emoji found",
   textSearch:          "Search",
   textClearSearch:     "Clear search",
 

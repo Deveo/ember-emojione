@@ -379,7 +379,7 @@ Render it like this:
 | `closeAction`         | action  | `undefined`         | Action to execute on click outside of the component           |
 | `shouldCloseOnSelect` | Boolean | `false`             | Whether to execute the close action when an emoji is selected |
 | `disableAutoFocus`    | Boolean | `false`             | Prevents from focusing on component when first rendered       |
-| `textNoEmojiFound`    | String  | `"No emoji found."` | Override for i18n                                             |
+| `textNoEmojiFound`    | String  | `"No emoji found"`  | Override for i18n                                             |
 | `textSearch`          | String  | `"Search"`          | Override for i18n                                             |
 | `textClearSearch`     | String  | `"Clear search"`    | Override for i18n                                             |
 
