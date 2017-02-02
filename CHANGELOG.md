@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 
 
+## [0.3.1] - 2017.02.02
+### Fixed
+- Moved Broccoli plugins into `dependencies`
+
+
+
 ## [0.3.0] - 2017.02.02
 ### Documentation
 - Huge update to the readme
