@@ -1,10 +1,10 @@
-/* globals emojione */
-
 import Helper from 'ember-helper';
 import { htmlSafe } from 'ember-string';
 import isHTMLSafe from 'ember-string-ishtmlsafe-polyfill';
 import config from 'ember-get-config';
 import { getProperties } from 'ember-metal/get';
+import opts from 'ember-emojione/config';
+import emojione from 'emojione';
 
 
 
@@ -44,14 +44,21 @@ const InjectEmoji = Helper.extend({
 
 
   _mergeOptions(overrideOptions = {}) {
-    const defaultOptions = config[ 'ember-emojione' ] || {};
+    const envOptions = config[ 'ember-emojione' ] || {};
 
     return {
-      ...defaultOptions,
+      ...envOptions,
       ...overrideOptions,
 
       emojione: {
-        ...defaultOptions.emojione  || {},
+        imagePathPNG:        opts.shouldIncludePngImages ? '../ember-emojione/png'                  : null,
+        imagePathSVG:        opts.shouldIncludeSvgImages ? '/ember-emojione/svg/'                  : null,
+        imagePathSVGSprites: opts.shouldIncludeSvgSprite ? '/ember-emojione/emojione.sprites.svg' : null,
+
+        ...envOptions.emojione  || {},
+
+        sprites: opts.spriteSheet,
+
         ...overrideOptions.emojione || {},
       }
     };

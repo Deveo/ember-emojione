@@ -1,0 +1,12 @@
+{{#scroll-to
+  class      = "eeo-emojiPicker-nav-item-link"
+  target     = (concat '.eeo-emojiPicker-category._' categoryObj.category.id)
+  scrollable = (concat '#' scrollableId)
+}}
+  {{{inject-emoji categoryObj.category.icon  emojione = (hash imageTitleTag = false)}}}
+{{/scroll-to}}
+
+<div
+  class = "eeo-emojiPicker-nav-item-bar"
+  style = {{categoryObj.style}}
+></div>

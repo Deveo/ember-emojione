@@ -9,6 +9,5 @@
     });
   }
 
-  generateModule('emojione', { 'default': emojione });
+  generateModule('emojione', { default: emojione });
 })();
-i

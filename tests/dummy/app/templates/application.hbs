@@ -4,15 +4,30 @@
   <a href="https://github.com/Deveo/ember-emojione">Source on GitHub</a>
 </p>
 
-<h2>Input</h2>
-<p>
-  {{textarea value=inputStr}}
-</p>
-
 <h2>Output</h2>
 <p>
   {{{inject-emoji inputStrHtmlSafe}}}
 </p>
+
+<h2>Input</h2>
+  {{textarea value=inputStr}}
+
+
+  <span class="togglePickerWrapper">
+    <button
+      class = "toggleEmoji"
+      {{action 'togglePicker'}}
+    >
+      {{{inject-emoji ":smile:"}}}
+    </button>
+
+    {{#if isPickerVisible}}
+      {{emoji-picker
+        selectAction = (action 'selectEmoji')
+        closeAction  = (action 'togglePicker')
+      }}
+    {{/if}}
+  </span>
 
 <h2>Source</h2>
 

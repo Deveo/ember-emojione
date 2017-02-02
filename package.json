@@ -1,6 +1,6 @@
 {
   "name": "ember-emojione",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "description": "EmojiOne helper and components for your Ember App.",
   "keywords": [
     "ember-addon",
@@ -28,11 +28,17 @@
     "test": "ember try:each"
   },
   "dependencies": {
+    "broccoli-file-creator": "^1.1.1",
+    "broccoli-funnel": "^1.1.0",
+    "broccoli-json-module": "^1.0.0",
+    "broccoli-merge-trees": "^1.2.1",
+    "ember-auto-focus": "^1.0.5",
     "ember-cli-babel": "^5.1.7",
-    "ember-cli-eslint": "^3.0.2",
+    "ember-cli-htmlbars": "^1.1.1",
+    "ember-click-outside": "^0.1.5",
     "ember-get-config": "^0.2.0",
-    "ember-string-ishtmlsafe-polyfill": "^1.0.1",
-    "eslint-plugin-ember-suave": "^1.0.0"
+    "ember-scroll-to-mk2": "^1.1.0",
+    "ember-string-ishtmlsafe-polyfill": "^1.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
@@ -46,11 +52,14 @@
     "ember-cli-deploy": "^1.0.0-beta.2",
     "ember-cli-deploy-build": "^0.1.1",
     "ember-cli-deploy-ghpages": "^0.2.0",
-    "ember-cli-htmlbars": "^1.1.1",
+    "ember-cli-eslint": "^3.0.2",
+    "ember-cli-file-creator": "^0.4.0",
     "ember-cli-htmlbars-inline-precompile": "^0.3.3",
     "ember-cli-inject-live-reload": "^1.4.1",
+    "ember-cli-page-object": "^1.8.0",
     "ember-cli-qunit": "^3.0.1",
     "ember-cli-release": "^1.0.0-beta.2",
+    "ember-cli-sass": "^6.1.1",
     "ember-cli-shims": "^1.0.2",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-test-loader": "^1.1.0",
@@ -59,7 +68,9 @@
     "ember-export-application-global": "^1.0.5",
     "ember-load-initializers": "^0.6.0",
     "ember-resolver": "^2.0.3",
+    "ember-sinon": "^0.6.0",
     "ember-source": "^2.11.0",
+    "eslint-plugin-ember-suave": "^1.0.0",
     "loader.js": "^4.0.10"
   },
   "engines": {

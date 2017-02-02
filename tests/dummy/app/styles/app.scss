@@ -1,0 +1,28 @@
+@import 'ember-emojione';
+
+.emojione {
+  @include emojione-size(20px);
+}
+
+.toggleEmoji {
+  padding-top: 7px;
+}
+
+.togglePickerWrapper {
+  position: relative;
+  display: inline-block;
+
+  > span {
+    vertical-align: middle;
+  }
+
+  .eeo-emojiPicker {
+    position: absolute;
+    top: 0;
+    left: 110%;
+
+    &.-hidden {
+      display: none;
+    }
+  }
+}
