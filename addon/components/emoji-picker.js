@@ -6,10 +6,11 @@ import layout from '../templates/components/emoji-picker';
 import service from 'ember-service/inject';
 import observer from 'ember-metal/observer';
 import ClickOutsideMixin from 'ember-click-outside/mixins/click-outside';
-
 import {A} from 'ember-array/utils';
 import {default as EObject} from 'ember-object';
 const  O = EObject.create.bind(EObject);
+
+const EMOJI_PICKER_SCROLLABLE_ELEMENT = '.eeo-emojiPicker-scrollable';
 
 export default Component.extend(ClickOutsideMixin, {
 
@@ -38,7 +39,7 @@ export default Component.extend(ClickOutsideMixin, {
   }),
 
   $scrollable: computed(function () {
-    return this.$('.eeo-emojiPicker-scrollable');
+    return this.$(EMOJI_PICKER_SCROLLABLE_ELEMENT);
   }),
 
   categorySections: computed('emojiService.categories', function () {
@@ -240,7 +241,7 @@ export default Component.extend(ClickOutsideMixin, {
     this._updateScroll();
 
     this
-      .$('.eeo-emojiPicker-scrollable')
+      .$(EMOJI_PICKER_SCROLLABLE_ELEMENT)
       .on('scroll.eeo', () => throttle(this, this._updateScroll, 200, false));
 
     next(() => this.addClickOutsideListener());
@@ -252,7 +253,7 @@ export default Component.extend(ClickOutsideMixin, {
     this._super(...arguments);
 
     this
-      .$('.eeo-emojiPicker-scrollable')
+      .$(EMOJI_PICKER_SCROLLABLE_ELEMENT)
       .off('scroll.eeo');
 
     this.removeClickOutsideListener();
