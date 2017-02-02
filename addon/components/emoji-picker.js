@@ -14,16 +14,16 @@ const O = EObject.create.bind(EObject);
 const EMOJI_PICKER_SCROLLABLE_ELEMENT = '.eeo-emojiPicker-scrollable';
 const DEPENDENT_KEYS_FOR_EMOJI_CATEGORIES = EMOJI_CATEGORIES_ARRAY.join(',');
 const DEPENDENT_KEYS_FOR_EMOJI_SERVICE = (() => {
-  let keys = [];
+  const dependentKeys = [];
 
   EMOJI_CATEGORIES_ARRAY.forEach(category => {
     EMOJI_TONES_ARRAY.forEach(tone => {
-      const value = `emojiService.${category}__tone_${tone}`;
-      keys.push(value);
+      const key = `emojiService.${category}__tone_${tone}`;
+      dependentKeys.push(key);
     });
   });
 
-  return keys.join(',');
+  return dependentKeys.join(',');
 })();
 
 export default Component.extend(ClickOutsideMixin, {
