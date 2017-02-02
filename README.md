@@ -46,7 +46,7 @@ Demo: https://deveo.github.io/ember-emojione/ :sparkles:
     * [Installation](#installation)
     * [Running](#running)
     * [Running Tests](#running-tests)
-    * [Do not use <code>npm</code> or <code>ember install</code>, use <code>yarn</code>](#do-not-use-npm-or-ember-install-use-yarn)
+    * [Do not use npm or ember install, use yarn](#do-not-use-npm-or-ember-install-use-yarn)
     * [Branch names](#branch-names)
     * [Demo deployment](#demo-deployment)
 * [Credits](#credits)
