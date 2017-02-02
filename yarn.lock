@@ -2000,17 +2000,6 @@ ember-click-outside@^0.1.5:
     ember-cli-babel "^5.1.7"
     ember-cli-htmlbars "*"
 
-ember-computed-template-string-parser@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/ember-computed-template-string-parser/-/ember-computed-template-string-parser-0.1.0.tgz#795b445af2c761771981f2948bd934b1a437cc73"
-
-ember-computed-template-string@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/ember-computed-template-string/-/ember-computed-template-string-0.1.4.tgz#e9d77d58cfd17cd390d9497507e6c0b4c27cc0d7"
-  dependencies:
-    ember-cli-babel "^5.1.6"
-    ember-computed-template-string-parser "0.1.0"
-
 ember-disable-prototype-extensions@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/ember-disable-prototype-extensions/-/ember-disable-prototype-extensions-1.1.0.tgz#86081c8cf6741f26e4b89e2b004f761174313e01"

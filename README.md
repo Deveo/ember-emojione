@@ -385,6 +385,43 @@ Render it like this:
 
 
 
+#### Inserting emoji into an input
+
+Most likely, you want to insert an emoji into caret position/replace a selection.
+
+You can use this snippet in parent component:
+
+```js
+import get from 'ember-metal/get';
+import {next} from 'ember-runloop';
+
+{
+  text: '', // where the text is stored
+
+  $textArea: computed(function () {
+    return this.$("textarea");
+  }),
+
+  actions: {
+    selectEmoji(emojo) {
+      const text             = this.get("text") || "";
+      const $textArea        = this.get("$textArea");
+      const selectionStart   = $textArea.prop("selectionStart");
+      const selectionEnd     = $textArea.prop("selectionEnd");
+      const before           = text.slice(0, selectionStart);
+      const after            = text.slice(selectionEnd);
+      const emojiCode        = get(emojo, "shortname");
+      const result           = before + emojiCode + after;
+      const newCaretPosition = before.length + emojiCode.length;
+
+      this.set("text", result);
+      next(() => $textArea.prop("selectionEnd", newCaretPosition));
+    }
+  }
+}
+```
+
+
 ### Using the `emojione` JS library directly
 
 The `emojione` library makes itself available as a global.

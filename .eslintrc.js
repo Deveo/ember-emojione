@@ -19,6 +19,7 @@ module.exports = {
     "comma-dangle": "off",
     "curly": "off",
     "ember-suave/no-const-outside-module-scope": "off",
+    "ember-suave/prefer-destructuring": "off",
     "ember-suave/require-access-in-comments": "off",
     "generator-star-spacing": ["error", "both"],
     "key-spacing": "off",
