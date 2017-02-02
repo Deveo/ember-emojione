@@ -41,12 +41,12 @@
 <div class = "eeo-emojiPicker-footer">
   <div class = "eeo-emojiPicker-filter">
     {{#auto-focus disabled=disableAutoFocus}}
-      {{one-way-input
-        _filterInput
-        class       = "eeo-emojiPicker-filter-input"
-        update      = (action 'inputFilteringText')
-        placeholder = textSearch
-        onenter = (action 'enterPressedInInput')
+      {{input
+        value          = _filterInput
+        class          = "eeo-emojiPicker-filter-input"
+        placeholder    = textSearch
+        update         = (action 'inputFilteringText')
+        insert-newline = (action 'enterPressedInInput')
       }}
     {{/auto-focus}}
 

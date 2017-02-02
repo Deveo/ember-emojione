@@ -67,8 +67,8 @@ export default Component.extend(ClickOutsideMixin, {
     'emojiService.objects__tone_default',
     'emojiService.symbols__tone_default',
     'emojiService.flags__tone_default',
-    'emojiService.regional__tone_default',
-    'emojiService.modifier__tone_default',
+    // 'emojiService.regional__tone_default',
+    // 'emojiService.modifier__tone_default',
 
     'emojiService.people__tone_1',
     'emojiService.nature__tone_1',
@@ -78,8 +78,8 @@ export default Component.extend(ClickOutsideMixin, {
     'emojiService.objects__tone_1',
     'emojiService.symbols__tone_1',
     'emojiService.flags__tone_1',
-    'emojiService.regional__tone_1',
-    'emojiService.modifier__tone_1',
+    // 'emojiService.regional__tone_1',
+    // 'emojiService.modifier__tone_1',
 
     'emojiService.people__tone_2',
     'emojiService.nature__tone_2',
@@ -89,8 +89,8 @@ export default Component.extend(ClickOutsideMixin, {
     'emojiService.objects__tone_2',
     'emojiService.symbols__tone_2',
     'emojiService.flags__tone_2',
-    'emojiService.regional__tone_2',
-    'emojiService.modifier__tone_2',
+    // 'emojiService.regional__tone_2',
+    // 'emojiService.modifier__tone_2',
 
     'emojiService.people__tone_3',
     'emojiService.nature__tone_3',
@@ -100,8 +100,8 @@ export default Component.extend(ClickOutsideMixin, {
     'emojiService.objects__tone_3',
     'emojiService.symbols__tone_3',
     'emojiService.flags__tone_3',
-    'emojiService.regional__tone_3',
-    'emojiService.modifier__tone_3',
+    // 'emojiService.regional__tone_3',
+    // 'emojiService.modifier__tone_3',
 
     'emojiService.people__tone_4',
     'emojiService.nature__tone_4',
@@ -111,8 +111,8 @@ export default Component.extend(ClickOutsideMixin, {
     'emojiService.objects__tone_4',
     'emojiService.symbols__tone_4',
     'emojiService.flags__tone_4',
-    'emojiService.regional__tone_4',
-    'emojiService.modifier__tone_4',
+    // 'emojiService.regional__tone_4',
+    // 'emojiService.modifier__tone_4',
 
     'emojiService.people__tone_5',
     'emojiService.nature__tone_5',
@@ -122,8 +122,8 @@ export default Component.extend(ClickOutsideMixin, {
     'emojiService.objects__tone_5',
     'emojiService.symbols__tone_5',
     'emojiService.flags__tone_5',
-    'emojiService.regional__tone_5',
-    'emojiService.modifier__tone_5',
+    // 'emojiService.regional__tone_5',
+    // 'emojiService.modifier__tone_5',
 
     function () {
       const filterInput     = this.get('filterInput');

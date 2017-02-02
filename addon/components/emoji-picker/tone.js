@@ -1,7 +1,7 @@
 import Component from 'ember-component';
 import service from 'ember-service/inject';
 import computed from 'ember-computed';
-import templateString from 'ember-computed-template-string';
+import templateString from 'ember-emojione/cp-macros/template-string';
 
 
 

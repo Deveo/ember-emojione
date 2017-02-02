@@ -24,7 +24,15 @@ module.exports = {
 
   // Import JS and CSS
   included(app) {
-    this._super.included(app);
+    this._super.included.apply(this, arguments);
+
+    // Not sure if this snippet is necessary here.
+    // "@tbieniek: this code is needed if you want your addon to run in other addons."
+    // More info here: https://github.com/ember-cli/ember-cli/issues/3718
+    while (typeof app.import !== 'function' && app.app) {
+      app = app.app;
+    }
+
     this._prepareOptions(app);
     this._importEmojiOneJS(app);
     this._importEmojiOneCSS(app);

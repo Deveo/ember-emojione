@@ -1,7 +1,7 @@
 import Component from 'ember-component';
 import layout from '../../templates/components/emoji-picker/category';
 import service from 'ember-service/inject';
-import templateString from 'ember-computed-template-string';
+import templateString from 'ember-emojione/cp-macros/template-string';
 
 
 
@@ -15,5 +15,5 @@ export default Component.extend({
   layout,
   classNameBindings: [':eeo-emojiPicker-category', 'categoryClass'],
 
-  categoryClass:      templateString('_${category.id}'),
+  categoryClass: templateString('_${category.id}'),
 });
