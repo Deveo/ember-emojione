@@ -135,7 +135,10 @@ export default Component.extend(ClickOutsideMixin, {
     this
       .get('categorySections')
       .forEach(section => {
-        const $category = this.$(`.eeo-emojiPicker-category._${section.category.get('id')} .eeo-emojiPicker-category-emoji`);
+        const id = section.category.get('id');
+        const $category = this.$(
+          `.eeo-emojiPicker-category._${id} .eeo-emojiPicker-category-emoji`
+        );
 
         if (!$category.length) {
           section.set('style', htmlSafe(''));
