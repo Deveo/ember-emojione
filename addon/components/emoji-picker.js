@@ -13,12 +13,12 @@ import {EMOJI_CATEGORIES_ARRAY, EMOJI_TONES_ARRAY} from "../utils/constants";
 const O = EObject.create.bind(EObject);
 const EMOJI_PICKER_SCROLLABLE_ELEMENT = '.eeo-emojiPicker-scrollable';
 const DEPENDENT_KEYS_FOR_EMOJI_CATEGORIES = EMOJI_CATEGORIES_ARRAY.join(',');
-const DEPENDENT_KEYS_FOR_EMOJI_TONES = (() => {
+const DEPENDENT_KEYS_FOR_EMOJI_SERVICE = (() => {
   let keys = [];
 
   EMOJI_CATEGORIES_ARRAY.forEach(category => {
     EMOJI_TONES_ARRAY.forEach(tone => {
-      const value = `${category}__tone_${tone}`;
+      const value = `emojiService.${category}__tone_${tone}`;
       keys.push(value);
     });
   });
@@ -72,7 +72,7 @@ export default Component.extend(ClickOutsideMixin, {
     'filterInput',
     'emojiService.currentSkinTone',
     'emojiService.categories.@each.id',
-    DEPENDENT_KEYS_FOR_EMOJI_TONES,
+    DEPENDENT_KEYS_FOR_EMOJI_SERVICE,
     function () {
       const emojiCategories = this.get('emojiService.categories');
       const filterInput     = this.get('filterInput');
