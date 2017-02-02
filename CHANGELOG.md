@@ -5,9 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+
+
+## [0.3.0] - 2017.02.02
 ### Documentation
-- Explained how to customize path to PNG sprite file
-- Explained how to import sprite sheets as individual Bower packages
+- Huge update to the readme
+- 
+### Changed
+- Asset imports are now semi-automatic
+- 
+### Added
+- `emoji-picker` component! 😎
+
+
 
 ## [0.2.0] - 2017.01.25
 ### Changes
