@@ -116,10 +116,10 @@ export default Service.extend({
   _defineEmojiToneProperties() {
     this.get('emojiCategoryIds').forEach(category => {
       this.get('emojiToneIds').forEach(tone => {
-        const key = `${category}__tone_${tone}`;
+        const propertyName = `${category}__tone_${tone}`;
         const dependentKey = `emoji__tone_${tone}`;
 
-        this.set(key, filterBy(dependentKey, 'category', category));
+        this.set(propertyName, filterBy(dependentKey, 'category', category));
       });
     });
   },
