@@ -8,9 +8,23 @@ import observer from 'ember-metal/observer';
 import ClickOutsideMixin from 'ember-click-outside/mixins/click-outside';
 import {A} from 'ember-array/utils';
 import {default as EObject} from 'ember-object';
-const  O = EObject.create.bind(EObject);
+import {EMOJI_CATEGORIES_ARRAY, EMOJI_TONES_ARRAY} from "../utils/constants";
 
+const O = EObject.create.bind(EObject);
 const EMOJI_PICKER_SCROLLABLE_ELEMENT = '.eeo-emojiPicker-scrollable';
+const DEPENDENT_KEYS_FOR_EMOJI_CATEGORIES = EMOJI_CATEGORIES_ARRAY.join(',');
+const DEPENDENT_KEYS_FOR_EMOJI_TONES = (() => {
+  let keys = [];
+
+  EMOJI_CATEGORIES_ARRAY.forEach(category => {
+    EMOJI_TONES_ARRAY.forEach(tone => {
+      const value = `${category}__tone_${tone}`;
+      keys.push(value);
+    });
+  });
+
+  return keys.join(',');
+})();
 
 export default Component.extend(ClickOutsideMixin, {
 
@@ -58,73 +72,7 @@ export default Component.extend(ClickOutsideMixin, {
     'filterInput',
     'emojiService.currentSkinTone',
     'emojiService.categories.@each.id',
-
-    'emojiService.people__tone_default',
-    'emojiService.nature__tone_default',
-    'emojiService.food__tone_default',
-    'emojiService.activity__tone_default',
-    'emojiService.travel__tone_default',
-    'emojiService.objects__tone_default',
-    'emojiService.symbols__tone_default',
-    'emojiService.flags__tone_default',
-    'emojiService.regional__tone_default',
-    'emojiService.modifier__tone_default',
-
-    'emojiService.people__tone_1',
-    'emojiService.nature__tone_1',
-    'emojiService.food__tone_1',
-    'emojiService.activity__tone_1',
-    'emojiService.travel__tone_1',
-    'emojiService.objects__tone_1',
-    'emojiService.symbols__tone_1',
-    'emojiService.flags__tone_1',
-    'emojiService.regional__tone_1',
-    'emojiService.modifier__tone_1',
-
-    'emojiService.people__tone_2',
-    'emojiService.nature__tone_2',
-    'emojiService.food__tone_2',
-    'emojiService.activity__tone_2',
-    'emojiService.travel__tone_2',
-    'emojiService.objects__tone_2',
-    'emojiService.symbols__tone_2',
-    'emojiService.flags__tone_2',
-    'emojiService.regional__tone_2',
-    'emojiService.modifier__tone_2',
-
-    'emojiService.people__tone_3',
-    'emojiService.nature__tone_3',
-    'emojiService.food__tone_3',
-    'emojiService.activity__tone_3',
-    'emojiService.travel__tone_3',
-    'emojiService.objects__tone_3',
-    'emojiService.symbols__tone_3',
-    'emojiService.flags__tone_3',
-    'emojiService.regional__tone_3',
-    'emojiService.modifier__tone_3',
-
-    'emojiService.people__tone_4',
-    'emojiService.nature__tone_4',
-    'emojiService.food__tone_4',
-    'emojiService.activity__tone_4',
-    'emojiService.travel__tone_4',
-    'emojiService.objects__tone_4',
-    'emojiService.symbols__tone_4',
-    'emojiService.flags__tone_4',
-    'emojiService.regional__tone_4',
-    'emojiService.modifier__tone_4',
-
-    'emojiService.people__tone_5',
-    'emojiService.nature__tone_5',
-    'emojiService.food__tone_5',
-    'emojiService.activity__tone_5',
-    'emojiService.travel__tone_5',
-    'emojiService.objects__tone_5',
-    'emojiService.symbols__tone_5',
-    'emojiService.flags__tone_5',
-    'emojiService.regional__tone_5',
-    'emojiService.modifier__tone_5',
-
+    DEPENDENT_KEYS_FOR_EMOJI_TONES,
     function () {
       const emojiCategories = this.get('emojiService.categories');
       const filterInput     = this.get('filterInput');
@@ -152,25 +100,11 @@ export default Component.extend(ClickOutsideMixin, {
 
 
   filteredEmojiCount: computed(
-    'emojiByCategoryIdFiltered.people.length',
-    'emojiByCategoryIdFiltered.nature.length',
-    'emojiByCategoryIdFiltered.food.length',
-    'emojiByCategoryIdFiltered.activity.length',
-    'emojiByCategoryIdFiltered.travel.length',
-    'emojiByCategoryIdFiltered.objects.length',
-    'emojiByCategoryIdFiltered.symbols.length',
-    'emojiByCategoryIdFiltered.flags.length',
+    `emojiByCategoryIdFiltered.{${DEPENDENT_KEYS_FOR_EMOJI_CATEGORIES}}.length`,
     function () {
-      return (
-        this.get('emojiByCategoryIdFiltered.people.length')
-        + this.get('emojiByCategoryIdFiltered.nature.length')
-        + this.get('emojiByCategoryIdFiltered.food.length')
-        + this.get('emojiByCategoryIdFiltered.activity.length')
-        + this.get('emojiByCategoryIdFiltered.travel.length')
-        + this.get('emojiByCategoryIdFiltered.objects.length')
-        + this.get('emojiByCategoryIdFiltered.symbols.length')
-        + this.get('emojiByCategoryIdFiltered.flags.length')
-      );
+      return EMOJI_CATEGORIES_ARRAY.reduce((count, category) => {
+        return count + this.get(`emojiByCategoryIdFiltered.${category}.length`);
+      }, 0);
     }
   ),
 
