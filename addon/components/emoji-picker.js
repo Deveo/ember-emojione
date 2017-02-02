@@ -5,7 +5,6 @@ import {debounce, next, throttle} from 'ember-runloop';
 import layout from '../templates/components/emoji-picker';
 import service from 'ember-service/inject';
 import observer from 'ember-metal/observer';
-import get from 'ember-metal/get';
 import ClickOutsideMixin from 'ember-click-outside/mixins/click-outside';
 
 import {A} from 'ember-array/utils';
@@ -126,23 +125,26 @@ export default Component.extend(ClickOutsideMixin, {
     'emojiService.modifier__tone_5',
 
     function () {
+      const emojiCategories = this.get('emojiService.categories');
       const filterInput     = this.get('filterInput');
-      const filterStrs      = filterInput.length ? filterInput.split(' ') : null;
+      const hasFilters      = filterInput.length;
 
-      return this
-        .get('emojiService.categories')
-        .reduce((result, category) => {
-          const categoryId      = category.get('id');
-          const emojiUnfiltered = this._getEmojiForCategory(category);
+      function getFilteredEmoji(emoji) {
+        const filterStrs = filterInput.split(' ');
+        return emoji.filter(emojo =>
+          filterStrs.every(str => emojo.filterable.indexOf(str) > -1)
+        );
+      }
 
-          const emojiFiltered =
-            filterStrs
-            ? emojiUnfiltered.filter(emojo => filterStrs.every(str => emojo.filterable.indexOf(str) > -1))
-            : emojiUnfiltered;
+      return emojiCategories.reduce((result, category) => {
+        const categoryId = category.get('id');
+        const emoji      = this._getEmojiForCategoryId(categoryId);
+        const finalEmoji = hasFilters ? getFilteredEmoji(emoji) : emoji;
 
-          result.set(categoryId, emojiFiltered);
-          return result;
-        }, O());
+        result.set(categoryId, finalEmoji);
+
+        return result;
+      }, O());
     }
   ),
 
@@ -217,19 +219,16 @@ export default Component.extend(ClickOutsideMixin, {
   },
 
 
-
-  _getEmojiForCategory(category) {
-    if (typeof category !== 'string') category = get(category, 'id');
+  _getEmojiForCategoryId(categoryId) {
     const currentSkinTone = this.get('emojiService.currentSkinTone');
-    const emojiPropName = `emojiService.${category}__tone_${currentSkinTone}`;
+    const emojiPropName = `emojiService.${categoryId}__tone_${currentSkinTone}`;
     return this.get(emojiPropName);
   },
 
 
 
-  _getFilteredEmojiForCategory(category) {
-    if (typeof category !== 'string') category = get(category, 'id');
-    const emojiPropName = `emojiByCategoryIdFiltered.${category}`;
+  _getFilteredEmojiForCategoryId(categoryId) {
+    const emojiPropName = `emojiByCategoryIdFiltered.${categoryId}`;
     return this.get(emojiPropName);
   },
 
@@ -287,7 +286,7 @@ export default Component.extend(ClickOutsideMixin, {
       this
         .get('emojiService.categories')
         .find(category => {
-          const emoji = this._getFilteredEmojiForCategory(category);
+          const emoji = this._getFilteredEmojiForCategory(category.get('id'));
           if (emoji.length > 0) {
             emojo = emoji[0];
             return true;
