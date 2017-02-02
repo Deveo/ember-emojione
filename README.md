@@ -20,6 +20,40 @@ Demo: https://deveo.github.io/ember-emojione/ :sparkles:
 
 
 
+## Table of contents
+
+* [Quick installation](#quick-installation)
+* [Detailed Installation](#detailed-installation)
+    * [1. Installing the addon itself](#1-installing-the-addon-itself)
+    * [2. Installing the EmojiOne library](#2-installing-the-emojione-library)
+        * [Option 1: including only the necessary assets (recommended)](#option-1-including-only-the-necessary-assets-recommended)
+        * [Option 2: including the whole <code>emojione</code> package](#option-2-including-the-whole--package)
+    * [3. Asset configuration in <code>ember-cli-build.js</code> to tell the addon about the choices you made above](#3-asset-configuration-in--to-tell-the-addon-about-the-choices-you-made-above)
+    * [Including component styles](#including-component-styles)
+* [Runtime Configuration in <code>config/environment.js</code>](#runtime-configuration-in-)
+* [Usage](#usage)
+    * [<code>inject-emoji</code> helper](#-helper)
+        * [Overriding options](#overriding-options)
+        * [Customizing emoji size via CSS](#customizing-emoji-size-via-css)
+        * [Using from JS](#using-from-js)
+        * [Skipping code blocks](#skipping-code-blocks)
+    * [<code>emoji-picker</code> component](#-component)
+        * [Options](#options)
+        * [Inserting emoji into an input](#inserting-emoji-into-an-input)
+    * [Using the <code>emojione</code> JS library directly](#using-the--js-library-directly)
+    * [I18n](#i18n)
+* [Development](#development)
+    * [Installation](#installation)
+    * [Running](#running)
+    * [Running Tests](#running-tests)
+    * [Do not use <code>npm</code> or <code>ember install</code>, use <code>yarn</code>](#do-not-use--or--use-)
+    * [Branch names](#branch-names)
+    * [Demo deployment](#demo-deployment)
+* [Credits](#credits)
+* [License](#license)
+
+
+
 ## Quick installation
 
 If you don't want to go into the nuances of installation and configuration, use these short installation instructions. Then you can skip to the Usage section.
@@ -433,7 +467,7 @@ import emojione from 'emojione';
 ```
 
 
-### i18n
+### I18n
 
 The addon itself does not integrate with any i18n solution.
 
