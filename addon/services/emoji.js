@@ -99,22 +99,16 @@ export default Service.extend({
   emoji__tone_5: filterEmojiBySkinToneCP(5),
 
   init() {
-    this._defineEmojiCategoryProperties();
-    this._defineEmojiToneProperties();
-  },
-
-  // Defines computed properties for each category, for example:
-  // people: filterBy('emoji', 'category', 'people')
-  _defineEmojiCategoryProperties() {
-    this.get('emojiCategoryIds').forEach(category => {
-      this.set(category, filterBy('emoji', 'category', category));
-    });
+    this._defineEmojiComputedProperties();
   },
 
   // Defines computed properties for each category and tone, for example:
+  // people: filterBy('emoji', 'category', 'people')
   // people__tone_default: filterBy('emoji__tone_default', 'category', 'people')
-  _defineEmojiToneProperties() {
+  _defineEmojiComputedProperties() {
     this.get('emojiCategoryIds').forEach(category => {
+      this.set(category, filterBy('emoji', 'category', category));
+
       this.get('emojiToneIds').forEach(tone => {
         const propertyName = `${category}__tone_${tone}`;
         const dependentKey = `emoji__tone_${tone}`;
