@@ -2,7 +2,7 @@
 
 [![Travis build status](https://img.shields.io/travis/Deveo/ember-emojione.svg)](https://travis-ci.org/Deveo/ember-emojione)
 [![Ember Observer Score](http://emberobserver.com/badges/ember-emojione.svg)](http://emberobserver.com/addons/ember-emojione)
-[![npm package version](https://img.shields.io/npm/v/ember-emojione.svg)](https://www.npmjs.com/package/ember-emojione)opts.separatePackages
+[![npm package version](https://img.shields.io/npm/v/ember-emojione.svg)](https://www.npmjs.com/package/ember-emojione)
 [![license MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/Deveo/ember-emojione/blob/gen-1/LICENSE.md)
 ![ember-versions 1.13+](https://img.shields.io/badge/ember--versions-1.13%2B-yellowgreen.svg?bump)
 ![ember-cli 2.11.0](https://img.shields.io/badge/uses%20ember--cli-2.11.0-blue.svg?bump)
@@ -27,26 +27,26 @@ Demo: https://deveo.github.io/ember-emojione/ :sparkles:
     * [1. Installing the addon itself](#1-installing-the-addon-itself)
     * [2. Installing the EmojiOne library](#2-installing-the-emojione-library)
         * [Option 1: including only the necessary assets (recommended)](#option-1-including-only-the-necessary-assets-recommended)
-        * [Option 2: including the whole <code>emojione</code> package](#option-2-including-the-whole--package)
-    * [3. Asset configuration in <code>ember-cli-build.js</code> to tell the addon about the choices you made above](#3-asset-configuration-in--to-tell-the-addon-about-the-choices-you-made-above)
+        * [Option 2: including the whole emojione package](#option-2-including-the-whole-emojione-package)
+    * [3. Asset configuration in ember-cli-build.js to tell the addon about the choices you made above](#3-asset-configuration-in-ember-cli-buildjs-to-tell-the-addon-about-the-choices-you-made-above)
     * [Including component styles](#including-component-styles)
-* [Runtime Configuration in <code>config/environment.js</code>](#runtime-configuration-in-)
+* [Runtime Configuration in config/environment.js](#runtime-configuration-in-configenvironmentjs)
 * [Usage](#usage)
-    * [<code>inject-emoji</code> helper](#-helper)
+    * [inject-emoji helper](#inject-emoji-helper)
         * [Overriding options](#overriding-options)
         * [Customizing emoji size via CSS](#customizing-emoji-size-via-css)
         * [Using from JS](#using-from-js)
         * [Skipping code blocks](#skipping-code-blocks)
-    * [<code>emoji-picker</code> component](#-component)
+    * [emoji-picker component](#emoji-picker-component)
         * [Options](#options)
         * [Inserting emoji into an input](#inserting-emoji-into-an-input)
-    * [Using the <code>emojione</code> JS library directly](#using-the--js-library-directly)
+    * [Using the emojione JS library directly](#using-the-emojione-js-library-directly)
     * [I18n](#i18n)
 * [Development](#development)
     * [Installation](#installation)
     * [Running](#running)
     * [Running Tests](#running-tests)
-    * [Do not use <code>npm</code> or <code>ember install</code>, use <code>yarn</code>](#do-not-use--or--use-)
+    * [Do not use <code>npm</code> or <code>ember install</code>, use <code>yarn</code>](#do-not-use-npm-or-ember-install-use-yarn)
     * [Branch names](#branch-names)
     * [Demo deployment](#demo-deployment)
 * [Credits](#credits)
@@ -141,7 +141,7 @@ SVG sprite sheet:
 
 
 
-#### Option 2: including the whole `emojione` package
+#### Option 2: including the whole emojione package
 
 Including the whole package, which is over 90 MiB large, is only reasonable if you want to use individual images rather than sprite sheets AND you want to serve them locally rather than via the free CDN.
 
@@ -155,7 +155,7 @@ But every clean `bower install` will likely be substantially slower, including y
 
 
 
-### 3. Asset configuration in `ember-cli-build.js` to tell the addon about the choices you made above
+### 3. Asset configuration in ember-cli-build.js to tell the addon about the choices you made above
 
 Values shown below are the defaults. If you're happy with them, you don't need to edit `ember-cli-build.js` at all.
 
@@ -214,7 +214,7 @@ Import the addon's own stylesheet into your Sass:
 ```
 
 
-## Runtime Configuration in `config/environment.js`
+## Runtime Configuration in config/environment.js
 
 Configuration is optional. If you're happy with defaults shown below, you don't need to edit `config/environment.js`.
 
@@ -265,7 +265,7 @@ Things to note:
 
 ## Usage
 
-### `inject-emoji` helper
+### inject-emoji helper
 
 This helper is used to convert a string with emoji codes into a string of HTML with emoji images.
 
@@ -388,7 +388,7 @@ To disable skipping, set `regexToSkip` to `false`.
 
 
 
-### `emoji-picker` component
+### emoji-picker component
 
 This component is used to select emoji from a list.
 
@@ -456,7 +456,8 @@ import {next} from 'ember-runloop';
 ```
 
 
-### Using the `emojione` JS library directly
+
+### Using the emojione JS library directly
 
 The `emojione` library makes itself available as a global.
 
@@ -465,6 +466,7 @@ To help you stay true to the Ember way, this addon lets you import the library a
 ```js
 import emojione from 'emojione';
 ```
+
 
 
 ### I18n
@@ -504,7 +506,7 @@ In order to translate emoji descriptions (visibile on some emoji on hover), you'
 
 
 
-### Do not use `npm` or `ember install`, use `yarn`
+### Do not use npm or ember install, use yarn
 
 This project uses [Yarn](https://yarnpkg.com/) to lock dependencies. Install yarn with `npm i -g yarn`.
 
