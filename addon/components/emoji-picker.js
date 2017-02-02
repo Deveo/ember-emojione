@@ -8,23 +8,14 @@ import observer from 'ember-metal/observer';
 import ClickOutsideMixin from 'ember-click-outside/mixins/click-outside';
 import {A} from 'ember-array/utils';
 import {default as EObject} from 'ember-object';
-import {EMOJI_CATEGORIES_ARRAY, EMOJI_TONES_ARRAY} from "../utils/constants";
+import {
+  DEPENDENT_KEYS_FOR_EMOJI_CATEGORIES,
+  DEPENDENT_KEYS_FOR_EMOJI_SERVICE,
+  EMOJI_CATEGORIES_ARRAY,
+} from "../utils/constants";
 
 const O = EObject.create.bind(EObject);
 const EMOJI_PICKER_SCROLLABLE_ELEMENT = '.eeo-emojiPicker-scrollable';
-const DEPENDENT_KEYS_FOR_EMOJI_CATEGORIES = EMOJI_CATEGORIES_ARRAY.join(',');
-const DEPENDENT_KEYS_FOR_EMOJI_SERVICE = (() => {
-  const dependentKeys = [];
-
-  EMOJI_CATEGORIES_ARRAY.forEach(category => {
-    EMOJI_TONES_ARRAY.forEach(tone => {
-      const key = `emojiService.${category}__tone_${tone}`;
-      dependentKeys.push(key);
-    });
-  });
-
-  return dependentKeys.join(',');
-})();
 
 export default Component.extend(ClickOutsideMixin, {
 
