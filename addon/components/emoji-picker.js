@@ -207,7 +207,7 @@ export default Component.extend(ClickOutsideMixin, {
       this.setProperties({_filterInput});
     },
 
-    enterPressedInInput() {
+    selectFirstFilteredEmojo() {
       let emojo = null;
 
       const emojiByCategoryIdFiltered = this.get('emojiByCategoryIdFiltered');
@@ -221,5 +221,14 @@ export default Component.extend(ClickOutsideMixin, {
 
       if (emojo) this.send('selectEmojo', emojo);
     },
+
+    clearFilterOrClose() {
+      if (this.get('filterInput.length')) {
+        this.send('inputFilteringText', '');
+        return;
+      }
+
+      this.sendAction('closeAction');
+    }
   }
 });
