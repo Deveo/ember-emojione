@@ -16,17 +16,16 @@
   <span class="togglePickerWrapper">
     <button
       class = "toggleEmoji"
-      {{action 'togglePicker'}}
+      {{action 'openEmojiPicker'}}
     >
       {{{inject-emoji ":smile:"}}}
     </button>
 
-    {{#if isPickerVisible}}
-      {{emoji-picker
-        selectAction = (action 'selectEmoji')
-        closeAction  = (action 'togglePicker')
-      }}
-    {{/if}}
+    {{emoji-picker
+      selectAction = (action 'selectEmoji')
+      closeAction  = (action 'closeEmojiPicker')
+      isVisible    = isPickerVisible
+    }}
   </span>
 
 <h2>Source</h2>
