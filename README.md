@@ -73,6 +73,12 @@ Run these console commands in your app:
     bower install -S emojione-defs=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/emoji.json
     bower install -S emojione-png=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.png
 
+If your app uses `ember-cli-sass`, add this to your Sass:
+
+```scss
+@import "node_modules/ember-emojione/app/styles/ember-emojione";
+```
+
 You should be good to go. If your development server has been running, don't forget to restart it.
 
 
@@ -205,13 +211,14 @@ Values shown below are the defaults. If you're happy with them, you don't need t
 
 Skip this section if you're not using this addon's components.
 
-Until [#38](https://github.com/Deveo/ember-emojione/issues/38) is implemented, this addon requires [ember-cli-sass](https://github.com/aexmachina/ember-cli-sass) to be installed in your app.
-
-Import the addon's own stylesheet into your Sass:
+If your app uses `ember-cli-sass`, add this to your Sass:
 
 ```scss
-@import 'ember-emojione';
+@import "node_modules/ember-emojione/app/styles/ember-emojione";
 ```
+
+If not, precompiled styles will be included automatically.
+
 
 
 ## Runtime Configuration in config/environment.js
