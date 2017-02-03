@@ -2,7 +2,7 @@
   {{#each categorySections as |categoryObj index|}}
     {{emoji-picker/label
       categoryObj  = categoryObj
-      emoji        = (get emojiByCategoryIdFiltered categoryObj.category.id)
+      visibleCount = (get (get emojiByCategoryIdFiltered categoryObj.category.id) 'visibleCount')
       scrollableId = scrollableId
     }}
   {{/each}}
@@ -16,15 +16,17 @@
 >
   {{#if filteredEmojiCount}}
     {{#each emojiService.categories as |category|}}
-      {{#with (get emojiByCategoryIdFiltered category.id) as |emoji|}}
-        {{emoji-picker/category
-          emoji               = emoji
-          category            = category
-          filterInput         = filterInput
-          selectAction        = (action 'selectEmojo')
-          closeAction         = closeAction
-          shouldCloseOnSelect = shouldCloseOnSelect
-        }}
+      {{#with (get emojiByCategoryIdFiltered category.id) as |emojiHash|}}
+        {{#if emojiHash.visibleCount}}
+          {{emoji-picker/category
+            emoji               = emojiHash.emoji
+            category            = category
+            filterInput         = filterInput
+            selectAction        = (action 'selectEmojo')
+            closeAction         = closeAction
+            shouldCloseOnSelect = shouldCloseOnSelect
+          }}
+        {{/if}}
       {{/with}}
     {{/each}}
   {{else}}

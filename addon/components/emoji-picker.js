@@ -6,16 +6,21 @@ import layout from '../templates/components/emoji-picker';
 import service from 'ember-service/inject';
 import observer from 'ember-metal/observer';
 import ClickOutsideMixin from 'ember-click-outside/mixins/click-outside';
+import get from 'ember-metal/get';
+import set from 'ember-metal/set';
+
 import {A} from 'ember-array/utils';
 import {default as EObject} from 'ember-object';
+const O = EObject.create.bind(EObject);
+
 import {
-  DEPENDENT_KEYS_FOR_EMOJI_CATEGORIES,
   DEPENDENT_KEYS_FOR_EMOJI_SERVICE,
   EMOJI_CATEGORIES_ARRAY,
 } from "../utils/constants";
 
-const O = EObject.create.bind(EObject);
 const EMOJI_PICKER_SCROLLABLE_ELEMENT = '.eeo-emojiPicker-scrollable';
+
+
 
 export default Component.extend(ClickOutsideMixin, {
 
@@ -66,22 +71,25 @@ export default Component.extend(ClickOutsideMixin, {
     DEPENDENT_KEYS_FOR_EMOJI_SERVICE,
     function () {
       const emojiCategories = this.get('emojiService.categories');
-      const filterInput     = this.get('filterInput');
-      const hasFilters      = filterInput.length;
-
-      function getFilteredEmoji(emoji) {
-        const filterStrs = filterInput.split(' ');
-        return emoji.filter(emojo =>
-          filterStrs.every(str => emojo.filterable.indexOf(str) > -1)
-        );
-      }
+      const filterStrs      = this.get('filterInput').split(' ');
 
       return emojiCategories.reduce((result, category) => {
         const categoryId = category.get('id');
         const emoji      = this._getEmojiForCategoryId(categoryId);
-        const finalEmoji = hasFilters ? getFilteredEmoji(emoji) : emoji;
 
-        result.set(categoryId, finalEmoji);
+        let visibleCount = 0;
+
+        emoji.forEach(emojo => {
+          const isVisible =
+            filterStrs
+            ? filterStrs.every(str => get(emojo, 'filterable').indexOf(str) > -1)
+            : true;
+
+          set(emojo, 'isVisible', isVisible);
+          if (isVisible) visibleCount++;
+        });
+
+        result.set(categoryId, {emoji, visibleCount});
 
         return result;
       }, O());
@@ -90,14 +98,11 @@ export default Component.extend(ClickOutsideMixin, {
 
 
 
-  filteredEmojiCount: computed(
-    `emojiByCategoryIdFiltered.{${DEPENDENT_KEYS_FOR_EMOJI_CATEGORIES}}.length`,
-    function () {
-      return EMOJI_CATEGORIES_ARRAY.reduce((count, category) => {
-        return count + this.get(`emojiByCategoryIdFiltered.${category}.length`);
-      }, 0);
-    }
-  ),
+  filteredEmojiCount: computed('emojiByCategoryIdFiltered', function () {
+    return EMOJI_CATEGORIES_ARRAY.reduce((count, category) => {
+      return count + this.get(`emojiByCategoryIdFiltered.${category}.visibleCount`);
+    }, 0);
+  }),
 
 
 
