@@ -161,13 +161,6 @@ export default Component.extend(ClickOutsideMixin, {
 
 
 
-  _getFilteredEmojiForCategoryId(categoryId) {
-    const emojiPropName = `emojiByCategoryIdFiltered.${categoryId}`;
-    return this.get(emojiPropName);
-  },
-
-
-
   didInsertElement() {
     this._super(...arguments);
 
@@ -217,14 +210,13 @@ export default Component.extend(ClickOutsideMixin, {
     enterPressedInInput() {
       let emojo = null;
 
-      this
-        .get('emojiService.categories')
-        .find(category => {
-          const emoji = this._getFilteredEmojiForCategory(category.get('id'));
-          if (emoji.length > 0) {
-            emojo = emoji[0];
-            return true;
-          }
+      const emojiByCategoryIdFiltered = this.get('emojiByCategoryIdFiltered');
+
+      EMOJI_CATEGORIES_ARRAY
+        .map(categoryName => emojiByCategoryIdFiltered.get(categoryName))
+        .filter(categoryHash => get(categoryHash, 'visibleCount'))
+        .find(categoryHash => {
+          return emojo = get(categoryHash, 'emoji').find(emojo => get(emojo, 'isVisible'));
         });
 
       if (emojo) this.send('selectEmojo', emojo);
