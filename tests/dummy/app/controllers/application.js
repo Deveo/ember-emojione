@@ -18,7 +18,7 @@ export default Controller.extend({
   actions: {
     closeEmojiPicker() {
       this.set("isPickerVisible", false);
-      $("textarea").focus()
+      $("textarea").focus();
     },
 
     openEmojiPicker() {

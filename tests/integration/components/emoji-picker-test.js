@@ -248,13 +248,13 @@ test('it should filter emoji', withChai(async function(expect) {
   this.render(hbs`{{emoji-picker selectAction=(action actionSpy)}}`);
 
   m = "Initially should contain 1369 emoji";
-  expect(component.emoji().count).equal(1369);
+  expect(component.emoji().filterBy('isVisible')).length(1369);
 
   component.filterInput.fill("fo");
   await wait();
 
   m = "Should contain 93 emoji after filling 'fo' into search field";
-  expect(component.emoji().count).equal(93);
+  expect(component.emoji().filterBy('isVisible')).length(93);
 }));
 
 
