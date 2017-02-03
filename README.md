@@ -554,7 +554,9 @@ Proudly built in [@Deveo](https://github.com/Deveo) by [@lolmaus](https://github
 
 https://deveo.com.
 
-This addon includes fragments of code borrowed from the [crhayes/ember-cli-emojione](https://github.com/crhayes/ember-cli-emojione) addon (MIT license).
+This addon includes fragments of code borrowed from:
+ * the [crhayes/ember-cli-emojione](https://github.com/crhayes/ember-cli-emojione) addon (MIT license),
+ * [Elad Shahar](https://github.com/SaladFork)'s [template string CP gist](https://gist.github.com/saladfork/178b2408d025d7c0d2acaddf22bbe8bb) (MIT license).
 
 
 
