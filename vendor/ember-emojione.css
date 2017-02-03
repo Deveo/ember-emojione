@@ -69,7 +69,9 @@
 .eeo-emojiPicker-category-emoji-emojo {
   text-decoration: none; }
   .eeo-emojiPicker-category-emoji-emojo .emojione {
-    transition: transform 0.2s cubic-bezier(0.5, 2, 0.75, 0.75); }
+    transition: transform 0.2s cubic-bezier(0.5, 2, 0.75, 0.75);
+    transform: scale(0.3125);
+    margin: -22px; }
   .eeo-emojiPicker-category-emoji-emojo:hover .emojione {
     transform: scale(0.4375); }
 
