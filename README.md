@@ -550,12 +550,13 @@ This command will deploy the app to https://deveo.github.io/ember-emojione/ :
 
 ## Credits
 
-Proudly built in [@Deveo](https://github.com/Deveo) by [@lolmaus](https://github.com/lolmaus) and [contributors](https://github.com/Deveo/ember-emojione/graphs/contributors).
+Proudly built in [@Deveo](https://github.com/Deveo) by [@lolmaus](https://github.com/lolmaus), [@vvainio](https://github.com/vvainio) and [contributors](https://github.com/Deveo/ember-emojione/graphs/contributors).
 
 https://deveo.com.
 
 This addon includes fragments of code borrowed from:
  * the [crhayes/ember-cli-emojione](https://github.com/crhayes/ember-cli-emojione) addon (MIT license),
+ * the [cibernox/ember-power-select](https://github.com/cibernox/ember-power-select) addon (MIT license),
  * [Elad Shahar](https://github.com/SaladFork)'s [template string CP gist](https://gist.github.com/saladfork/178b2408d025d7c0d2acaddf22bbe8bb) (MIT license).
 
 
