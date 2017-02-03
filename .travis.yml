@@ -38,10 +38,10 @@ before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - npm config set spin false
-  - npm install -g bower yarn
+  - npm install -g bower
 
 install:
-  - yarn upgrade
+  - npm install
   - bower install
 
 script:
