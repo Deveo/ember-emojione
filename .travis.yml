@@ -38,13 +38,13 @@ before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - npm config set spin false
-  - npm install -g bower
+  - npm install -g bower yarn
 
 install:
-  - npm install
+  - yarn upgrade
   - bower install
 
 script:
   # Usually, it's ok to finish the test scenario without reverting
   #  to the addon's original dependency state, skipping "cleanup".
-  - ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
+  - node node_modules/ember-cli/bin/ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
