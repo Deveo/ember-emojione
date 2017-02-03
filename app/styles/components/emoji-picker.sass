@@ -157,6 +157,8 @@
     // ----- Content layout -----
     .emojione
       transition: transform 0.2s cubic-bezier(0.5, 2, 0.75, 0.75)
+      +emojione-size($emoji-size)
+
     // ----- Behavior -----
     &:hover .emojione
       +emojione-size-transform(28px)
