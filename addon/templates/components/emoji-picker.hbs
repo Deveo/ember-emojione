@@ -46,7 +46,8 @@
         class          = "eeo-emojiPicker-filter-input"
         placeholder    = textSearch
         update         = (action 'inputFilteringText')
-        insert-newline = (action 'enterPressedInInput')
+        insert-newline = (action 'selectFirstFilteredEmojo')
+        escape-press   = (action 'clearFilterOrClose')
       }}
     {{/auto-focus}}
 
