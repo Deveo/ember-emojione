@@ -1,5 +1,6 @@
-/* globals module */
-// var RSVP = require('rsvp');
+/* eslint-env node */
+const RSVP      = require('rsvp');
+const simpleGit = require('simple-git')();
 
 // For details on each option run `ember help release`
 module.exports = {
@@ -13,9 +14,13 @@ module.exports = {
   // format: 'YYYY-MM-DD',
   // timezone: 'America/Los_Angeles',
   //
-  // beforeCommit: function(project, versions) {
-  //   return new RSVP.Promise(function(resolve, reject) {
-  //     // Do custom things here...
-  //   });
-  // }
+  beforeCommit(/*project, versions*/) {
+    require('../lib/compile-css-on-require');
+
+    return new RSVP.Promise(function(resolve) {
+      simpleGit.add(['vendor/ember-emojione.css'], function() {
+        resolve();
+      });
+    });
+  }
 };

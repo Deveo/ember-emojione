@@ -94,8 +94,8 @@ module.exports = {
       npm: {
         devDependencies: {
           'ember-source': null,
-          'ember-get-helper': '*',
-          'ember-hash-helper-polyfill': '*',
+          'ember-get-helper': '1.1.0',
+          'ember-hash-helper-polyfill': '0.1.2',
         }
       }
     },

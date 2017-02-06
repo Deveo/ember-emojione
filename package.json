@@ -71,7 +71,8 @@
     "ember-sinon": "^0.6.0",
     "ember-source": "^2.11.0",
     "eslint-plugin-ember-suave": "^1.0.0",
-    "loader.js": "^4.0.10"
+    "loader.js": "^4.0.10",
+    "simple-git": "^1.65.0"
   },
   "engines": {
     "node": ">= 0.12.0"

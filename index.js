@@ -153,6 +153,11 @@ module.exports = {
     if (opts.spriteSheet && opts.shouldIncludePngSprite) {
       app.import(`vendor/emojione-local-png-sprites.css`);
     }
+
+    // If ember-cli-sass is not available, import prebuilt CSS file
+    if (!app.registry.availablePlugins['ember-cli-sass']) {
+      app.import(`vendor/ember-emojione.css`);
+    }
   },
 
 

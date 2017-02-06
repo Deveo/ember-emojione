@@ -133,8 +133,9 @@
     //------------------------------------------
 
     // ----- Layout -----
-    display:   flex
-    flex-wrap: wrap
+    display:         flex
+    flex-wrap:       wrap
+    justify-content: space-around
 
     margin-right:  -$menu-item-padding
     margin-bottom: -$menu-item-padding
@@ -157,6 +158,7 @@
     // ----- Content layout -----
     .emojione
       transition: transform 0.2s cubic-bezier(0.5, 2, 0.75, 0.75)
+      +emojione-size($emoji-size)
 
     // ----- Behavior -----
     &.-hidden
