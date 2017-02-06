@@ -40,6 +40,10 @@ Demo: https://deveo.github.io/ember-emojione/ :sparkles:
     * [emoji-picker component](#emoji-picker-component)
         * [Options](#options)
         * [Inserting emoji into an input](#inserting-emoji-into-an-input)
+    * [emoji-picker-wrapper component](#emoji-picker-wrapper-component)
+      * [Standard usage](#standard-usage)
+      * [Controlling emoji-picker visibility manually](#controlling-emoji-picker-visibility-manually)
+      * [Using async action](#using-async-action)
     * [Using the emojione JS library directly](#using-the-emojione-js-library-directly)
     * [I18n](#i18n)
 * [Development](#development)
@@ -415,9 +419,9 @@ Render it like this:
 
 | Option                | Type    | Default value       | Description                                                   |
 |:----------------------|:--------|:--------------------|:--------------------------------------------------------------|
-| `selectAction`        | action  | mandatory           | Action to execute when an emoji is clicked                    |
-| `toneSelectAction`    | action  | `undefined`         | Action to execute when skin tone is changed                   |
-| `closeAction`         | action  | `undefined`         | Action to execute on click outside of the component           |
+| `selectAction`        | Action  | mandatory           | Action to execute when an emoji is clicked                    |
+| `toneSelectAction`    | Action  | `undefined`         | Action to execute when skin tone is changed                   |
+| `closeAction`         | Action  | `undefined`         | Action to execute on click outside of the component           |
 | `shouldCloseOnSelect` | Boolean | `false`             | Whether to execute the close action when an emoji is selected |
 | `disableAutoFocus`    | Boolean | `false`             | Prevents from focusing on component when first rendered       |
 | `textNoEmojiFound`    | String  | `"No emoji found"`  | Override for i18n                                             |
@@ -426,40 +430,114 @@ Render it like this:
 
 
 
-#### Inserting emoji into an input
+### emoji-picker-wrapper component
 
-Most likely, you want to insert an emoji into caret position/replace a selection.
+`emoji-picker-wrapper` abstracts the logic of showing/hiding the `emoji-picker` and inserting emoji into an input field or textarea, while making no assumptions about (and thus, giving you full control of) page layout and looks.
 
-You can use this snippet in parent component:
+#### Standard usage
+
+Steps to use may sound complicated but they are pretty straightforward:
+
+1. In your HTML structure, find the following three places:
+    * an input/textarea where the emoji should be inserted;
+    * a place where a button that toggles emoji-picker visibility should be located;
+    * where the emoji picker should be located.
+2. Wrap those three places with `emoji-picker-wrapper`.
+3. Pass the following arguments into `emoji-picker-wrapper`:
+  * `text` -- the text to insert emoji picker into. It should be the same value that you pass into the input/textarea.
+  * `inputSelector` -- a selector to access the input/textarea.
+  * `emojiInsertedAction` -- an action that will be triggered when an emoji is inserted. In this action you should set passed value to the property you pass into the input/textarea and `text.
+4. From `emoji-picker-wrapper` invocation, accept `emojiPicker` and `emojiPickerToggler` components. This is a regular `emoji-picker` component, but it will already have `selectAction`, `closeAction` and `isVisible` preconfigured for you.
+5. Render `emojiPicker` and `emojiPickerToggler` using the `{{component}}` helper.
+
+Example:
 
 ```js
-import get from 'ember-metal/get';
-import {next} from 'ember-runloop';
-
 {
-  text: '', // where the text is stored
-
-  $textArea: computed(function () {
-    return this.$("textarea");
-  }),
-
+  wikiPageText: 'This is a sample wiki page',
+  
   actions: {
-    selectEmoji(emojo) {
-      const text             = this.get("text") || "";
-      const $textArea        = this.get("$textArea");
-      const selectionStart   = $textArea.prop("selectionStart");
-      const selectionEnd     = $textArea.prop("selectionEnd");
-      const before           = text.slice(0, selectionStart);
-      const after            = text.slice(selectionEnd);
-      const emojiCode        = get(emojo, "shortname");
-      const result           = before + emojiCode + after;
-      const newCaretPosition = before.length + emojiCode.length;
-
-      this.set("text", result);
-      next(() => $textArea.prop("selectionEnd", newCaretPosition));
+    emojiInserted(text) {
+      this.setProperties({text});
     }
   }
 }
+```
+
+```handlebars
+{{#emoji-picker-wrapper
+  text                = wikiPageText
+  inputSelector       = ".my-input"
+  emojiInsertedAction = (action 'emojiInserted')
+  as |emojiPicker emojiPickerToggler|
+}}
+
+  <!-- This is your text field. Using a one-way binding is highly encouraged. -->
+  <!-- Note that you pass the same `wikiPageText` property as into the wrapper. -->
+  {{input class="my-input" value=(readonly wikiPageText)}}
+  
+  <!-- Render the toggler button somewhere -->
+  {{component emojiPickerToggler
+    label         = "😀"
+    labelWhenOpen = "😆"
+  }}
+  
+  <!-- Render emoji-picker somewhere. Note that the `selectAction`, -->
+  <!-- `closeAction` and `isVisible` properties have been preconfigured for -->
+  <!-- you, but you can configure any other options. -->
+  {{component emojiPicker}}
+  
+{{/emoji-picker-wrapper}}
+```
+
+This setup will take care of showing/hiding the emoji picker and reading/setting text selection, so that emoji insertion works like "paste", overwriting existing selection.
+
+
+
+#### Controlling emoji-picker visibility manually
+
+If you want to use `emoji-picker-wrapper` but still want to control `emoji-picker` visibility manually, you can do this with the `isVisible` property built into all Ember components:
+
+```handlebars
+{{#emoji-picker-wrapper
+  text                = wikiPageText
+  inputSelector       = ".my-input"
+  emojiInsertedAction = (action 'emojiInserted')
+  as |emojiPicker|
+}}
+  {{input class="my-input" value=(readonly text)}}
+  
+  {{component emojiPicker isVisible=yourPropertyHere}}
+{{/emoji-picker-wrapper}}
+````
+
+
+
+#### Using async action
+
+`emojiInsertedAction` can be asynchronous. This is useful if you want to run a network request on emoji insertion.
+
+To use this feature, return a promise from the action and make sure you wrap it into a closure with the `(action)` helper:
+
+```js
+{  
+  actions: {
+    emojiInserted(text) {
+      return this
+        .get('myNetworkService')
+        .updateText(text)
+        .then(response => {
+          this.set('text', response);
+          return response;
+        });
+    }
+  }
+}
+```
+
+```handlebars
+{{#emoji-picker-wrapper
+  emojiInsertedAction = (action 'emojiInserted')
 ```
 
 

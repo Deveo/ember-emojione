@@ -1,0 +1,10 @@
+{{yield
+  (component 'emoji-picker'
+    selectAction = (action 'selectEmoji')
+    closeAction  = (action 'closeEmojiPicker')
+    isVisible    = isEmojiPickerVisible
+  )
+  (component 'emoji-picker-toggler'
+    toggleAction = (action 'openEmojiPicker')
+  )
+}}
