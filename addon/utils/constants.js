@@ -11,8 +11,6 @@ export const EMOJI_CATEGORIES_ARRAY = [
   'flags'
 ];
 
-export const DEPENDENT_KEYS_FOR_EMOJI_CATEGORIES = EMOJI_CATEGORIES_ARRAY.join(',');
-
 export const DEPENDENT_KEYS_FOR_EMOJI_SERVICE = (() => {
   const dependentKeys = [];
 

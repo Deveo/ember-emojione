@@ -6,7 +6,7 @@
   {{#each emoji as |emojo|}}
     <a
       href
-      class = "eeo-emojiPicker-category-emoji-emojo"
+      class = "eeo-emojiPicker-category-emoji-emojo {{if emojo.isVisible '-visible' '-hidden'}}"
       title = {{emojo.title}}
       {{action selectAction emojo}}
     >
