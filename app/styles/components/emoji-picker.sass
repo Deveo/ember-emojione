@@ -3,6 +3,12 @@
   $emoji-size:        20px
   $menu-item-padding: 10px
 
+  =clearfix
+    &:after
+      content: " "
+      display: block
+      clear:   both
+
 
 
   ////------------------------------------------
@@ -28,8 +34,16 @@
     //------------------------------------------
 
     // ----- Layout -----
-    display:          flex
+    display:      table
+    width:        100%
+    table-layout: fixed
+
+    // ----- Looks -----
     background-color: #eee
+
+    // ----- Content layout -----
+    .eeo-emojiPicker-nav-item
+      display: table-cell
 
 
 
@@ -133,15 +147,14 @@
     //------------------------------------------
 
     // ----- Layout -----
-    display:         flex
-    flex-wrap:       wrap
-    justify-content: space-around
+    +clearfix
 
     margin-right:  -$menu-item-padding
     margin-bottom: -$menu-item-padding
 
     // ----- Content layout -----
     .eeo-emojiPicker-category-emoji-emojo
+      float:         left
       margin-right:  $menu-item-padding
       margin-bottom: $menu-item-padding
 
@@ -176,14 +189,20 @@
     //------------------------------------------
 
     // ----- Layout -----
-    display:          flex
-    justify-content:  space-between
-    background-color: #eee
+    +clearfix
     padding:          $menu-item-padding / 2
+
+    // ----- Looks -----
+    background-color: #eee
+
 
     // ----- Content layout -----
     .eeo-emojiPicker-filter
       width: 50%
+      float: left
+
+    .eeo-emojiPicker-tones
+      float: right
 
 
 
