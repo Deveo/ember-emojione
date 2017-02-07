@@ -43,7 +43,6 @@ Demo: https://deveo.github.io/ember-emojione/ :sparkles:
     * [emoji-picker-wrapper component](#emoji-picker-wrapper-component)
       * [Standard usage](#standard-usage)
       * [Controlling emoji-picker visibility manually](#controlling-emoji-picker-visibility-manually)
-      * [Using async action](#using-async-action)
       * [emoji-picker-wrapper options](#emoji-picker-wrapper-options)
     * [Using the emojione JS library directly](#using-the-emojione-js-library-directly)
     * [I18n](#i18n)
@@ -544,6 +543,18 @@ Can be used in inline and block form.
 | `emojiInsertedAction`   | Action  | mandatory     | Action to execute when emoji is inserted. Will be called with new text already containing an emoji code.                         |
 | `shouldSetFocusToInput` | Boolean | `true`        | Whether to focus on the input field after emoji insertion or closing the picker with Esc.                                        |
 | `isEmojiPickerVisible`  | Boolean | `false`       | Lets you control picker visibility manually. Don't override this if you're using `emojiPickerToggler` which controls it for you. |
+
+
+
+### Using the emojione JS library directly
+
+The `emojione` library makes itself available as a global.
+
+To help you stay true to the Ember way, this addon lets you import the library as a ES module:
+
+```js
+import emojione from 'emojione';
+```
 
 
 
