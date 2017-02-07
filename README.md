@@ -473,9 +473,9 @@ Example:
   as |emojiPicker emojiPickerToggler|
 }}
 
-  <!-- This is your text field. Using a one-way binding is highly encouraged. -->
+  <!-- This is your text field. Using ember-one-way-controls is recommended. -->
   <!-- Note that you pass the same `wikiPageText` property as into the wrapper. -->
-  {{input class="my-input" value=(readonly wikiPageText)}}
+  {{input class="my-input" value=wikiPageText}}
   
   <!-- Render the toggler button somewhere -->
   {{component emojiPickerToggler
@@ -506,7 +506,7 @@ If you want to use `emoji-picker-wrapper` but still want to control `emoji-picke
   emojiInsertedAction = (action 'emojiInserted')
   as |emojiPicker|
 }}
-  {{input class="my-input" value=(readonly text)}}
+  {{input class="my-input" value=text}}
   
   {{component emojiPicker isVisible=yourPropertyHere}}
 {{/emoji-picker-wrapper}}

@@ -45,7 +45,7 @@ test('it calls action with new text value', withChai(async function(expect) {
       emojiInsertedAction = (action actionSpy)
       as |emojiPicker|
     }}
-      {{input value=(readonly text) class="input"}}
+      {{input value=text class="input"}}
       {{component emojiPicker}}
     {{/emoji-picker-wrapper}}
   `);
@@ -87,7 +87,7 @@ test('it inserts emoji at selection', withChai(async function(expect) {
       emojiInsertedAction = (action actionSpy)
       as |emojiPicker|
     }}
-      {{input value=(readonly text) class="input"}}
+      {{input value=text class="input"}}
       {{component emojiPicker}}
     {{/emoji-picker-wrapper}}
   `);
@@ -136,7 +136,7 @@ test('it inserts emoji at selection', withChai(async function(expect) {
 //       emojiInsertedAction   = (action actionSpy)
 //       as |emojiPicker|
 //     }}
-//       {{input value=(readonly text) class="input"}}
+//       {{input value=text class="input"}}
 //       {{component emojiPicker}}
 //     {{/emoji-picker-wrapper}}
 //   `);
@@ -162,7 +162,7 @@ test('it should toggle emoji picker visibility with button', withChai(async func
       inputSelector = ".input"
       as |emojiPicker emojiPickerToggler|
     }}
-      {{input value=(readonly text) class="input"}}
+      {{input value=text class="input"}}
       {{#component emojiPickerToggler}}
         <span class="my-button">key</span>
       {{/component}}
