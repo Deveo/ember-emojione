@@ -3,7 +3,6 @@ import computed from 'ember-computed';
 import get from 'ember-metal/get';
 import layout from '../templates/components/emoji-picker-wrapper';
 import {assert} from  'ember-metal/utils';
-import {next} from  'ember-runloop';
 import RSVP from 'rsvp';
 
 export default Component.extend({
@@ -85,23 +84,16 @@ export default Component.extend({
 
 
 
-    openEmojiPicker() {
-      if (this.get("isEmojiPickerVisible")) return;
-
-      next(() => {
-        this.set("isEmojiPickerVisible", true);
-
-        next(() => {
-          this.$(".eeo-emojiPicker-filter-input").focus();
-        });
-      });
+    toggleEmojiPicker() {
+      this.toggleProperty('isEmojiPickerVisible');
     },
 
 
 
-    closeEmojiPicker() {
+    closeEmojiPicker(shouldFocus) {
       this.set("isEmojiPickerVisible", false);
-      this.get("$input").focus();
+
+      if (shouldFocus) this.get("$input").focus();
     },
   }
 });

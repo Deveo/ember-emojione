@@ -199,7 +199,7 @@ export default Component.extend(ClickOutsideMixin, {
       this.sendAction('selectAction', emojo);
 
       if (this.get('closeAction') && this.get('shouldCloseOnSelect')) {
-        this.sendAction('closeAction');
+        this.sendAction('closeAction', true);
       }
     },
 

@@ -10,35 +10,59 @@
 </p>
 
 <h2>Input</h2>
-  {{textarea value=inputStr}}
-
+{{#emoji-picker-wrapper
+  text                = inputStr
+  inputSelector       = "textarea"
+  emojiInsertedAction = (action 'emojiInserted')
+  as |emojiPicker emojiPickerToggler|
+}}
+  {{textarea value=(readonly inputStr)}}
 
   <span class="togglePickerWrapper">
-    <button
-      class = "toggleEmoji"
-      {{action 'openEmojiPicker'}}
-    >
-      {{{inject-emoji ":smile:"}}}
-    </button>
-
-    {{emoji-picker
-      selectAction = (action 'selectEmoji')
-      closeAction  = (action 'closeEmojiPicker')
-      isVisible    = isPickerVisible
+    {{component emojiPickerToggler
+      label         = "😀"
+      labelWhenOpen = "😆"
+      tagName       = "a"
+      href          = ""
     }}
+
+    {{component emojiPicker}}
   </span>
+{{/emoji-picker-wrapper}}
 
 <h2>Source</h2>
 
 <pre>inputStr: 'OMG! :scream:',
 
-inputStrHtmlSafe: Ember.computed('inputStr', function () {
-  return Ember.String.htmlSafe(
-    this.get('inputStr')
-  );
-})
+inputStrHtmlSafe: computed('inputStr', function () {
+  const inputStr = this.get('inputStr');
+  return htmlSafe(inputStr);
+}),
+
+actions: {
+  emojiInserted(inputStr) {
+    this.setProperties({inputStr});
+  }
+}
 
 <hr>
-&lbrace;&lbrace;textarea value=inputStr}}
 
-&lbrace;&lbrace;&lbrace;inject-emoji inputStrHtmlSafe}}}</pre>
+&#123;&#123;#emoji-picker-wrapper
+  text                = wikiPageText
+  inputSelector       = "textarea"
+  emojiInsertedAction = (action 'emojiInserted')
+  as |emojiPicker emojiPickerToggler|
+}}
+  &#123;&#123;textarea value=inputStr}}
+
+  &lt;span class="togglePickerWrapper">
+    &#123;&#123;component emojiPickerToggler
+      label         = "😀"
+      labelWhenOpen = "😆"
+      tagName       = "a"
+      href          = ""
+    }}
+
+    &#123;&#123;component emojiPicker}}
+  &lt;/span>
+&#123;&#123;/emoji-picker-wrapper}}</pre>

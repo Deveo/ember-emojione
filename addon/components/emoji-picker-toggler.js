@@ -1,9 +1,20 @@
 import Component from 'ember-component';
-import layout from '../templates/components/emoji-picker-toggler';
+import layout from 'ember-emojione/templates/components/emoji-picker-toggler';
+import DynamicAttributeBindingsMixin from 'ember-emojione/mixins/dynamic-attribute-bindings';
 
-export default Component.extend({
-  label:        undefined,
-  toggleAction: undefined,
+export default Component.extend(DynamicAttributeBindingsMixin, {
+  label:                undefined,
+  labelWhenOpen:        undefined,
+  toggleAction:         undefined,
+  isEmojiPickerVisible: undefined,
+
+  NON_ATTRIBUTE_BOUND_PROPS: [
+    'label',
+    'labelWhenOpen',
+    'toggleAction',
+    'isEmojiPickerVisible',
+    'tagName',
+  ],
 
   layout,
   classNames: ['eeo-emojiPicker-toggler'],
@@ -11,5 +22,6 @@ export default Component.extend({
 
   click() {
     this.sendAction('toggleAction');
+    return false;
   }
 });
