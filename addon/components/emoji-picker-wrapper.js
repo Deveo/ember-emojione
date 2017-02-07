@@ -4,6 +4,7 @@ import get from 'ember-metal/get';
 import layout from '../templates/components/emoji-picker-wrapper';
 import {assert} from  'ember-metal/utils';
 import RSVP from 'rsvp';
+import {next} from 'ember-runloop';
 
 export default Component.extend({
 
@@ -47,12 +48,14 @@ export default Component.extend({
 
 
   _setCaretPositionAndFocusToInput({$input, newCaretPosition}) {
-    $input.prop("selectionStart", newCaretPosition);
-    $input.prop("selectionEnd",   newCaretPosition);
+    next(() => {
+      $input.prop("selectionStart", newCaretPosition);
+      $input.prop("selectionEnd",   newCaretPosition);
 
-    if (this.get('shouldSetFocusToInput')) {
-      $input.focus();
-    }
+      if (this.get('shouldSetFocusToInput')) {
+        $input.focus();
+      }
+    });
   },
 
 
