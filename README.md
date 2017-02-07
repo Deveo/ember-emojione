@@ -39,12 +39,12 @@ Demo: https://deveo.github.io/ember-emojione/ :sparkles:
         * [Using from JS](#using-from-js)
         * [Skipping code blocks](#skipping-code-blocks)
     * [emoji-picker component](#emoji-picker-component)
-        * [Options](#options)
-        * [Inserting emoji into an input](#inserting-emoji-into-an-input)
+        * [emoji-picker options](#emoji-picker-options)
     * [emoji-picker-wrapper component](#emoji-picker-wrapper-component)
       * [Standard usage](#standard-usage)
       * [Controlling emoji-picker visibility manually](#controlling-emoji-picker-visibility-manually)
       * [Using async action](#using-async-action)
+      * [emoji-picker-wrapper options](#emoji-picker-wrapper-options)
     * [Using the emojione JS library directly](#using-the-emojione-js-library-directly)
     * [I18n](#i18n)
 * [Development](#development)
@@ -416,7 +416,7 @@ Render it like this:
 
 
 
-#### Options
+#### emoji-picker options
 
 | Option                | Type    | Default value       | Description                                                   |
 |:----------------------|:--------|:--------------------|:--------------------------------------------------------------|
@@ -514,32 +514,36 @@ If you want to use `emoji-picker-wrapper` but still want to control `emoji-picke
 
 
 
-#### Using async action
+#### emoji-picker-wrapper options
 
-`emojiInsertedAction` can be asynchronous. This is useful if you want to run a network request on emoji insertion.
-
-To use this feature, return a promise from the action and make sure you wrap it into a closure with the `(action)` helper:
-
-```js
-{  
-  actions: {
-    emojiInserted(text) {
-      return this
-        .get('myNetworkService')
-        .updateText(text)
-        .then(response => {
-          this.set('text', response);
-          return response;
-        });
-    }
-  }
-}
+| Option                  | Type    | Default value | Description                                                                                                                      |
+|:------------------------|:--------|:--------------|:---------------------------------------------------------------------------------------------------------------------------------|
+| `inputSelector`         | String  | mandatory     | Unique selector of a text field where emoji will be inserted.                                                                    |
+| `text`                  | String  | mandatory     | Content of the text field. Emoji code will be inserted into this text.                                                           |
+| `emojiInsertedAction`   | Action  | mandatory     | Action to execute when emoji is inserted. Will be called with new text already containing an emoji code.                         |
+| `shouldSetFocusToInput` | Boolean | `true`        | Whether to focus on the input field after emoji insertion or closing the picker with Esc.                                        |
+| `isEmojiPickerVisible`  | Boolean | `false`       | Lets you control picker visibility manually. Don't override this if you're using `emojiPickerToggler` which controls it for you. |
 ```
 
-```handlebars
-{{#emoji-picker-wrapper
-  emojiInsertedAction = (action 'emojiInserted')
-```
+
+
+### emoji-picker-toggler component
+
+This component isn't supposed to be used separately. It's yielded by the `emoji-picker-wrapper` component and is used to control emoji picker visibility.
+
+Can be used in inline and block form.
+
+
+
+#### emoji-picker-toggler options
+
+| Option                  | Type    | Default value | Description                                                                                                                      |
+|:------------------------|:--------|:--------------|:---------------------------------------------------------------------------------------------------------------------------------|
+| `inputSelector`         | String  | mandatory     | Unique selector of a text field where emoji will be inserted.                                                                    |
+| `text`                  | String  | mandatory     | Content of the text field. Emoji code will be inserted into this text.                                                           |
+| `emojiInsertedAction`   | Action  | mandatory     | Action to execute when emoji is inserted. Will be called with new text already containing an emoji code.                         |
+| `shouldSetFocusToInput` | Boolean | `true`        | Whether to focus on the input field after emoji insertion or closing the picker with Esc.                                        |
+| `isEmojiPickerVisible`  | Boolean | `false`       | Lets you control picker visibility manually. Don't override this if you're using `emojiPickerToggler` which controls it for you. |
 
 
 

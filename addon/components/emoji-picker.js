@@ -228,7 +228,7 @@ export default Component.extend(ClickOutsideMixin, {
         return;
       }
 
-      this.sendAction('closeAction');
+      this.sendAction('closeAction', true);
     }
   }
 });

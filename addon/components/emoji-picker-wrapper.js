@@ -3,13 +3,12 @@ import computed from 'ember-computed';
 import get from 'ember-metal/get';
 import layout from '../templates/components/emoji-picker-wrapper';
 import {assert} from  'ember-metal/utils';
-import RSVP from 'rsvp';
 import {next} from 'ember-runloop';
 
 export default Component.extend({
 
-  text:                  undefined,
   inputSelector:         undefined,
+  text:                  undefined,
   shouldSetFocusToInput: true,
   isEmojiPickerVisible:  false,
   emojiInsertedAction:   undefined,
@@ -52,9 +51,7 @@ export default Component.extend({
       $input.prop("selectionStart", newCaretPosition);
       $input.prop("selectionEnd",   newCaretPosition);
 
-      if (this.get('shouldSetFocusToInput')) {
-        $input.focus();
-      }
+      if (this.get('shouldSetFocusToInput')) $input.focus();
     });
   },
 
@@ -67,22 +64,8 @@ export default Component.extend({
 
       const {newText, newCaretPosition} = this._insertEmojoIntoText(emojoCode);
 
-      // Dealing with either old-school action or closure action
-      const result =
-        typeof this.attrs.emojiInsertedAction === 'function'
-        ? this.attrs.emojiInsertedAction(newText)
-        : this.sendAction('emojiInsertedAction', newText);
-
-      // Running synchronously if a promise wasn't returned
-      if (!(result instanceof RSVP.Promise)) {
-        this._setCaretPositionAndFocusToInput({ $input, newCaretPosition });
-        return;
-      }
-
-      // Running asynchronously if a promise was returned
-      result.then(() => {
-        this._setCaretPositionAndFocusToInput({$input, newCaretPosition});
-      });
+      this.sendAction('emojiInsertedAction', newText);
+      this._setCaretPositionAndFocusToInput({ $input, newCaretPosition });
     },
 
 
@@ -96,7 +79,9 @@ export default Component.extend({
     closeEmojiPicker(shouldFocus) {
       this.set("isEmojiPickerVisible", false);
 
-      if (shouldFocus) this.get("$input").focus();
+      if (shouldFocus && this.get('shouldSetFocusToInput')) {
+        this.get("$input").focus();
+      }
     },
   }
 });
