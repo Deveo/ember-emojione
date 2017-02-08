@@ -46,26 +46,26 @@ export default Component.extend({
 
 
 
-  _setCaretPositionAndFocusToInput({$input, newCaretPosition}) {
+  _setCaretPositionAndFocusToInput({$input, newCaretPosition, shouldFocus}) {
     next(() => {
       $input.prop("selectionStart", newCaretPosition);
       $input.prop("selectionEnd",   newCaretPosition);
 
-      if (this.get('shouldSetFocusToInput')) $input.focus();
+      if (shouldFocus && this.get('shouldSetFocusToInput')) $input.focus();
     });
   },
 
 
 
   actions: {
-    selectEmoji(emojo) {
+    selectEmoji(emojo, shouldFocus = true) {
       const emojoCode = get(emojo, 'shortname');
       const $input    = this.get('$input');
 
       const {newText, newCaretPosition} = this._insertEmojoIntoText(emojoCode);
 
       this.sendAction('emojiInsertedAction', newText);
-      this._setCaretPositionAndFocusToInput({ $input, newCaretPosition });
+      this._setCaretPositionAndFocusToInput({ $input, newCaretPosition, shouldFocus });
     },
 
 

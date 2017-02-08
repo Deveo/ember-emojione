@@ -52,6 +52,10 @@ export default Component.extend(ClickOutsideMixin, {
     return this.$(EMOJI_PICKER_SCROLLABLE_ELEMENT);
   }),
 
+  $filterInput: computed(function () {
+    return this.$('.eeo-emojiPicker-filter-input');
+  }),
+
   categorySections: computed('emojiService.categories', function () {
     const objs =
       this
@@ -115,13 +119,6 @@ export default Component.extend(ClickOutsideMixin, {
 
 
 
-  _applyFilterInputDebounced: observer('_filterInput', function () {
-    const filterInput = this.get('_filterInput');
-    debounce(this, this._applyFilterInput, filterInput, 200, false);
-  }),
-
-
-
   _updateScroll() {
     if (this.get('isDestroying') || this.get('isDestroyed')) return;
 
@@ -159,6 +156,11 @@ export default Component.extend(ClickOutsideMixin, {
     return this.get(emojiPropName);
   },
 
+  _focusOnSearch() {
+    if (this.get('disableAutoFocus')) return;
+    this.get('$filterInput').focus();
+  },
+
 
 
   didInsertElement() {
@@ -194,9 +196,27 @@ export default Component.extend(ClickOutsideMixin, {
 
 
 
+  _applyFilterInputDebounced: observer('_filterInput', function () {
+    const filterInput = this.get('_filterInput');
+    debounce(this, this._applyFilterInput, filterInput, 200, false);
+  }),
+
+
+
+  _restoreBarOnShow: observer('isVisible', function () {
+    if (!this.get('isVisible')) return;
+
+    next(() => {
+      this._updateScroll();
+      this._focusOnSearch();
+    });
+  }),
+
+
+
   actions: {
-    selectEmojo(emojo) {
-      this.sendAction('selectAction', emojo);
+    selectEmojo(emojo, shouldFocusOnInput = true) {
+      this.sendAction('selectAction', emojo, shouldFocusOnInput);
 
       if (this.get('closeAction') && this.get('shouldCloseOnSelect')) {
         this.sendAction('closeAction', true);
@@ -219,7 +239,7 @@ export default Component.extend(ClickOutsideMixin, {
           return emojo = get(categoryHash, 'emoji').find(emojo => get(emojo, 'isVisible'));
         });
 
-      if (emojo) this.send('selectEmojo', emojo);
+      if (emojo) this.send('selectEmojo', emojo, false);
     },
 
     clearFilterOrClose() {
