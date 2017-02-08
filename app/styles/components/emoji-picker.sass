@@ -16,7 +16,8 @@
     //------------------------------------------
 
     // ----- Layout -----
-    width:      ($emoji-size + $menu-item-padding * 2) * 8
+    width:      300px
+    max-width:  80vw
     overflow:   hidden
     box-sizing: border-box
     *
@@ -43,7 +44,10 @@
 
     // ----- Content layout -----
     .eeo-emojiPicker-nav-item
-      display: table-cell
+      display:        table-cell
+      text-align:     center
+      vertical-align: middle
+      height:         35px
 
 
 
@@ -81,8 +85,9 @@
     //------------------------------------------
 
     // ----- Layout -----
-    display: block
-    padding: $menu-item-padding $menu-item-padding ($menu-item-padding / 2)
+    display:     inline-block
+    padding-top: 5px
+    //padding: $menu-item-padding $menu-item-padding ($menu-item-padding / 2)
 
 
 
@@ -102,7 +107,8 @@
 
     // ----- Layout -----
     position:   relative
-    height:     400px
+    height:     200px
+    max-height: 80vh
     overflow-x: hidden
     overflow-y: scroll
 
