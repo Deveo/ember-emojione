@@ -1,6 +1,8 @@
-/* globals module, require */
+/* eslint-env node */
 'use strict';
 
+const path       = require('path');
+const resolve    = require('resolve');
 const Funnel     = require('broccoli-funnel');
 const mergeTrees = require('broccoli-merge-trees');
 const jsonModule = require('broccoli-json-module');
@@ -36,6 +38,8 @@ module.exports = {
     this._prepareOptions(app);
     this._importEmojiOneJS(app);
     this._importEmojiOneCSS(app);
+    this._importTextareaCaretJS(app);
+    this._importLineHeightJS(app);
   },
 
 
@@ -64,6 +68,19 @@ module.exports = {
     );
 
     return this._super.treeForAddon.call(this, resultingTree);
+  },
+
+
+
+  // Include emoji definitions and config
+  treeForVendor(tree) {
+    const resultingTree = this._mergeTrees(
+      tree,
+      this._generateTreeForTextareaCaret(),
+      this._generateTreeForLineHeight()
+    );
+
+    return this._super.treeForVendor.call(this, resultingTree);
   },
 
 
@@ -132,7 +149,25 @@ module.exports = {
     app.import(`${app.bowerDirectory}/${jsPath}`);
 
     // Import ES module shim
-    app.import('vendor/emojione-shim.js', { exports: { emojione: ['default'] } });
+    app.import('vendor/shims/emojione.js', { exports: { emojione: ['default'] } });
+  },
+
+
+
+  _importTextareaCaretJS(app) {
+    app.import("vendor/textarea-caret/index.js");
+
+    // Import ES module shim
+    app.import('vendor/shims/textarea-caret.js', { exports: { 'textarea-caret': ['default'] } });
+  },
+
+
+
+  _importLineHeightJS(app) {
+    app.import("vendor/line-height/index.js");
+
+    // Import ES module shim
+    app.import('vendor/shims/line-height.js', { exports: { 'line-height': ['default'] } });
   },
 
 
@@ -151,12 +186,12 @@ module.exports = {
 
     // Override local PNG sprite sheet URL
     if (opts.spriteSheet && opts.shouldIncludePngSprite) {
-      app.import(`vendor/emojione-local-png-sprites.css`);
+      app.import(`vendor/styles/emojione-local-png-sprites.css`);
     }
 
     // If ember-cli-sass is not available, import prebuilt CSS file
     if (!app.registry.availablePlugins['ember-cli-sass']) {
-      app.import(`vendor/ember-emojione.css`);
+      app.import(`vendor/styles/ember-emojione.css`);
     }
   },
 
@@ -263,5 +298,32 @@ module.exports = {
     const configTree = writeFile('config.json', configJson);
 
     return jsonModule(configTree);
-  }
+  },
+
+
+
+  _generateTreeForTextareaCaret() {
+    const modulePath = path.dirname(resolve.sync('textarea-caret'));
+
+    return new Funnel(modulePath, {
+      files:   ['index.js'],
+      destDir: '/textarea-caret',
+    });
+  },
+
+
+
+  _generateTreeForLineHeight() {
+    // line-height main file is within lib/, we need dist/
+    const modulePath = path.join(path.dirname(resolve.sync('line-height')), '..');
+
+    return new Funnel(modulePath, {
+      srcDir:  'dist',
+      files:   ['line-height.js'],
+      destDir: '/line-height',
+      getDestinationPath() {
+        return 'index.js';
+      },
+    });
+  },
 };

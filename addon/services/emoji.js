@@ -6,7 +6,7 @@ import {A} from 'ember-array/utils';
 import {setProperties} from 'ember-metal/set';
 import {htmlSafe} from 'ember-string';
 import {default as EObject} from 'ember-object';
-import {EMOJI_CATEGORIES_ARRAY, EMOJI_TONES_ARRAY} from "../utils/constants";
+import {EMOJI_CATEGORIES_ARRAY, EMOJI_TONES_ARRAY} from "ember-emojione/utils/constants";
 
 const O = EObject.create.bind(EObject);
 

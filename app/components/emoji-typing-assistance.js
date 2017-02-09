@@ -1,0 +1,1 @@
+export { default } from 'ember-emojione/components/emoji-typing-assistance';

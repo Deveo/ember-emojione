@@ -1245,6 +1245,10 @@ compression@^1.4.4:
     on-headers "~1.0.1"
     vary "~1.1.0"
 
+computed-style@~0.1.3:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/computed-style/-/computed-style-0.1.4.tgz#7f344fd8584b2e425bedca4a1afc0e300bb05d74"
+
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
@@ -1999,6 +2003,12 @@ ember-click-outside@^0.1.5:
   dependencies:
     ember-cli-babel "^5.1.7"
     ember-cli-htmlbars "*"
+
+ember-computed-style@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/ember-computed-style/-/ember-computed-style-0.2.0.tgz#6ceb2f1f10f9555fa5b5092f5668dde2c9df5440"
+  dependencies:
+    ember-cli-babel "^5.1.7"
 
 ember-disable-prototype-extensions@^1.1.0:
   version "1.1.0"
@@ -3515,6 +3525,12 @@ levn@^0.3.0, levn@~0.3.0:
   dependencies:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
+
+line-height@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/line-height/-/line-height-0.3.0.tgz#89aac740c7392aa8d0cd0583e319dfa682df1eae"
+  dependencies:
+    computed-style "~0.1.3"
 
 linkify-it@^2.0.0:
   version "2.0.3"
@@ -5794,6 +5810,10 @@ testem@^1.8.1:
 text-table@~0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
+
+textarea-caret@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/textarea-caret/-/textarea-caret-3.0.2.tgz#f360c48699aa1abf718680a43a31a850665c2caf"
 
 "textextensions@1 || 2":
   version "2.0.1"

@@ -1,5 +1,5 @@
 (function () {
-  /* globals define, emojione */
+  /* eslint-env node, amd */
 
   function generateModule(name, values) {
     define(name, [], function () {
@@ -9,5 +9,5 @@
     });
   }
 
-  generateModule('emojione', { default: emojione });
+  generateModule('emojione', { default: window.emojione });
 })();

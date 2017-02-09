@@ -14,9 +14,9 @@ import {default as EObject} from 'ember-object';
 const O = EObject.create.bind(EObject);
 
 import {
-  DEPENDENT_KEYS_FOR_EMOJI_SERVICE,
+  EMOJI_PROP_NAMES_CATEGORY_TONE,
   EMOJI_CATEGORIES_ARRAY,
-} from "../utils/constants";
+} from "ember-emojione/utils/constants";
 
 const EMOJI_PICKER_SCROLLABLE_ELEMENT = '.eeo-emojiPicker-scrollable';
 
@@ -72,7 +72,7 @@ export default Component.extend(ClickOutsideMixin, {
     'filterInput',
     'emojiService.currentSkinTone',
     'emojiService.categories.@each.id',
-    DEPENDENT_KEYS_FOR_EMOJI_SERVICE,
+    EMOJI_PROP_NAMES_CATEGORY_TONE,
     function () {
       const emojiCategories = this.get('emojiService.categories');
       const filterStrs      = this.get('filterInput').split(' ');
@@ -215,8 +215,8 @@ export default Component.extend(ClickOutsideMixin, {
 
 
   actions: {
-    selectEmojo(emojo, shouldFocusOnInput = true) {
-      this.sendAction('selectAction', emojo, shouldFocusOnInput);
+    selectEmojo(emojo, shouldFocus = true) {
+      this.sendAction('selectAction', emojo, {shouldFocus});
 
       if (this.get('closeAction') && this.get('shouldCloseOnSelect')) {
         this.sendAction('closeAction', true);

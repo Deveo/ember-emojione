@@ -4,8 +4,19 @@
     closeAction  = (action 'closeEmojiPicker')
     isVisible    = isEmojiPickerVisible
   )
+
   (component 'emoji-picker-toggler'
     toggleAction         = (action 'toggleEmojiPicker')
     isEmojiPickerVisible = isEmojiPickerVisible
   )
+
+  (component 'emoji-typing-assistance'
+    filterInput       = _assistFilterInput
+    $input            = $input
+    _keyPressNotifier = _keyPressNotifier
+    selectAction      = (action 'selectEmoji')
+  )
 }}
+
+
+{{_assistFilterInput}}

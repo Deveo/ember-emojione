@@ -5,6 +5,7 @@ import emojiPickerWrapper from '../../pages/components/emoji-picker-wrapper';
 import { withChai } from 'ember-cli-chai/qunit';
 import sinon from 'sinon';
 import wait from 'ember-test-helpers/wait';
+// import {next} from 'ember-runloop';
 
 
 
@@ -185,3 +186,43 @@ test('it should toggle emoji picker visibility with button', withChai(async func
   m = "Emoji picker should be invisible again after second click";
   expect(component.emojiPicker.isVisible, m).false;
 }));
+
+
+
+
+// test('it should position the typing assistance component correctly', withChai(async function(expect) {
+//   this.set('text', 'foo');
+//
+//   this.render(hbs`
+//     {{#emoji-picker-wrapper
+//       text          = text
+//       inputSelector = ".input"
+//       as |emojiPicker emojiPickerToggler emojiAssist|
+//     }}
+//       {{input value=text class="input"}}
+//       {{component emojiAssist}}
+//     {{/emoji-picker-wrapper}}
+//   `);
+//
+//   m = "Emoji assist should initially be invisible";
+//   expect(component.emojiAssist.isVisible, m).false;
+//
+//   const $input = component.$.find('.input');
+//   $input.val('Foo :ba Baz');
+//   $input.prop('selectionStart', 7);
+//   $input.prop('selectionEnd',   7);
+//
+//   $input.change();
+//
+//   await wait();
+//
+//   m = "Emoji assist should become visible";
+//   expect(component.emojiAssist.isVisible, m).true;
+//
+//   m = "Emoji assist should have top style";
+//   expect(component.emojiAssist.$.css('top'), m).equal('27px');
+//
+//   m = "Emoji assist should have left style";
+//   expect(component.emojiAssist.$.css('left'), m).equal('27px');
+// }));
+
