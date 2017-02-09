@@ -34,9 +34,10 @@ export default Component.extend(ClickOutsideMixin, {
   attributeBindings: ['style'],
   classNames: ['eeo-emojiAssist'],
   layout,
-
-
   style: computedStyle('caretCoords'),
+
+
+  _keyboardNotifierActive: false,
 
 
 
@@ -107,6 +108,26 @@ export default Component.extend(ClickOutsideMixin, {
 
 
 
+  setUpKeyNotifierCallbacks() {
+    const _keyPressNotifier = this.get('_keyPressNotifier');
+    if (!_keyPressNotifier) return;
+    if (this.get('_keyboardNotifierActive')) return;
+    this.set('_keyboardNotifierActive', true);
+
+    _keyPressNotifier.on('selectEmoji', () => {
+    });
+  },
+
+  removeKeyNotifierCallbacks() {
+    if (!this.get('_keyboardNotifierActive')) return;
+    const _keyPressNotifier = this.get('_keyPressNotifier');
+    if (!_keyPressNotifier) return;
+
+    _keyPressNotifier.off('selectEmoji');
+  },
+
+
+
   didInsertElement() {
     this._super(...arguments);
     next(() => this.addClickOutsideListener());
@@ -114,9 +135,17 @@ export default Component.extend(ClickOutsideMixin, {
 
 
 
+  didReceiveAttrs() {
+    this._super(...arguments);
+    this.setUpKeyNotifierCallbacks();
+  },
+
+
+
   willDestroyElement() {
     this._super(...arguments);
     this.removeClickOutsideListener();
+    this.removeKeyNotifierCallbacks();
   },
 
 

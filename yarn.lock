@@ -2035,6 +2035,12 @@ ember-get-config@^0.2.0:
     broccoli-file-creator "^1.1.1"
     ember-cli-babel "^5.1.6"
 
+ember-keyboard@^2.1.9:
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/ember-keyboard/-/ember-keyboard-2.1.9.tgz#52a810b749d23ca5bafd4484fd101bf0b73811ab"
+  dependencies:
+    ember-cli-babel "^5.1.6"
+
 ember-load-initializers@^0.6.0:
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/ember-load-initializers/-/ember-load-initializers-0.6.3.tgz#f47396ad271ba77294068c98f992a5f19705441a"

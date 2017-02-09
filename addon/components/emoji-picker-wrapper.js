@@ -7,10 +7,12 @@ import {next} from 'ember-runloop';
 import observer from 'ember-metal/observer';
 import Evented from 'ember-evented';
 import EObject from 'ember-object';
+import {EKMixin, EKOnInsertMixin, /*keyDown*//*, keyUp*/} from 'ember-keyboard';
+import onKeyDown from 'ember-emojione/utils/on-key-down';
 
 
 
-export default Component.extend({
+export default Component.extend(EKMixin, EKOnInsertMixin, {
 
   inputSelector:         undefined,
   text:                  undefined,
@@ -22,11 +24,14 @@ export default Component.extend({
 
   layout,
   classNames: ['eeo-emojiPickerWrapper'],
+  keyboardPriority: 1,
+  keyboardFirstResponder: true,
 
 
 
   _emojiTypingRegex: /(?:^|\s)(:[\w_]+:?)$/,
   _assistFilterInput: null,
+
 
 
   $input: computed('inputSelector', function () {
@@ -102,6 +107,16 @@ export default Component.extend({
     if (!result) return;
 
     this.set('_assistFilterInput', result[1]);
+  }),
+
+
+
+  closeAssist: onKeyDown('Escape', function () {
+    this.set('_assistFilterInput', null);
+  }),
+
+  selectEmoji: onKeyDown('Enter', function () {
+    this.get('_keyPressNotifier').trigger('selectEmoji');
   }),
 
 
