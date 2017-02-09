@@ -41,7 +41,7 @@ before_install:
   - npm install -g bower yarn
 
 install:
-  - yarn upgrade
+  - yarn install
   - bower install
 
 script:
