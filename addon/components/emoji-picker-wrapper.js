@@ -6,9 +6,10 @@ import {assert} from  'ember-metal/utils';
 import {next} from 'ember-runloop';
 import observer from 'ember-metal/observer';
 import Evented from 'ember-evented';
+import on from 'ember-evented/on';
 import EObject from 'ember-object';
-import {EKMixin, EKOnInsertMixin, /*keyDown*//*, keyUp*/} from 'ember-keyboard';
-import onKeyDown from 'ember-emojione/utils/on-key-down';
+import {EKMixin, EKOnInsertMixin, keyDown/*, keyUp*/} from 'ember-keyboard';
+import onKeyDown from 'ember-emojione/utils/on-key';
 
 
 
@@ -23,13 +24,13 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
 
   layout,
-  classNames: ['eeo-emojiPickerWrapper'],
-  keyboardPriority: 1,
+  classNames:             ['eeo-emojiPickerWrapper'],
+  keyboardPriority:       1,
   keyboardFirstResponder: true,
 
 
 
-  _emojiTypingRegex: /(?:^|\s)(:[\w_]+:?)$/,
+  _emojiTypingRegex: /(?:^|\s)(:[\w_]+)$/,
   _assistFilterInput: null,
 
 
@@ -111,12 +112,16 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
 
 
-  closeAssist: onKeyDown('Escape', function () {
+  closeAssistOnEsc: onKeyDown('Escape', function () {
     this.set('_assistFilterInput', null);
   }),
 
-  selectEmoji: onKeyDown('Enter', function () {
-    this.get('_keyPressNotifier').trigger('selectEmoji');
+  selectEmojiWithEnter:   onKeyDown('Enter',                  'selectEmoji'),
+  nextEmojiWithArrow:     onKeyDown('ArrowDown', 'Tab',       'nextEmoji'),
+  previousEmojiWithArrow: onKeyDown('ArrowUp',   'shift+Tab', 'previousEmoji'),
+
+  closeAssistOnArrows: on(keyDown('ArrowLeft'), keyDown('ArrowRight'), function () {
+    this.set('_assistFilterInput', null);
   }),
 
 
@@ -134,6 +139,8 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
       this.sendAction('emojiInsertedAction', newText);
       this._setCaretPositionAndFocusToInput({ $input, newCaretPosition, shouldFocus });
+
+      next(() => this.set('_assistFilterInput', null));
     },
 
 

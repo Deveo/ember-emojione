@@ -1,10 +1,12 @@
 import Component from 'ember-component';
 import computed from 'ember-computed';
 import {next} from 'ember-runloop';
-import get, {getProperties} from 'ember-metal/get';
+import get/*, {getProperties}*/ from 'ember-metal/get';
 import service from 'ember-service/inject';
-import {htmlSafe} from 'ember-string';
-import $ from 'jquery';
+// import {htmlSafe} from 'ember-string';
+import observer from 'ember-metal/observer';
+// import $ from 'jquery';
+import {assert} from 'ember-metal/utils';
 
 import layout from '../templates/components/emoji-typing-assistance';
 import computedStyle from 'ember-computed-style';
@@ -12,7 +14,7 @@ import getCaretCoordinates from 'textarea-caret';
 import getLineHeight from 'line-height';
 import ClickOutsideMixin from 'ember-click-outside/mixins/click-outside';
 import {EMOJI_PROP_NAMES_CATEGORY} from "ember-emojione/utils/constants";
-import {injectEmoji} from "ember-emojione/helpers/inject-emoji";
+// import {injectEmoji} from "ember-emojione/helpers/inject-emoji";
 
 
 
@@ -22,8 +24,9 @@ export default Component.extend(ClickOutsideMixin, {
   $input:            undefined,
   selectAction:      undefined,
 
-  _keyPressNotifier: undefined,
-  _minLength:        3,
+  _keyPressNotifier:  undefined,
+  _minLength:         3,
+  _currentEmojiIndex: 0,
 
 
 
@@ -40,6 +43,10 @@ export default Component.extend(ClickOutsideMixin, {
   _keyboardNotifierActive: false,
 
 
+
+  $scrollable: computed(function () {
+    return this.$('.eeo-emojiAssist-emoji');
+  }),
 
   isMinLengthMet: computed('filterInput.length', '_minLength', function () {
     return this.get('filterInput.length') >= this.get('_minLength');
@@ -91,20 +98,47 @@ export default Component.extend(ClickOutsideMixin, {
   ),
 
 
-  emojiHTML: computed('emoji.[]', function () {
-    const html =
-      this
-        .get('emoji')
-        .map(emojo => getProperties(emojo, 'id', 'shortname'))
-        .map(({id, shortname}) => `
-          <a href class="eeo-emojiAssist-emojo" data-emojo-shortname="${shortname}">
-            ${shortname} <span class="eeo-emojiAssist-emojo-label">${id}</span>
-          </a>
-        `)
-        .join('');
 
-    return htmlSafe(injectEmoji(html));
-  }),
+  selectEmojiFromKeyboard() {
+    const index = this.get('_currentEmojiIndex');
+    const emojo = this.get('emoji')[index];
+    assert("Attempted to retrieve emojo at index that deos not exist", emojo);
+    this.send('selectEmojo', emojo);
+  },
+
+  nextEmojiFromKeyboard() {
+    let index = this.get('_currentEmojiIndex') + 1;
+    const count = this.get('emoji.length');
+    if (index >= count) index = 0;
+    this.set('_currentEmojiIndex', index);
+    this._scrollToEmoji(index);
+  },
+
+  previousEmojiFromKeyboard() {
+    let index = this.get('_currentEmojiIndex') - 1;
+    if (index < 0) index = this.get('emoji.length') - 1;
+    this.set('_currentEmojiIndex', index);
+    this._scrollToEmoji(index);
+  },
+
+  _scrollToEmoji(index) {
+    const $scrollable  = this.get('$scrollable');
+    const $emojo       = $scrollable.children('.eeo-emojiAssist-emojo').eq(index);
+    const top          = $emojo.position().top;
+    const height       = $emojo.outerHeight();
+    const parentHeight = $scrollable.innerHeight();
+    const oldScrollTop = $scrollable.scrollTop();
+
+
+    const scrollTop =
+      top < 0                     ? oldScrollTop + top :
+      top + height > parentHeight ? oldScrollTop + top + height - parentHeight :
+                                    null;
+
+    if (scrollTop === null) return;
+
+    $scrollable.animate({scrollTop}, 150, false);
+  },
 
 
 
@@ -114,9 +148,12 @@ export default Component.extend(ClickOutsideMixin, {
     if (this.get('_keyboardNotifierActive')) return;
     this.set('_keyboardNotifierActive', true);
 
-    _keyPressNotifier.on('selectEmoji', () => {
-    });
+    _keyPressNotifier.on('selectEmoji',   () => this.selectEmojiFromKeyboard());
+    _keyPressNotifier.on('nextEmoji',     () => this.nextEmojiFromKeyboard());
+    _keyPressNotifier.on('previousEmoji', () => this.previousEmojiFromKeyboard());
   },
+
+
 
   removeKeyNotifierCallbacks() {
     if (!this.get('_keyboardNotifierActive')) return;
@@ -124,6 +161,8 @@ export default Component.extend(ClickOutsideMixin, {
     if (!_keyPressNotifier) return;
 
     _keyPressNotifier.off('selectEmoji');
+    _keyPressNotifier.off('nextEmoji');
+    _keyPressNotifier.off('previousEmoji');
   },
 
 
@@ -156,18 +195,15 @@ export default Component.extend(ClickOutsideMixin, {
 
 
 
-  click(event) {
-    event.preventDefault();
+  resetIndexOnEmojiChange: observer('emoji.[]', function () {
+    this.set('_currentEmojiIndex', 0);
+  }),
 
-    const $target = $(event.target);
 
-    const shortname =
-      $target.data('emojo-shortname')
-      || $target.parent('.eeo-emojiAssist-emojo').data('emojo-shortname');
-
-    if (!shortname) return;
-
-    this.sendAction('selectAction', shortname, {shouldReplace: true});
-    this.set('filterInput', null);
+  actions: {
+    selectEmojo(emojo) {
+      this.sendAction('selectAction', emojo, {shouldReplace: true});
+      this.set('filterInput', null);
+    }
   }
 });

@@ -1,3 +1,16 @@
+<div class="eeo-emojiAssist-header">
+  ↑  ↓  Tab  ⇧Tab  Enter  Esc
+</div>
+
 <div class="eeo-emojiAssist-emoji">
-  {{{emojiHTML}}}
+  {{#each emoji as |emojo index|}}
+    <a
+      href
+      class="eeo-emojiAssist-emojo {{if (eq index _currentEmojiIndex) '-active' ''}}"
+      {{action 'selectEmojo' emojo}}
+    >
+      {{{inject-emoji (eeo-html-safe emojo.shortname)}}}
+      <span class="eeo-emojiAssist-emojo-label">{{emojo.id}}</span>
+    </a>
+  {{/each}}
 </div>
