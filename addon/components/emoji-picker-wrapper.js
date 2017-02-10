@@ -30,7 +30,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
 
 
-  _emojiTypingRegex: /(?:^|\s)(:[\w_]+)$/,
+  _emojiTypingRegex: /(?:^|\s)(:[\w_+-]+)$/,
   _assistFilterInput: null,
 
 
