@@ -11,10 +11,4 @@ export default Controller.extend({
     const inputStr = this.get('inputStr');
     return htmlSafe(inputStr);
   }),
-
-  actions: {
-    emojiInserted(inputStr) {
-      this.setProperties({inputStr});
-    }
-  }
 });

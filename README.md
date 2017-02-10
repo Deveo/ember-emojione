@@ -73,22 +73,24 @@ Run these console commands in your app:
     ember install ember-emojione
     bower install -S emojione-js=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/lib/js/emojione.js
     bower install -S emojione-css=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.css
-    bower install -S emojione-defs=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/emoji.json
     bower install -S emojione-png=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.png
+    bower install -S emojione-defs=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/emoji.json
 
-If your app uses `ember-cli-sass`, add this to your Sass:
+If your app uses `ember-cli-sass`, the addon will not import component CSS automatically, so that you have more control. Import manually what you need:
 
 ```scss
-@import "node_modules/ember-emojione/app/styles/ember-emojione";
+@import "node_modules/ember-emojione/app/styles/helpers/mixin";
+@import "node_modules/ember-emojione/app/styles/components/emoji-assist";
+@import "node_modules/ember-emojione/app/styles/components/emoji-picker";
 ```
 
-You should be good to go. If your development server has been running, don't forget to restart it.
+Now you should be good to go. If your development server has been running, don't forget to restart it.
 
 
 
 ## Detailed Installation
 
-The `emojione` Bower package, which this addon relies on, is over 90 MiB large. As EmojiOne assets can be served from the "free and super-fast" [JSDelivr](http://jsdelivr.com) CDN, many developers don't need any EmojiOne images locally.
+The `emojione` Bower package, which this addon relies on, is over 90 MiB large. As EmojiOne assets can be served from the "free and super-fast" [JSDelivr](http://jsdelivr.com) CDN, many developers won't need any EmojiOne images locally.
 
 This addon can be configured to include as few or as much assets and dependencies as you need.
 
@@ -130,7 +132,7 @@ Normal CSS, works with individual PNGs, individual SVGs and SVG sprite sheet:
 
     bower install -S emojione-css=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/css/emojione.css
  
- Or, if you want to use PNG sprite sheet, add this CSS:
+ Or, if you want to use PNG sprite sheet, add this CSS instead:
  
     bower install -S emojione-css=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.css
 
@@ -138,7 +140,7 @@ If you're gonna use the components, you'll also need emoji definitions. Definiti
 
     bower install -S emojione-defs=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/emoji.json
 
-If you chose to use a sprite sheet, you must install it locally, because **EmojiOne sprite sheets aren't available on JSDelivr**. Skip this step if you're gonna serve the sprite sheet from your own CDN, separate from you app distro.
+If you chose to use a sprite sheet, you must install it locally, because **EmojiOne sprite sheets aren't available on JSDelivr** (as of January 2017). Skip this step if you're gonna serve the sprite sheet from your own CDN, separate from you app distro.
 
 PNG sprite sheet:
 
@@ -158,9 +160,9 @@ Simply install it via:
 
     bower install -S emojione
 
-Note: your app's distro size will not grow by 90 MiB. In the next installation step, you'll decide what assets to include into the distro.
+Note: your app's distro size will not grow by 90 MiB. In the next installation step, you'll decide which assets to include into the distro.
 
-But every clean `bower install` will likely be substantially slower, including your CI builds.
+But every clean `bower install` will be substantially slower. This may include your CI builds.
 
 
 
@@ -214,13 +216,15 @@ Values shown below are the defaults. If you're happy with them, you don't need t
 
 Skip this section if you're not using this addon's components.
 
-If your app uses `ember-cli-sass`, add this to your Sass:
+If your app uses `ember-cli-sass`, add some of these to your Sass:
 
 ```scss
-@import "node_modules/ember-emojione/app/styles/ember-emojione";
+@import "node_modules/ember-emojione/app/styles/helpers/mixin";
+@import "node_modules/ember-emojione/app/styles/components/emoji-assist";
+@import "node_modules/ember-emojione/app/styles/components/emoji-picker";
 ```
 
-If not, precompiled styles will be included automatically.
+If your app doesn't use `ember-cli-sass`, precompiled styles will be included automatically.
 
 
 
@@ -259,7 +263,7 @@ To configure `ember-emojione` and override `emojione` options, add these options
 
 Things to note:
 
-* The `sprites` option can not be configured from here. To enable `sprites`, override the `spriteSheet` optionin  `ember-cli-build.js`. It is possible to override the `sprites` when invoking the `inject-emoji` helper.
+* The `sprites` option can not be configured from here. To enable `sprites`, override the `spriteSheet` option in  `ember-cli-build.js`. It is also possible to override the `sprites` when invoking the `inject-emoji` helper.
 
 * The path to PNG sprite sheet is configured via CSS. If you're serving it from a custom CDN, add this style into your app:
 
@@ -269,7 +273,7 @@ Things to note:
     }
     ```
     
-* If you chose to include local SVG assets, default SVG paths will use root-relative urls, e. g. `/ember-emojione/svg/1f631.svg`. If you server your app from a subdirectory, please override one of the SVG URL options to include the subdirectory. You don't need this if you serve SVG assets from a CDN (default).
+* If you chose to include local SVG assets, default SVG paths will use root-relative urls, e. g. `/ember-emojione/svg/1f631.svg`. If you serve your app from a subdirectory, please override one of the SVG URL options to include the subdirectory. You don't need this if you serve SVG assets from a CDN (default).
 
 
 
@@ -327,11 +331,11 @@ You can override `ember-emojione` and `emojione.js` options for a single invocat
 
 If you use individual PNGs, individual SVGs or SVG sprites, customizing emoji size is quite easy: you simply apply `width` and `height` to the `.emojione` selector.
 
-But for PNG sprites, that won't work.
+But for PNG sprites (default), that won't work.
 
 The easiest solution for PNG sprites is to use the `zoom` CSS property, but it doesn't work in Firefox.
 
-For a [cross-browser](http://caniuse.com/#feat=transforms2d) solution, use the code below. It is a Sass mixin; if you're not using Sass, please infer how it works. The trick is to scale the emoji via CSS transform, then apply negative margins to remove extra whitespace.
+For a [cross-browser](http://caniuse.com/#feat=transforms2d) solution, use the code below. It is a Sass mixin; if you're not using Sass, you'll have to write your own version. The trick is to scale the emoji via CSS transform, then apply negative margins to remove extra whitespace.
 
 ```scss
 @mixin emojione-size ($target-size, $original-size: 64px) {
@@ -403,26 +407,23 @@ To disable skipping, set `regexToSkip` to `false`.
 `emoji-picker-wrapper` abstracts the logic of:
 
 * showing/hiding the `emoji-picker` and `emoji-typing-assistance` popups;
-* inserting emoji into the text field;
-* navigating the `emoji-typing-assistance` popup with the keyboard while staying focused on the text field
+* positioning the `emoji-typing-assistance` popup next to the caret;
+* inserting emoji into the text field, taking into consideration caret position;
+* navigating the `emoji-typing-assistance` popup with the keyboard while staying focused on the text field...
 
-...while making no assumptions about (and thus, giving you full control of) page layout and looks.
+...**while making no assumptions about page layout and looks, giving you full control**.
 
 
 
 #### emoji-picker-wrapper usage example
 
-Here's the full example. Read below 
+The price of giving you full control of layout and looks is pretty elaborate usage.
+
+Here's the full example. Below it's broken down into steps.
 
 ```js
 {
   wikiPageText: 'This is a sample wiki page',
-  
-  actions: {
-    emojiInserted(text) {
-      this.setProperties({text});
-    }
-  }
 }
 ```
 
@@ -430,7 +431,7 @@ Here's the full example. Read below
 {{#emoji-picker-wrapper
   text                = wikiPageText
   inputSelector       = ".my-input"
-  emojiInsertedAction = (action 'emojiInserted')
+  emojiInsertedAction = (action (mut wikiPageText))
   as |emojiPicker emojiPickerToggler emojiAssist|
 }}
   
@@ -452,6 +453,12 @@ Here's the full example. Read below
 To understand the example, let's assemble it step by step.
 
 1. We start with a text field, either an `input` or `textarea`. This text field accepts a value with a text from the `wikiPageText` property:
+
+    ```js
+    {
+      wikiPageText: 'This is a sample wiki page',
+    }
+    ```
 
     ```handlebars
     {{textarea class="my-input" value=wikiPageText}}
@@ -536,7 +543,9 @@ To understand the example, let's assemble it step by step.
 
 7. Implement the `emojiInsertedAction` action and pass it into the wrapper component.
     
-    The action receives the text updated with emoji inserted. It must update the value that you pass into both the text field and the wrapper:
+    The action receives the text updated with emoji inserted. It must update the value that you pass into both the text field and the wrapper.
+    
+    The action could look like this:
     
     ```js
     actions: {
@@ -546,11 +555,13 @@ To understand the example, let's assemble it step by step.
     }
     ```
 
+    But the simplest way of implementing the action is the `mut` helper, which lets you avoid adding the above action code to your controller/component.
+
     ```handlebars
     {{#emoji-picker-wrapper
       text                = wikiPageText
       inputSelector       = ".my-input"
-      emojiInsertedAction = (action 'emojiInserted')
+      emojiInsertedAction = (action (mut wikiPageText))
     }}
       <span style="position: relative; display: inline-block;">
         {{textarea class="my-input" value=wikiPageText}}
@@ -567,13 +578,13 @@ To understand the example, let's assemble it step by step.
 
     These instances come preconfigured to work together, saving you a ton of boilerplate code.
     
-    Accept them from the wrapper component and insert into dedicated places:
+    Receive them from the wrapper component and insert into dedicated places:
     
     ```handlebars
     {{#emoji-picker-wrapper
       text                = wikiPageText
       inputSelector       = ".my-input"
-      emojiInsertedAction = (action 'emojiInserted')
+      emojiInsertedAction = (action (mut wikiPageText))
       as |emojiPicker emojiPickerToggler emojiAssist|
     }}
       <span style="position: relative; display: inline-block;">
@@ -587,7 +598,7 @@ To understand the example, let's assemble it step by step.
     {{/emoji-picker-wrapper}}
     ```
     
-    You can customize them if you want. Read each component's documentation for details.
+    You can customize them if you want. Read each component's documentation below to see how you can customize them.
     
 That's it!
 
@@ -667,6 +678,8 @@ These are the options that you can configure regardless of whether you're using 
 
 This component isn't supposed to be used separately. It's yielded by the `emoji-picker-wrapper` component and is used to control emoji picker visibility.
 
+This component has no styles, you'll have to style it yourself.
+
 Can be used in inline and block form.
 
 
@@ -675,10 +688,12 @@ Can be used in inline and block form.
 
 Options preconfigured by the wrapper are not listed.
 
-| Option          | Type                | Default value | Description                                                                                                                          |
-|:----------------|:--------------------|:--------------|:-------------------------------------------------------------------------------------------------------------------------------------|
-| `label`         | String or undefined | `undefined`   | If block is not provided, will be used for button content.                                                                           |
-| `labelWhenOpen` | String or undefined | `undefined`   | If block is not provided, will be used for button content when the picker is visible. If not provided, `label` will be used instead. |
+| Option              | Type                  | Default value | Description                                                                                                                          |
+|:--------------------|:----------------------|:--------------|:-------------------------------------------------------------------------------------------------------------------------------------|
+| `label`             | String or undefined   | `undefined`   | If block is not provided, will be used for button content.                                                                           |
+| `labelWhenOpen`     | String or undefined   | `undefined`   | If block is not provided, will be used for button content when the picker is visible. If not provided, `label` will be used instead. |
+| any other attribute | String or `undefined` | `undefined`   | Any other attributes will be bound to HTML attributes of the component.                                                              |
+
 
 
 
@@ -694,9 +709,9 @@ It shows suggestions when user types in an emoji code, letting them insert the e
 
 Options preconfigured by the wrapper are not listed.
 
-| Option                 | Type                | Default value | Preconfigured by wrapper | Description                                                                                                                          |
-|:-----------------------|:--------------------|:--------------|:-------------------------|:-------------------------------------------------------------------------------------------------------------------------------------|
-| `minLength`        | Integer | `2`   |                          | Minimum length of the emoji code fragment for the component to appear, including the leading colon.  |
+| Option      | Type    | Default value | Description                                                                                         |
+|:------------|:--------|:--------------|:----------------------------------------------------------------------------------------------------|
+| `minLength` | Integer | `2`           | Minimum length of the emoji code fragment for the component to appear, including the leading colon. |
 
 
 

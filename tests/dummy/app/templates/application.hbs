@@ -13,7 +13,7 @@
 {{#emoji-picker-wrapper
   text                = inputStr
   inputSelector       = "textarea"
-  emojiInsertedAction = (action 'emojiInserted')
+  emojiInsertedAction = (action (mut inputStr))
   as |emojiPicker emojiPickerToggler emojiAssist|
 }}
   <span style="position: relative; display: inline-block;">
