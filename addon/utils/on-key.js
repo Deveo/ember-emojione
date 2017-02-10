@@ -11,7 +11,7 @@ export default function onKey(...args) {
 
     event.preventDefault();
 
-    if (typeof callbackOrEbentName === "function") {
+    if (typeof callbackOrEventName === "function") {
       return callbackOrEventName.call(this, event);
     }
 
