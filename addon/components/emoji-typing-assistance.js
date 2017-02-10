@@ -25,7 +25,7 @@ export default Component.extend(ClickOutsideMixin, {
   selectAction:      undefined,
 
   _keyPressNotifier:  undefined,
-  _minLength:         3,
+  _minLength:         2,
   _currentEmojiIndex: 0,
 
 
