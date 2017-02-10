@@ -15,6 +15,6 @@ export default function onKey(...args) {
       return callbackOrEventName.call(this, event);
     }
 
-    this.get('_keyPressNotifier').trigger(callbackOrEventName);
+    this.get('keyPressNotifier').trigger(callbackOrEventName);
   });
 }

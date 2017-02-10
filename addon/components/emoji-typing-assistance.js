@@ -23,10 +23,8 @@ export default Component.extend(ClickOutsideMixin, {
   filterInput:       undefined,
   $input:            undefined,
   selectAction:      undefined,
-
-  _keyPressNotifier:  undefined,
-  _minLength:         2,
-  _currentEmojiIndex: 0,
+  keyPressNotifier:  undefined,
+  minLength:         2,
 
 
 
@@ -40,6 +38,7 @@ export default Component.extend(ClickOutsideMixin, {
   style: computedStyle('caretCoords'),
 
 
+  _currentEmojiIndex:      0,
   _keyboardNotifierActive: false,
 
 
@@ -48,8 +47,8 @@ export default Component.extend(ClickOutsideMixin, {
     return this.$('.eeo-emojiAssist-emoji');
   }),
 
-  isMinLengthMet: computed('filterInput.length', '_minLength', function () {
-    return this.get('filterInput.length') >= this.get('_minLength');
+  isMinLengthMet: computed('filterInput.length', 'minLength', function () {
+    return this.get('filterInput.length') >= this.get('minLength');
   }),
 
 
@@ -143,26 +142,26 @@ export default Component.extend(ClickOutsideMixin, {
 
 
   setUpKeyNotifierCallbacks() {
-    const _keyPressNotifier = this.get('_keyPressNotifier');
-    if (!_keyPressNotifier) return;
+    const keyPressNotifier = this.get('keyPressNotifier');
+    if (!keyPressNotifier) return;
     if (this.get('_keyboardNotifierActive')) return;
     this.set('_keyboardNotifierActive', true);
 
-    _keyPressNotifier.on('selectEmoji',   () => this.selectEmojiFromKeyboard());
-    _keyPressNotifier.on('nextEmoji',     () => this.nextEmojiFromKeyboard());
-    _keyPressNotifier.on('previousEmoji', () => this.previousEmojiFromKeyboard());
+    keyPressNotifier.on('selectEmoji',   () => this.selectEmojiFromKeyboard());
+    keyPressNotifier.on('nextEmoji',     () => this.nextEmojiFromKeyboard());
+    keyPressNotifier.on('previousEmoji', () => this.previousEmojiFromKeyboard());
   },
 
 
 
   removeKeyNotifierCallbacks() {
     if (!this.get('_keyboardNotifierActive')) return;
-    const _keyPressNotifier = this.get('_keyPressNotifier');
-    if (!_keyPressNotifier) return;
+    const keyPressNotifier = this.get('keyPressNotifier');
+    if (!keyPressNotifier) return;
 
-    _keyPressNotifier.off('selectEmoji');
-    _keyPressNotifier.off('nextEmoji');
-    _keyPressNotifier.off('previousEmoji');
+    keyPressNotifier.off('selectEmoji');
+    keyPressNotifier.off('nextEmoji');
+    keyPressNotifier.off('previousEmoji');
   },
 
 

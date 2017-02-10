@@ -20,6 +20,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
   shouldSetFocusToInput: true,
   isEmojiPickerVisible:  false,
   emojiInsertedAction:   undefined,
+  emojiTypingRegex:      /(?:^|\s)(:[\w_+-]+)$/,
 
 
 
@@ -30,7 +31,6 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
 
 
-  _emojiTypingRegex: /(?:^|\s)(:[\w_+-]+)$/,
   _assistFilterInput: null,
 
 
@@ -42,7 +42,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
   }),
 
 
-  _keyPressNotifier: computed(function () {
+  keyPressNotifier: computed(function () {
     return EObject
       .extend(Evented)
       .create();
@@ -59,7 +59,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
     // Replacing partially inputted emoji code
     if (shouldReplace) {
-      const regex = this.get('_emojiTypingRegex');
+      const regex = this.get('emojiTypingRegex');
       const str   = text.slice(0, selectionStart);
       const match = regex.exec(str);
 
@@ -103,7 +103,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
     if (typeof text !== 'string') return;
 
     text         = text.slice(0, position);
-    const regex  = this.get('_emojiTypingRegex');
+    const regex  = this.get('emojiTypingRegex');
     const result = regex.exec(text);
     if (!result) return;
 

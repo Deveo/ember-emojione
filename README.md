@@ -10,13 +10,6 @@
 
 `ember-emojione` is your emoji solution for Ember, based on the [EmojiOne](http://emojione.com/) project.
 
-Currently a work in progress, here's what it's gonna offer:
-
-* [x] Versatile configuration of which assets to include.
-* [x] `inject-emoji` helper to hydrate a string containing emoji codes with emoji HTML tags ([#13](https://github.com/Deveo/ember-emojione/issues/13))
-* [x] `emoji-picker` component to select/insert emoji ([#17](https://github.com/Deveo/ember-emojione/issues/17))
-* [ ] Components to help you insert emoji while typing ([#26](https://github.com/Deveo/ember-emojione/issues/26))
-
 Demo: https://deveo.github.io/ember-emojione/ :sparkles:
 
 
@@ -25,36 +18,42 @@ Demo: https://deveo.github.io/ember-emojione/ :sparkles:
 
 * [Quick installation](#quick-installation)
 * [Detailed Installation](#detailed-installation)
-    * [1. Installing the addon itself](#1-installing-the-addon-itself)
-    * [2. Installing the EmojiOne library](#2-installing-the-emojione-library)
-        * [Option 1: including only the necessary assets (recommended)](#option-1-including-only-the-necessary-assets-recommended)
-        * [Option 2: including the whole emojione package](#option-2-including-the-whole-emojione-package)
-    * [3. Asset configuration in ember-cli-build.js to tell the addon about the choices you made above](#3-asset-configuration-in-ember-cli-buildjs-to-tell-the-addon-about-the-choices-you-made-above)
-    * [Including component styles](#including-component-styles)
+  * [1. Installing the addon itself](#1-installing-the-addon-itself)
+  * [2. Installing the EmojiOne library](#2-installing-the-emojione-library)
+    * [Option 1: including only the necessary assets (recommended)](#option-1-including-only-the-necessary-assets-recommended)
+    * [Option 2: including the whole emojione package](#option-2-including-the-whole-emojione-package)
+  * [3. Asset configuration in ember-cli-build.js to tell the addon about the choices you made above](#3-asset-configuration-in-ember-cli-buildjs-to-tell-the-addon-about-the-choices-you-made-above)
+  * [Including component styles](#including-component-styles)
 * [Runtime Configuration in config/environment.js](#runtime-configuration-in-configenvironmentjs)
 * [Usage](#usage)
-    * [inject-emoji helper](#inject-emoji-helper)
-        * [Overriding options](#overriding-options)
-        * [Customizing emoji size via CSS](#customizing-emoji-size-via-css)
-        * [Using from JS](#using-from-js)
-        * [Skipping code blocks](#skipping-code-blocks)
-    * [emoji-picker component](#emoji-picker-component)
-        * [emoji-picker options](#emoji-picker-options)
-    * [emoji-picker-wrapper component](#emoji-picker-wrapper-component)
-      * [Standard usage](#standard-usage)
-      * [Controlling emoji-picker visibility manually](#controlling-emoji-picker-visibility-manually)
-      * [emoji-picker-wrapper options](#emoji-picker-wrapper-options)
-    * [Using the emojione JS library directly](#using-the-emojione-js-library-directly)
-    * [I18n](#i18n)
+  * [inject-emoji helper](#inject-emoji-helper)
+    * [Overriding options](#overriding-options)
+    * [Customizing emoji size via CSS](#customizing-emoji-size-via-css)
+    * [Using from JS](#using-from-js)
+    * [Skipping code blocks](#skipping-code-blocks)
+  * [emoji-picker-wrapper component](#emoji-picker-wrapper-component)
+    * [emoji-picker-wrapper usage example](#emoji-picker-wrapper-usage-example)
+    * [emoji-picker-wrapper usage example breakdown](#emoji-picker-wrapper-usage-example-breakdown)
+    * [emoji-picker-wrapper options](#emoji-picker-wrapper-options)
+  * [emoji-picker component](#emoji-picker-component)
+    * [emoji-picker options](#emoji-picker-options)
+  * [emoji-picker-toggler component](#emoji-picker-toggler-component)
+    * [emoji-picker-toggler options](#emoji-picker-toggler-options)
+  * [emoji-typing-assistance component](#emoji-typing-assistance-component)
+    * [emoji-typing-assistance options](#emoji-typing-assistance-options)
+  * [Using the emojione JS library directly](#using-the-emojione-js-library-directly)
+  * [I18n](#i18n)
 * [Development](#development)
-    * [Installation](#installation)
-    * [Running](#running)
-    * [Running Tests](#running-tests)
-    * [Do not use npm or ember install, use yarn](#do-not-use-npm-or-ember-install-use-yarn)
-    * [Branch names](#branch-names)
-    * [Demo deployment](#demo-deployment)
+  * [Installation](#installation)
+  * [Running](#running)
+  * [Running Tests](#running-tests)
+  * [Do not use npm or ember install, use yarn](#do-not-use-npm-or-ember-install-use-yarn)
+  * [Branch names](#branch-names)
+  * [Updating the table of contents](#updating-the-table-of-contents)
+  * [Demo deployment](#demo-deployment)
 * [Credits](#credits)
 * [License](#license)
+
 
 
 
@@ -399,58 +398,21 @@ To disable skipping, set `regexToSkip` to `false`.
 
 
 
-### emoji-picker component
-
-This component is used to select emoji from a list.
-
-Render it like this:
-
-```handlebars
-{{#if isPickerVisible}}
-  {{emoji-picker
-    selectAction = (action 'selectEmoji')
-  }}
-{{/if}}
-```
-
-
-
-#### emoji-picker options
-
-| Option                | Type    | Default value       | Description                                                   |
-|:----------------------|:--------|:--------------------|:--------------------------------------------------------------|
-| `selectAction`        | Action  | mandatory           | Action to execute when an emoji is clicked                    |
-| `toneSelectAction`    | Action  | `undefined`         | Action to execute when skin tone is changed                   |
-| `closeAction`         | Action  | `undefined`         | Action to execute on click outside of the component           |
-| `shouldCloseOnSelect` | Boolean | `false`             | Whether to execute the close action when an emoji is selected |
-| `disableAutoFocus`    | Boolean | `false`             | Prevents from focusing on component when first rendered       |
-| `textNoEmojiFound`    | String  | `"No emoji found"`  | Override for i18n                                             |
-| `textSearch`          | String  | `"Search"`          | Override for i18n                                             |
-| `textClearSearch`     | String  | `"Clear search"`    | Override for i18n                                             |
-
-
-
 ### emoji-picker-wrapper component
 
-`emoji-picker-wrapper` abstracts the logic of showing/hiding the `emoji-picker` and inserting emoji into an input field or textarea, while making no assumptions about (and thus, giving you full control of) page layout and looks.
+`emoji-picker-wrapper` abstracts the logic of:
 
-#### Standard usage
+* showing/hiding the `emoji-picker` and `emoji-typing-assistance` popups;
+* inserting emoji into the text field;
+* navigating the `emoji-typing-assistance` popup with the keyboard while staying focused on the text field
 
-Steps to use may sound complicated but they are pretty straightforward:
+...while making no assumptions about (and thus, giving you full control of) page layout and looks.
 
-1. In your HTML structure, find the following three places:
-    * an input/textarea where the emoji should be inserted;
-    * a place where a button that toggles emoji-picker visibility should be located;
-    * where the emoji picker should be located.
-2. Wrap those three places with `emoji-picker-wrapper`.
-3. Pass the following arguments into `emoji-picker-wrapper`:
-  * `text` -- the text to insert emoji picker into. It should be the same value that you pass into the input/textarea.
-  * `inputSelector` -- a selector to access the input/textarea.
-  * `emojiInsertedAction` -- an action that will be triggered when an emoji is inserted. In this action you should set passed value to the property you pass into the input/textarea and `text.
-4. From `emoji-picker-wrapper` invocation, accept `emojiPicker` and `emojiPickerToggler` components. This is a regular `emoji-picker` component, but it will already have `selectAction`, `closeAction` and `isVisible` preconfigured for you.
-5. Render `emojiPicker` and `emojiPickerToggler` using the `{{component}}` helper.
 
-Example:
+
+#### emoji-picker-wrapper usage example
+
+Here's the full example. Read below 
 
 ```js
 {
@@ -469,60 +431,235 @@ Example:
   text                = wikiPageText
   inputSelector       = ".my-input"
   emojiInsertedAction = (action 'emojiInserted')
-  as |emojiPicker emojiPickerToggler|
+  as |emojiPicker emojiPickerToggler emojiAssist|
 }}
-
-  <!-- This is your text field. Using ember-one-way-controls is recommended. -->
-  <!-- Note that you pass the same `wikiPageText` property as into the wrapper. -->
-  {{input class="my-input" value=wikiPageText}}
   
-  <!-- Render the toggler button somewhere -->
-  {{component emojiPickerToggler
-    label         = "😀"
-    labelWhenOpen = "😆"
-  }}
+  <span style="position: relative; display: inline-block;">
+    {{textarea class="my-input" value=wikiPageText}}
+    {{component emojiAssist}}
+  </span>
   
-  <!-- Render emoji-picker somewhere. Note that the `selectAction`, -->
-  <!-- `closeAction` and `isVisible` properties have been preconfigured for -->
-  <!-- you, but you can configure any other options. -->
+  {{component emojiPickerToggler}}
+  
   {{component emojiPicker}}
   
 {{/emoji-picker-wrapper}}
 ```
 
-This setup will take care of showing/hiding the emoji picker and reading/setting text selection, so that emoji insertion works like "paste", overwriting existing selection.
 
+#### emoji-picker-wrapper usage example breakdown
 
+To understand the example, let's assemble it step by step.
 
-#### Controlling emoji-picker visibility manually
+1. We start with a text field, either an `input` or `textarea`. This text field accepts a value with a text from the `wikiPageText` property:
 
-If you want to use `emoji-picker-wrapper` but still want to control `emoji-picker` visibility manually, you can do this with the `isVisible` property built into all Ember components:
+    ```handlebars
+    {{textarea class="my-input" value=wikiPageText}}
+    ```
 
-```handlebars
-{{#emoji-picker-wrapper
-  text                = wikiPageText
-  inputSelector       = ".my-input"
-  emojiInsertedAction = (action 'emojiInserted')
-  as |emojiPicker|
-}}
-  {{input class="my-input" value=text}}
-  
-  {{component emojiPicker isVisible=yourPropertyHere}}
-{{/emoji-picker-wrapper}}
-````
+2. In your HTML structure, decide where you're gonna put the emoji picker popup and the button that toggles the emoji picker.
+
+    The locations depend on your HTML layout and page design. In this example, we're gonna keep it simple:
+
+    ```handlebars
+    {{textarea class="my-input" value=wikiPageText}}
+    
+    <!-- emoji picker popup is gonna be located here -->
+    
+    <!-- the button-that-toggles-the-popup is gonna be located here -->
+    ```
+
+3. Wrap the text field with an HTML element that has `position: relative` and `display` of either `block` or `inline-block`:
+
+    ```handlebars
+    <span style="position: relative; display: inline-block;">
+      {{textarea class="my-input" value=wikiPageText}}
+    </span>
+    
+    <!-- emoji picker popup is gonna be located here -->
+    
+    <!-- the button-that-toggles-the-popup is gonna be located here -->
+    ```
+    
+    In this example the HTML element uses inline styles for simplicity, but that's not a requirement.
+
+4. The emoji typing assistance popup should be located next to the textarea, within that element with `position: relative`: 
+
+    ```handlebars
+    <span style="position: relative; display: inline-block;">
+      {{textarea class="my-input" value=wikiPageText}}
+      <!-- emoji typing assistance popup is gonna be located here -->
+    </span>
+    
+    <!-- emoji picker popup is gonna be located here -->
+    
+    <!-- the button-that-toggles-the-popup is gonna be located here -->
+    ```
+
+5. Wrap the three items with the `emoji-picker-wrapper` component:
+
+    ```handlebars
+    {{#emoji-picker-wrapper}}
+      <span style="position: relative; display: inline-block;">
+        {{textarea class="my-input" value=wikiPageText}}
+        <!-- emoji typing assistance popup is gonna be located here -->
+      </span>
+      
+      <!-- emoji picker popup is gonna be located here -->
+      
+      <!-- the button-that-toggles-the-popup is gonna be located here -->
+    {{/emoji-picker-wrapper}}
+    ```
+    
+    It should serve as a common parent for everything that we set up earlier.
+
+6. Pass the following arguments into the wrapper component:
+
+    * `text`: the same bound property as you pass into the text field;
+    * `inputSelector`: a CSS selector that uniquely identifies the text field within the wrapper;
+
+    ```handlebars
+    {{#emoji-picker-wrapper
+      text                = wikiPageText
+      inputSelector       = ".my-input"
+    }}
+      <span style="position: relative; display: inline-block;">
+        {{textarea class="my-input" value=wikiPageText}}
+        <!-- emoji typing assistance popup is gonna be located here -->
+      </span>
+      
+      <!-- emoji picker popup is gonna be located here -->
+      
+      <!-- the button-that-toggles-the-popup is gonna be located here -->
+    {{/emoji-picker-wrapper}}
+    ```
+
+7. Implement the `emojiInsertedAction` action and pass it into the wrapper component.
+    
+    The action receives the text updated with emoji inserted. It must update the value that you pass into both the text field and the wrapper:
+    
+    ```js
+    actions: {
+      emojiInserted(text) {
+        this.setProperties({text});
+      }
+    }
+    ```
+
+    ```handlebars
+    {{#emoji-picker-wrapper
+      text                = wikiPageText
+      inputSelector       = ".my-input"
+      emojiInsertedAction = (action 'emojiInserted')
+    }}
+      <span style="position: relative; display: inline-block;">
+        {{textarea class="my-input" value=wikiPageText}}
+        <!-- emoji typing assistance popup is gonna be located here -->
+      </span>
+      
+      <!-- emoji picker popup is gonna be located here -->
+      
+      <!-- the button-that-toggles-the-popup is gonna be located here -->
+    {{/emoji-picker-wrapper}}
+    ```
+    
+8. The wrapper component will create instances of the three child components: `emojiPicker`, `emojiPickerToggler` and `emojiAssist`.
+
+    These instances come preconfigured to work together, saving you a ton of boilerplate code.
+    
+    Accept them from the wrapper component and insert into dedicated places:
+    
+    ```handlebars
+    {{#emoji-picker-wrapper
+      text                = wikiPageText
+      inputSelector       = ".my-input"
+      emojiInsertedAction = (action 'emojiInserted')
+      as |emojiPicker emojiPickerToggler emojiAssist|
+    }}
+      <span style="position: relative; display: inline-block;">
+        {{textarea class="my-input" value=wikiPageText}}
+        {{component emojiAssist}}
+      </span>
+      
+      {{component emojiPicker}}
+      
+      {{component emojiPickerToggler}}
+    {{/emoji-picker-wrapper}}
+    ```
+    
+    You can customize them if you want. Read each component's documentation for details.
+    
+That's it!
+
+Here's a list of options that are preconfigured for the components. Make sure not to override them:
+
+* `emoji-picker`
+    * `selectAction`
+    * `closeAction`
+    * `isVisible`
+
+* `emoji-picker-toggler`
+    * `toggleAction`
+    * `isEmojiPickerVisible`
+
+* `emoji-typing-assistance`
+    * `filterInput`
+    * `$input`
+    * `keyPressNotifier`
+    * `selectAction`
 
 
 
 #### emoji-picker-wrapper options
 
-| Option                  | Type    | Default value | Description                                                                                                                      |
-|:------------------------|:--------|:--------------|:---------------------------------------------------------------------------------------------------------------------------------|
-| `inputSelector`         | String  | mandatory     | Unique selector of a text field where emoji will be inserted.                                                                    |
-| `text`                  | String  | mandatory     | Content of the text field. Emoji code will be inserted into this text.                                                           |
-| `emojiInsertedAction`   | Action  | mandatory     | Action to execute when emoji is inserted. Will be called with new text already containing an emoji code.                         |
-| `shouldSetFocusToInput` | Boolean | `true`        | Whether to focus on the input field after emoji insertion or closing the picker with Esc.                                        |
-| `isEmojiPickerVisible`  | Boolean | `false`       | Lets you control picker visibility manually. Don't override this if you're using `emojiPickerToggler` which controls it for you. |
+| Option                  | Type    | Default value            | Description                                                                                                                      |
+|:------------------------|:--------|:-------------------------|:---------------------------------------------------------------------------------------------------------------------------------|
+| `inputSelector`         | String  | required                 | Unique selector of a text field where emoji will be inserted.                                                                    |
+| `text`                  | String  | required                 | Content of the text field. Emoji code will be inserted into this text.                                                           |
+| `emojiInsertedAction`   | Action  | required                 | Action to execute when emoji is inserted. Will be called with new text already containing an emoji code.                         |
+| `shouldSetFocusToInput` | Boolean | `true`                   | Whether to focus on the input field after emoji insertion or closing the picker with Esc.                                        |
+| `isEmojiPickerVisible`  | Boolean | `false`                  | Lets you control picker visibility manually. Don't override this if you're using `emojiPickerToggler` which controls it for you. |
+| `emojiTypingRegex`      | RegExp  | `/(?:^|\s)(:[\w_+-]+)$/` | Regular expression to detect a fragment of emoji code typed into a text field. Must end with `$`. Must not be `g`lobal. The `(?:^|\s)` fragment of the regex requires the emoji code to either be prepended by whitespace or appear in the start of the line. Remove this fragment if you want the typing assistance popup to appear when the user types `foo:ba`, for example. |
+
+
+
+### emoji-picker component
+
+This component is used to select emoji from a list. Designed as a popup.
+
+Render it like this:
+
+```handlebars
+{{#if isPickerVisible}}
+  {{emoji-picker
+    selectAction = (action 'selectEmoji')
+  }}
+{{/if}}
 ```
+
+
+
+#### emoji-picker options
+
+The following options are preconfigured by the wrapper component. Override them only if you're using `emoji-picker` manually, without the wrapper:
+
+| Option         | Type    | Default value | Description                                                                 |
+|:---------------|:--------|:--------------|:----------------------------------------------------------------------------|
+| `selectAction` | Action  | required      | Action to execute when an emoji is clicked                                  |
+| `closeAction`  | Action  | `undefined`   | Action to execute on click outside of the component                         |
+| `isVisible`    | Boolean | `false`       | Controls component visibility with `display: none` (from `Ember.Component`) |
+
+
+These are the options that you can configure regardless of whether you're using the wrapper.
+
+| Option                | Type    | Default value      | Description                                                   |
+|:----------------------|:--------|:-------------------|:--------------------------------------------------------------|
+| `toneSelectAction`    | Action  | `undefined`        | Action to execute when skin tone is changed                   |
+| `shouldCloseOnSelect` | Boolean | `false`            | Whether to execute the close action when an emoji is selected |
+| `disableAutoFocus`    | Boolean | `false`            | Prevents from focusing on component when first rendered       |
+| `textNoEmojiFound`    | String  | `"No emoji found"` | Override for i18n                                             |
+| `textSearch`          | String  | `"Search"`         | Override for i18n                                             |
+| `textClearSearch`     | String  | `"Clear search"`   | Override for i18n                                             |
 
 
 
@@ -536,25 +673,30 @@ Can be used in inline and block form.
 
 #### emoji-picker-toggler options
 
-| Option                  | Type    | Default value | Description                                                                                                                      |
-|:------------------------|:--------|:--------------|:---------------------------------------------------------------------------------------------------------------------------------|
-| `inputSelector`         | String  | mandatory     | Unique selector of a text field where emoji will be inserted.                                                                    |
-| `text`                  | String  | mandatory     | Content of the text field. Emoji code will be inserted into this text.                                                           |
-| `emojiInsertedAction`   | Action  | mandatory     | Action to execute when emoji is inserted. Will be called with new text already containing an emoji code.                         |
-| `shouldSetFocusToInput` | Boolean | `true`        | Whether to focus on the input field after emoji insertion or closing the picker with Esc.                                        |
-| `isEmojiPickerVisible`  | Boolean | `false`       | Lets you control picker visibility manually. Don't override this if you're using `emojiPickerToggler` which controls it for you. |
+Options preconfigured by the wrapper are not listed.
+
+| Option          | Type                | Default value | Description                                                                                                                          |
+|:----------------|:--------------------|:--------------|:-------------------------------------------------------------------------------------------------------------------------------------|
+| `label`         | String or undefined | `undefined`   | If block is not provided, will be used for button content.                                                                           |
+| `labelWhenOpen` | String or undefined | `undefined`   | If block is not provided, will be used for button content when the picker is visible. If not provided, `label` will be used instead. |
 
 
 
-### Using the emojione JS library directly
+### emoji-typing-assistance component
 
-The `emojione` library makes itself available as a global.
+This component isn't supposed to be used separately. It's yielded by the `emoji-picker-wrapper` component and is used to control emoji picker visibility.
 
-To help you stay true to the Ember way, this addon lets you import the library as a ES module:
+It shows suggestions when user types in an emoji code, letting them insert the emoji quicker.
 
-```js
-import emojione from 'emojione';
-```
+
+
+#### emoji-typing-assistance options
+
+Options preconfigured by the wrapper are not listed.
+
+| Option                 | Type                | Default value | Preconfigured by wrapper | Description                                                                                                                          |
+|:-----------------------|:--------------------|:--------------|:-------------------------|:-------------------------------------------------------------------------------------------------------------------------------------|
+| `minLength`        | Integer | `2`   |                          | Minimum length of the emoji code fragment for the component to appear, including the leading colon.  |
 
 
 
@@ -638,6 +780,12 @@ The number in the branch name, "generation", is supposed to be incremented in th
 * The codebase is started from scratch.
 
 Pull requests are welcome from feature branches. Make sure to discus proposed changes with addon maintainers to avoid wasted effort.
+
+
+
+### Updating the table of contents
+
+Maintaining the TOC by hand is extremely tedious. Use [this tiny webapp](https://lolmaus.github.io/tocdown/) to generate the TOC automatically. Enable the first two checkboxes there.
 
 
 
