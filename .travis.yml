@@ -1,7 +1,7 @@
 ---
 language: node_js
 node_js:
-  - "stable"
+  - 6
 
 dist: trusty
 sudo: required
@@ -19,7 +19,6 @@ cache:
     - node_modules
     - $HOME/.npm
     - $HOME/.cache # includes bowers cache
-    - $HOME/.yarn-cache
 
 env:
   - EMBER_TRY_SCENARIO=ember-default
@@ -38,11 +37,11 @@ matrix:
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
-  - npm config set spin false
-  - npm install -g bower yarn
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - yarn global add bower
 
 install:
-  - yarn install
+  - yarn install --pure-lockfile
   - bower install
 
 script:
