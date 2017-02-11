@@ -24,7 +24,7 @@ export default Component.extend(ClickOutsideMixin, {
   $input:            undefined,
   selectAction:      undefined,
   keyPressNotifier:  undefined,
-  minLength:         2,
+  minLength:         3,
 
 
 
@@ -65,13 +65,34 @@ export default Component.extend(ClickOutsideMixin, {
 
       if (!isMinLengthMet || !$input || !emojiCount) return {display: 'none'};
 
-      const filterInput = this.get('filterInput');
+      // const filterInput = this.get('filterInput');
       const input       = $input.get(0);
-      const position    = $input.prop('selectionStart') - filterInput.length + 1;
-      const style       = getCaretCoordinates(input, position);
-      const lineHeight  = getLineHeight(input);
+      const position    = $input.prop('selectionStart'); // - filterInput.length + 1;
+      const caretCoords = getCaretCoordinates(input, position);
+      const inputCoords = $input.get(0).getBoundingClientRect();
+      const style       = {};
 
-      style.top += lineHeight;
+      const caretPositionRelativeToViewportTop =
+        inputCoords.top
+        + ($input.outerHeight() - $input.innerHeight()) // border
+        + caretCoords.top;
+
+      if (caretPositionRelativeToViewportTop > document.documentElement.clientHeight / 2) {
+        style.bottom = `calc(100% - ${caretCoords.top - getLineHeight(input) / 2}px)`;
+      } else {
+        style.top = caretCoords.top + getLineHeight(input);
+      }
+
+      const caretPositionRelativeToViewportLeft =
+        inputCoords.left
+        + ($input.outerWidth() - $input.innerWidth()) // border
+        + caretCoords.left;
+
+      if (caretPositionRelativeToViewportLeft > document.documentElement.clientWidth / 2) {
+        style.right = `calc(100% - ${caretCoords.left}px)`;
+      } else {
+        style.left = caretCoords.left;
+      }
 
       return style;
     }
@@ -136,7 +157,7 @@ export default Component.extend(ClickOutsideMixin, {
 
     if (scrollTop === null) return;
 
-    $scrollable.animate({scrollTop}, 150, false);
+    $scrollable.scrollTop(scrollTop);
   },
 
 

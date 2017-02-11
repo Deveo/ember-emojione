@@ -711,7 +711,7 @@ Options preconfigured by the wrapper are not listed.
 
 | Option      | Type    | Default value | Description                                                                                         |
 |:------------|:--------|:--------------|:----------------------------------------------------------------------------------------------------|
-| `minLength` | Integer | `2`           | Minimum length of the emoji code fragment for the component to appear, including the leading colon. |
+| `minLength` | Integer | `3`           | Minimum length of the emoji code fragment for the component to appear, including the leading colon. |
 
 
 
