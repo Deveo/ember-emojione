@@ -13,7 +13,7 @@ import computedStyle from 'ember-computed-style';
 import getCaretCoordinates from 'textarea-caret';
 import getLineHeight from 'line-height';
 import ClickOutsideMixin from 'ember-click-outside/mixins/click-outside';
-import {EMOJI_PROP_NAMES_CATEGORY} from "ember-emojione/utils/constants";
+import {EMOJI_PROP_NAMES_TONE} from "ember-emojione/-private/utils/constants";
 // import {injectEmoji} from "ember-emojione/helpers/inject-emoji";
 
 
@@ -103,7 +103,7 @@ export default Component.extend(ClickOutsideMixin, {
   emoji: computed(
     'filterInput',
     'emojiService.currentSkinTone',
-    EMOJI_PROP_NAMES_CATEGORY,
+    EMOJI_PROP_NAMES_TONE,
     function () {
       if (!this.get('isMinLengthMet')) return [];
 

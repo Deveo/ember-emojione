@@ -1,7 +1,7 @@
 import Component from 'ember-component';
 import layout from '../../templates/components/emoji-picker/category';
 import service from 'ember-service/inject';
-import templateString from 'ember-emojione/cp-macros/template-string';
+import templateString from 'ember-emojione/-private/cp-macros/template-string';
 
 
 

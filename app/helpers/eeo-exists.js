@@ -1,1 +1,1 @@
-export { default, eeoExists } from 'ember-emojione/helpers/eeo-exists';
+export { default, eeoExists } from 'ember-emojione/-private/helpers/eeo-exists';

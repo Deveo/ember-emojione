@@ -1,7 +1,7 @@
 {{#if hasBlock}}
   {{yield isEmojiPickerVisible}}
 {{else if label}}
-  {{#if (and (eeo-exists labelWhenOpen) isEmojiPickerVisible)}}
+  {{#if (eeo-and (eeo-exists labelWhenOpen) isEmojiPickerVisible)}}
     {{labelWhenOpen}}
   {{else}}
     {{label}}

@@ -9,7 +9,7 @@ import Evented from 'ember-evented';
 import on from 'ember-evented/on';
 import EObject from 'ember-object';
 import {EKMixin, EKOnInsertMixin, keyDown/*, keyUp*/} from 'ember-keyboard';
-import onKeyDown from 'ember-emojione/utils/on-key';
+import onKeyDown from 'ember-emojione/-private/utils/on-key';
 
 
 

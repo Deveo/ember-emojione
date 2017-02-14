@@ -14,9 +14,10 @@ import {default as EObject} from 'ember-object';
 const O = EObject.create.bind(EObject);
 
 import {
-  EMOJI_PROP_NAMES_CATEGORY_TONE,
+  EMOJI_PROP_NAMES_TONE,
+  EMOJI_PROP_NAMES_TONE_TONE,
   EMOJI_CATEGORIES_ARRAY,
-} from "ember-emojione/utils/constants";
+} from "ember-emojione/-private/utils/constants";
 
 const EMOJI_PICKER_SCROLLABLE_ELEMENT = '.eeo-emojiPicker-scrollable';
 
@@ -56,6 +57,16 @@ export default Component.extend(ClickOutsideMixin, {
     return this.$('.eeo-emojiPicker-filter-input');
   }),
 
+  emoji: computed(
+    'emojiService.currentSkinTone',
+    EMOJI_PROP_NAMES_TONE,
+    function () {
+      const currentSkinTone = this.get('emojiService.currentSkinTone');
+      const emojiPropName   = `emojiService.emoji__tone_${currentSkinTone}`;
+      return this.get(emojiPropName);
+    }
+  ),
+
   categorySections: computed('emojiService.categories', function () {
     const objs =
       this
@@ -72,7 +83,7 @@ export default Component.extend(ClickOutsideMixin, {
     'filterInput',
     'emojiService.currentSkinTone',
     'emojiService.categories.@each.id',
-    EMOJI_PROP_NAMES_CATEGORY_TONE,
+    EMOJI_PROP_NAMES_TONE_TONE,
     function () {
       const emojiCategories = this.get('emojiService.categories');
       const filterStrs      = this.get('filterInput').split(' ');
