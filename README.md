@@ -208,11 +208,21 @@ Values shown below are the defaults. If you're happy with them, you don't need t
       packageNamePngSprite:   'emojione-png',
       packageNameSvgSprite:   'emojione-svg',
       
-      // Whether to remove `ember-emojione` components from build
+      // Whether to keep or remove `ember-emojione` components from build
       shouldIncludeComponents: true,
     },
   });
 ```
+
+Note: if you set `shouldIncludeComponents` to `false`, you will not be able to define the following modules in your app:
+
+* `app/components/emoji-picker`
+* `app/components/emoji-picker/*`
+* `app/components/emoji-picker-wrapper`
+* `app/components/emoji-picker-toggler`
+* `app/components/emoji-typing-assistance`
+* `app/helpers/eeo-*`
+
 
 
 ### Including component styles
