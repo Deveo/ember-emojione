@@ -19,7 +19,7 @@
   .eeo-emojiPicker {
     position: absolute;
     top: 0;
-    left: 110%;
+    left: calc(100% + 10px);
 
     &.-hidden {
       display: none;
@@ -30,4 +30,18 @@
 .eeo-emojiPicker-toggler {
   font-size: 2em;
   text-decoration: none;
+}
+
+.eeo-emojiPickerWrapper {
+  display: flex;
+
+  .input-wrapper {
+    margin-right: 10px
+  }
+
+  textarea {
+    width: 50vw;
+    height: 5em;
+    resize: vertical;
+  }
 }
