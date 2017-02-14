@@ -1,7 +1,7 @@
 import {helper} from 'ember-helper';
 
-export function eeoAnd(params/*, hash*/) {
+export function eeoExists(params/*, hash*/) {
   return params.reduce((result, item) => result && (item != null), true);
 }
 
-export default helper(eeoAnd);
+export default helper(eeoExists);

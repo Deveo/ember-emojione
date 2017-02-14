@@ -44,9 +44,19 @@ module.exports = {
 
 
 
+  // Filter modules
+  treeForApp(tree) {
+    tree = this._excludeComponentsFromAppTree(tree);
+    tree = this._super.treeForApp.call(this, tree);
+
+    return tree;
+  },
+
+
+
   // Include assets
   treeForPublic(tree) {
-    const resultingTree = this._mergeTrees(
+    tree = this._mergeTrees(
       tree,
       this._generateTreeForPngSprite(),
       this._generateTreeForSvgSprite(),
@@ -54,33 +64,40 @@ module.exports = {
       this._generateTreeForSvgImages()
     );
 
-    return this._super.treeForPublic.call(this, resultingTree);
+    tree = this._super.treeForPublic.call(this, tree);
+
+    return tree;
   },
 
 
 
   // Include emoji definitions and config
   treeForAddon(tree) {
-    const resultingTree = this._mergeTrees(
+    tree = this._mergeTrees(
       tree,
       this._generateTreeForEmojiDefinitions(),
       this._generateTreeForConfig()
     );
 
-    return this._super.treeForAddon.call(this, resultingTree);
+    tree = this._super.treeForAddon.call(this, tree);
+    tree = this._excludeComponentsFromAddonTree(tree);
+
+    return tree;
   },
 
 
 
   // Include emoji definitions and config
   treeForVendor(tree) {
-    const resultingTree = this._mergeTrees(
+    tree = this._mergeTrees(
       tree,
       this._generateTreeForTextareaCaret(),
       this._generateTreeForLineHeight()
     );
 
-    return this._super.treeForVendor.call(this, resultingTree);
+    tree = this._super.treeForVendor.call(this, tree);
+
+    return tree;
   },
 
 
@@ -105,12 +122,14 @@ module.exports = {
     pngImagesKind: 'png', // png, png_128x128, png_512x512, png_bw
     svgImagesKind: 'svg', // svg, svg_bw
 
-    packageNameMain:        'emojione',
-    packageNameJs:          'emojione-js',
-    packageNameCss:         'emojione-css',
-    packageNameDefs:        'emojione-defs',
-    packageNamePngSprite:   'emojione-png',
-    packageNameSvgSprite:   'emojione-svg',
+    packageNameMain:      'emojione',
+    packageNameJs:        'emojione-js',
+    packageNameCss:       'emojione-css',
+    packageNameDefs:      'emojione-defs',
+    packageNamePngSprite: 'emojione-png',
+    packageNameSvgSprite: 'emojione-svg',
+
+    shouldIncludeComponents: true,
   },
 
 
@@ -189,8 +208,11 @@ module.exports = {
       app.import(`vendor/styles/emojione-local-png-sprites.css`);
     }
 
-    // If ember-cli-sass is not available, import prebuilt CSS file
-    if (!app.registry.availablePlugins['ember-cli-sass']) {
+    // Including component css
+    if (
+      opts.shouldIncludeComponents
+      && !app.registry.availablePlugins['ember-cli-sass'] // If ember-cli-sass is not available, import prebuilt CSS file
+    ) {
       app.import(`vendor/styles/ember-emojione.css`);
     }
   },
@@ -324,6 +346,47 @@ module.exports = {
       getDestinationPath() {
         return 'index.js';
       },
+    });
+  },
+
+
+
+  _excludeComponentsFromAppTree(tree) {
+    const opts = this._emojiOptions;
+
+    if (opts.shouldIncludeComponents) return tree;
+
+    return new Funnel(tree, {
+      exclude: [
+        'components/emoji-picker-toggler.js',
+        'components/emoji-picker-wrapper.js',
+        'components/emoji-picker.js',
+        'components/emoji-picker/category.js',
+        'components/emoji-picker/label.js',
+        'components/emoji-picker/tone.js',
+        'components/emoji-typing-assistance.js',
+        'helpers/eeo-and.js',
+        'helpers/eeo-exists.js',
+        'helpers/eeo-html-safe.js',
+      ]
+    });
+  },
+
+
+
+  _excludeComponentsFromAddonTree(tree) {
+    const opts = this._emojiOptions;
+
+    if (opts.shouldIncludeComponents) return tree;
+
+    return new Funnel(tree, {
+      exclude: [
+        'modules/ember-emojione/-private/**',
+        'modules/ember-emojione/components/**',
+        'modules/ember-emojione/templates/**',
+        'modules/ember-emojione/services/**',
+        'modules/ember-emojione/emoji-defs.js',
+      ]
     });
   },
 };

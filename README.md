@@ -66,7 +66,7 @@ Quick installation will use these defaults:
 * Emoji are rendered as PNG sprites.
 * Sprite size is 64×64 px.
 * The sprite sheet is included into your app's distro (it's not available on JSDelivr).
-* Emoji picker and typing assistance components are available.
+* This addon's components are available (picker, wrapper, typing assistance).
 
 Run these console commands in your app:
 
@@ -207,6 +207,9 @@ Values shown below are the defaults. If you're happy with them, you don't need t
       packageNameDefs:        'emojione-defs',
       packageNamePngSprite:   'emojione-png',
       packageNameSvgSprite:   'emojione-svg',
+      
+      // Whether to remove `ember-emojione` components from build
+      shouldIncludeComponents: true,
     },
   });
 ```

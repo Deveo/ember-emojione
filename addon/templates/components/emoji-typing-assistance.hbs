@@ -6,7 +6,7 @@
   {{#each emoji as |emojo index|}}
     <a
       href
-      class="eeo-emojiAssist-emojo {{if (eq index _currentEmojiIndex) '-active' ''}}"
+      class="eeo-emojiAssist-emojo {{if (eeo-eq index _currentEmojiIndex) '-active' ''}}"
       {{action 'selectEmojo' emojo}}
     >
       {{{inject-emoji (eeo-html-safe emojo.shortname)}}}
