@@ -14,7 +14,6 @@ addons:
     - google-chrome-stable
 
 cache:
-  yarn: true
   directories:
     - node_modules
     - $HOME/.npm
@@ -37,14 +36,15 @@ matrix:
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
-  - curl -o- -L https://yarnpkg.com/install.sh | bash
-  - yarn global add bower
+  - "npm config set spin false"
+  - "npm install -g bower"
+  - "npm install -g ember-cli"
 
 install:
-  - yarn install --pure-lockfile
+  - npm install
   - bower install
 
 script:
   # Usually, it's ok to finish the test scenario without reverting
   #  to the addon's original dependency state, skipping "cleanup".
-  - node node_modules/ember-cli/bin/ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
+  - ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
