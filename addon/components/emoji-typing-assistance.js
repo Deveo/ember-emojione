@@ -217,6 +217,7 @@ export default Component.extend(ClickOutsideMixin, {
 
   resetIndexOnEmojiChange: observer('emoji.[]', function () {
     this.set('_currentEmojiIndex', 0);
+    this.get('$scrollable').scrollTop(0);
   }),
 
 
