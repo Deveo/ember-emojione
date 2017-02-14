@@ -16,6 +16,8 @@ Demo: https://deveo.github.io/ember-emojione/ :sparkles:
 
 ## Table of contents
 
+* [Support](#support)
+* [Requirements](#requirements)
 * [Quick installation](#quick-installation)
 * [Detailed Installation](#detailed-installation)
   * [1. Installing the addon itself](#1-installing-the-addon-itself)
@@ -54,6 +56,20 @@ Demo: https://deveo.github.io/ember-emojione/ :sparkles:
 * [Credits](#credits)
 * [License](#license)
 
+
+
+## Support
+
+Bug reports and feature requests are very welcome. In case you have something to suggest or report, please file an issue to the [issue queue](https://github.com/Deveo/ember-emojione/issues). But first make sure there's no similar issue. ;)
+
+If you're having trouble using this addon in your project, please file a properly structured question at [StackOverflow](http://stackoverflow.com/questions/ask?tags=ember.js,ember-emojione). It is important that you use `ember.js` and `ember-emojione` tags for your question to be seen.
+
+
+
+## Requirements
+
+* Ember 2.4+
+* Node 6+
 
 
 
