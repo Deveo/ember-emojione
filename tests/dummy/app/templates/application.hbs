@@ -38,29 +38,22 @@ inputStrHtmlSafe: computed('inputStr', function () {
   return htmlSafe(inputStr);
 }),
 
-actions: {
-  emojiInserted(inputStr) {
-    this.setProperties({inputStr});
-  }
-}
-
 <hr>
 
 &#123;&#123;#emoji-picker-wrapper
-  text                = wikiPageText
+  text                = inputStr
   inputSelector       = "textarea"
-  emojiInsertedAction = (action 'emojiInserted')
-  as |emojiPicker emojiPickerToggler|
+  emojiInsertedAction = (action (mut inputStr))
+  as |emojiPicker emojiPickerToggler emojiAssist|
 }}
-  &#123;&#123;textarea value=inputStr}}
+  &lt;span style="position: relative; display: inline-block;" class="input-wrapper">
+    &#123;&#123;textarea value=inputStr}}
+    &#123;&#123;component emojiAssist}}
+  &lt;/span>
+
 
   &lt;span class="togglePickerWrapper">
-    &#123;&#123;component emojiPickerToggler
-      label         = "😀"
-      labelWhenOpen = "😆"
-      tagName       = "a"
-      href          = ""
-    }}
+    &#123;&#123;component emojiPickerToggler}}
 
     &#123;&#123;component emojiPicker}}
   &lt;/span>
