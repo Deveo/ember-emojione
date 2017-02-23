@@ -1,6 +1,8 @@
-/* globals module, require */
+/* eslint-env node */
 'use strict';
 
+const path       = require('path');
+const resolve    = require('resolve');
 const Funnel     = require('broccoli-funnel');
 const mergeTrees = require('broccoli-merge-trees');
 const jsonModule = require('broccoli-json-module');
@@ -36,13 +38,25 @@ module.exports = {
     this._prepareOptions(app);
     this._importEmojiOneJS(app);
     this._importEmojiOneCSS(app);
+    this._importTextareaCaretJS(app);
+    this._importLineHeightJS(app);
+  },
+
+
+
+  // Filter modules
+  treeForApp(tree) {
+    tree = this._excludeComponentsFromAppTree(tree);
+    tree = this._super.treeForApp.call(this, tree);
+
+    return tree;
   },
 
 
 
   // Include assets
   treeForPublic(tree) {
-    const resultingTree = this._mergeTrees(
+    tree = this._mergeTrees(
       tree,
       this._generateTreeForPngSprite(),
       this._generateTreeForSvgSprite(),
@@ -50,20 +64,40 @@ module.exports = {
       this._generateTreeForSvgImages()
     );
 
-    return this._super.treeForPublic.call(this, resultingTree);
+    tree = this._super.treeForPublic.call(this, tree);
+
+    return tree;
   },
 
 
 
   // Include emoji definitions and config
   treeForAddon(tree) {
-    const resultingTree = this._mergeTrees(
+    tree = this._mergeTrees(
       tree,
       this._generateTreeForEmojiDefinitions(),
       this._generateTreeForConfig()
     );
 
-    return this._super.treeForAddon.call(this, resultingTree);
+    tree = this._super.treeForAddon.call(this, tree);
+    tree = this._excludeComponentsFromAddonTree(tree);
+
+    return tree;
+  },
+
+
+
+  // Include emoji definitions and config
+  treeForVendor(tree) {
+    tree = this._mergeTrees(
+      tree,
+      this._generateTreeForTextareaCaret(),
+      this._generateTreeForLineHeight()
+    );
+
+    tree = this._super.treeForVendor.call(this, tree);
+
+    return tree;
   },
 
 
@@ -88,12 +122,14 @@ module.exports = {
     pngImagesKind: 'png', // png, png_128x128, png_512x512, png_bw
     svgImagesKind: 'svg', // svg, svg_bw
 
-    packageNameMain:        'emojione',
-    packageNameJs:          'emojione-js',
-    packageNameCss:         'emojione-css',
-    packageNameDefs:        'emojione-defs',
-    packageNamePngSprite:   'emojione-png',
-    packageNameSvgSprite:   'emojione-svg',
+    packageNameMain:      'emojione',
+    packageNameJs:        'emojione-js',
+    packageNameCss:       'emojione-css',
+    packageNameDefs:      'emojione-defs',
+    packageNamePngSprite: 'emojione-png',
+    packageNameSvgSprite: 'emojione-svg',
+
+    shouldIncludeComponents: true,
   },
 
 
@@ -132,7 +168,25 @@ module.exports = {
     app.import(`${app.bowerDirectory}/${jsPath}`);
 
     // Import ES module shim
-    app.import('vendor/emojione-shim.js', { exports: { emojione: ['default'] } });
+    app.import('vendor/shims/emojione.js', { exports: { emojione: ['default'] } });
+  },
+
+
+
+  _importTextareaCaretJS(app) {
+    app.import("vendor/textarea-caret/index.js");
+
+    // Import ES module shim
+    app.import('vendor/shims/textarea-caret.js', { exports: { 'textarea-caret': ['default'] } });
+  },
+
+
+
+  _importLineHeightJS(app) {
+    app.import("vendor/line-height/index.js");
+
+    // Import ES module shim
+    app.import('vendor/shims/line-height.js', { exports: { 'line-height': ['default'] } });
   },
 
 
@@ -151,12 +205,15 @@ module.exports = {
 
     // Override local PNG sprite sheet URL
     if (opts.spriteSheet && opts.shouldIncludePngSprite) {
-      app.import(`vendor/emojione-local-png-sprites.css`);
+      app.import(`vendor/styles/emojione-local-png-sprites.css`);
     }
 
-    // If ember-cli-sass is not available, import prebuilt CSS file
-    if (!app.registry.availablePlugins['ember-cli-sass']) {
-      app.import(`vendor/ember-emojione.css`);
+    // Including component css
+    if (
+      opts.shouldIncludeComponents
+      && !app.registry.availablePlugins['ember-cli-sass'] // If ember-cli-sass is not available, import prebuilt CSS file
+    ) {
+      app.import(`vendor/styles/ember-emojione.css`);
     }
   },
 
@@ -263,5 +320,73 @@ module.exports = {
     const configTree = writeFile('config.json', configJson);
 
     return jsonModule(configTree);
-  }
+  },
+
+
+
+  _generateTreeForTextareaCaret() {
+    const modulePath = path.dirname(resolve.sync('textarea-caret'));
+
+    return new Funnel(modulePath, {
+      files:   ['index.js'],
+      destDir: '/textarea-caret',
+    });
+  },
+
+
+
+  _generateTreeForLineHeight() {
+    // line-height main file is within lib/, we need dist/
+    const modulePath = path.join(path.dirname(resolve.sync('line-height')), '..');
+
+    return new Funnel(modulePath, {
+      srcDir:  'dist',
+      files:   ['line-height.js'],
+      destDir: '/line-height',
+      getDestinationPath() {
+        return 'index.js';
+      },
+    });
+  },
+
+
+
+  _excludeComponentsFromAppTree(tree) {
+    const opts = this._emojiOptions;
+
+    if (opts.shouldIncludeComponents) return tree;
+
+    return new Funnel(tree, {
+      exclude: [
+        'components/emoji-picker-toggler.js',
+        'components/emoji-picker-wrapper.js',
+        'components/emoji-picker.js',
+        'components/emoji-picker/category.js',
+        'components/emoji-picker/label.js',
+        'components/emoji-picker/tone.js',
+        'components/emoji-typing-assistance.js',
+        'helpers/eeo-and.js',
+        'helpers/eeo-exists.js',
+        'helpers/eeo-html-safe.js',
+      ]
+    });
+  },
+
+
+
+  _excludeComponentsFromAddonTree(tree) {
+    const opts = this._emojiOptions;
+
+    if (opts.shouldIncludeComponents) return tree;
+
+    return new Funnel(tree, {
+      exclude: [
+        'modules/ember-emojione/-private/**',
+        'modules/ember-emojione/components/**',
+        'modules/ember-emojione/templates/**',
+        'modules/ember-emojione/services/**',
+        'modules/ember-emojione/emoji-defs.js',
+      ]
+    });
+  },
 };

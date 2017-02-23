@@ -51,8 +51,8 @@ const InjectEmoji = Helper.extend({
       ...overrideOptions,
 
       emojione: {
-        imagePathPNG:        opts.shouldIncludePngImages ? '../ember-emojione/png'                  : null,
-        imagePathSVG:        opts.shouldIncludeSvgImages ? '/ember-emojione/svg/'                  : null,
+        imagePathPNG:        opts.shouldIncludePngImages ? '../ember-emojione/png'                : null,
+        imagePathSVG:        opts.shouldIncludeSvgImages ? '/ember-emojione/svg/'                 : null,
         imagePathSVGSprites: opts.shouldIncludeSvgSprite ? '/ember-emojione/emojione.sprites.svg' : null,
 
         ...envOptions.emojione  || {},

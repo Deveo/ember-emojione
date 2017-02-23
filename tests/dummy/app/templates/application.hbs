@@ -10,35 +10,51 @@
 </p>
 
 <h2>Input</h2>
-  {{textarea value=inputStr}}
+{{#emoji-picker-wrapper
+  text                = inputStr
+  inputSelector       = "textarea"
+  emojiInsertedAction = (action (mut inputStr))
+  as |emojiPicker emojiPickerToggler emojiAssist|
+}}
+  <span style="position: relative; display: inline-block;" class="input-wrapper">
+    {{textarea value=inputStr}}
+    {{component emojiAssist}}
+  </span>
 
 
   <span class="togglePickerWrapper">
-    <button
-      class = "toggleEmoji"
-      {{action 'openEmojiPicker'}}
-    >
-      {{{inject-emoji ":smile:"}}}
-    </button>
+    {{component emojiPickerToggler}}
 
-    {{emoji-picker
-      selectAction = (action 'selectEmoji')
-      closeAction  = (action 'closeEmojiPicker')
-      isVisible    = isPickerVisible
-    }}
+    {{component emojiPicker}}
   </span>
+{{/emoji-picker-wrapper}}
 
 <h2>Source</h2>
 
 <pre>inputStr: 'OMG! :scream:',
 
-inputStrHtmlSafe: Ember.computed('inputStr', function () {
-  return Ember.String.htmlSafe(
-    this.get('inputStr')
-  );
-})
+inputStrHtmlSafe: computed('inputStr', function () {
+  const inputStr = this.get('inputStr');
+  return htmlSafe(inputStr);
+}),
 
 <hr>
-&lbrace;&lbrace;textarea value=inputStr}}
 
-&lbrace;&lbrace;&lbrace;inject-emoji inputStrHtmlSafe}}}</pre>
+&#123;&#123;#emoji-picker-wrapper
+  text                = inputStr
+  inputSelector       = "textarea"
+  emojiInsertedAction = (action (mut inputStr))
+  as |emojiPicker emojiPickerToggler emojiAssist|
+}}
+  &lt;span style="position: relative; display: inline-block;" class="input-wrapper">
+    &#123;&#123;textarea value=inputStr}}
+    &#123;&#123;component emojiAssist}}
+  &lt;/span>
+
+
+  &lt;span class="togglePickerWrapper">
+    &#123;&#123;component emojiPickerToggler}}
+
+    &#123;&#123;component emojiPicker}}
+  &lt;/span>
+&#123;&#123;/emoji-picker-wrapper}}</pre>

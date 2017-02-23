@@ -1,0 +1,75 @@
+@at-root
+
+
+  ////------------------------------------------
+  .eeo-emojiAssist
+    //------------------------------------------
+
+    // ----- Layout -----
+    position:   absolute
+    z-index:    10
+    overflow:   hidden
+    box-sizing: border-box
+    *
+      box-sizing: inherit
+
+    // ----- Looks -----
+    background-color: white
+    border-radius:    6px
+    box-shadow:       0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
+
+
+
+  ////------------------------------------------
+  .eeo-emojiAssist-header
+    //------------------------------------------
+
+    // ----- Layout -----
+    padding:     0.5em
+    text-align:  center
+    white-space: nowrap
+
+    // ----- Looks -----
+    background-color: #eee
+
+    // ----- Text -----
+    font-size:   0.8em
+    color:       darkgrey
+    text-shadow: 1px 1px 0 white
+
+
+
+
+  ////------------------------------------------
+  .eeo-emojiAssist-emoji
+    //------------------------------------------
+
+    // ----- Layout -----
+    max-height: 200px
+    overflow-y: auto
+    position:   relative
+
+    // ----- Content Layout -----
+    .eeo-emojiAssist-emojo
+      display: block
+
+
+
+  ////------------------------------------------
+  .eeo-emojiAssist-emojo
+    //------------------------------------------
+
+    // ----- Layout -----
+    padding:     0.5em
+    white-space: nowrap
+
+    // ----- Looks -----
+    text-decoration: none
+    color:           black
+
+    // ----- Behavior -----
+    &.-active
+      background-color: deepskyblue
+
+    &:hover
+      background-color: #a9eeff

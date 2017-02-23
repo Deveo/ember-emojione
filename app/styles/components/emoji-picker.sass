@@ -1,7 +1,15 @@
 @at-root
 
+  @import ../helpers/mixin
+
   $emoji-size:        20px
   $menu-item-padding: 10px
+
+  =clearfix
+    &:after
+      content: " "
+      display: block
+      clear:   both
 
 
 
@@ -10,7 +18,8 @@
     //------------------------------------------
 
     // ----- Layout -----
-    width:      ($emoji-size + $menu-item-padding * 2) * 8
+    width:      300px
+    max-width:  80vw
     overflow:   hidden
     box-sizing: border-box
     *
@@ -18,8 +27,8 @@
 
     // ----- Looks -----
     background-color: white
-    border-radius: 6px
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
+    border-radius:    6px
+    box-shadow:       0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
 
 
 
@@ -28,8 +37,19 @@
     //------------------------------------------
 
     // ----- Layout -----
-    display:          flex
+    display:      table
+    width:        100%
+    table-layout: fixed
+
+    // ----- Looks -----
     background-color: #eee
+
+    // ----- Content layout -----
+    .eeo-emojiPicker-nav-item
+      display:        table-cell
+      text-align:     center
+      vertical-align: middle
+      height:         35px
 
 
 
@@ -67,8 +87,9 @@
     //------------------------------------------
 
     // ----- Layout -----
-    display: block
-    padding: $menu-item-padding $menu-item-padding ($menu-item-padding / 2)
+    display:     inline-block
+    padding-top: 5px
+    //padding: $menu-item-padding $menu-item-padding ($menu-item-padding / 2)
 
 
 
@@ -88,7 +109,8 @@
 
     // ----- Layout -----
     position:   relative
-    height:     400px
+    height:     200px
+    max-height: 80vh
     overflow-x: hidden
     overflow-y: scroll
 
@@ -133,15 +155,14 @@
     //------------------------------------------
 
     // ----- Layout -----
-    display:         flex
-    flex-wrap:       wrap
-    justify-content: space-around
+    +clearfix
 
     margin-right:  -$menu-item-padding
     margin-bottom: -$menu-item-padding
 
     // ----- Content layout -----
     .eeo-emojiPicker-category-emoji-emojo
+      float:         left
       margin-right:  $menu-item-padding
       margin-bottom: $menu-item-padding
 
@@ -151,6 +172,9 @@
   ////------------------------------------------
   .eeo-emojiPicker-category-emoji-emojo
     //------------------------------------------
+
+    // ----- Layout -----
+    line-height: 0
 
     // ----- Looks -----
     text-decoration: none
@@ -176,14 +200,20 @@
     //------------------------------------------
 
     // ----- Layout -----
-    display:          flex
-    justify-content:  space-between
-    background-color: #eee
+    +clearfix
     padding:          $menu-item-padding / 2
+
+    // ----- Looks -----
+    background-color: #eee
+
 
     // ----- Content layout -----
     .eeo-emojiPicker-filter
       width: 50%
+      float: left
+
+    .eeo-emojiPicker-tones
+      float: right
 
 
 
@@ -213,6 +243,11 @@
 
     // ----- Layout -----
     padding: 2px 22px 2px 2px
+
+    // ----- IE 11 fix -----
+    &::-ms-clear
+      width: 0
+      height: 0
 
 
 

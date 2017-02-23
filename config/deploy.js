@@ -1,4 +1,4 @@
-/* globals module */
+/* eslint-env node */
 
 module.exports = function(deployTarget) {
   const ENV = {

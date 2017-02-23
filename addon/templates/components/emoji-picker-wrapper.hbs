@@ -1,0 +1,19 @@
+{{yield
+  (component 'emoji-picker'
+    selectAction = (action 'selectEmoji')
+    closeAction  = (action 'closeEmojiPicker')
+    isVisible    = isEmojiPickerVisible
+  )
+
+  (component 'emoji-picker-toggler'
+    toggleAction         = (action 'toggleEmojiPicker')
+    isEmojiPickerVisible = isEmojiPickerVisible
+  )
+
+  (component 'emoji-typing-assistance'
+    filterInput      = _assistFilterInput
+    $input           = $input
+    keyPressNotifier = keyPressNotifier
+    selectAction     = (action 'selectEmoji')
+  )
+}}

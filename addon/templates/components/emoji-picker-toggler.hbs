@@ -1,0 +1,15 @@
+{{#if hasBlock}}
+  {{yield isEmojiPickerVisible}}
+{{else if label}}
+  {{#if (eeo-and (eeo-exists labelWhenOpen) isEmojiPickerVisible)}}
+    {{labelWhenOpen}}
+  {{else}}
+    {{label}}
+  {{/if}}
+{{else}}
+  {{#if isEmojiPickerVisible}}
+    {{{inject-emoji (eeo-html-safe ":laughing:")}}}
+  {{else}}
+    {{{inject-emoji (eeo-html-safe ":grinning:")}}}
+  {{/if}}
+{{/if}}

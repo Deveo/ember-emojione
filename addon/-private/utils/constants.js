@@ -11,7 +11,13 @@ export const EMOJI_CATEGORIES_ARRAY = [
   'flags'
 ];
 
-export const DEPENDENT_KEYS_FOR_EMOJI_SERVICE = (() => {
+export const EMOJI_PROP_NAMES_TONE =
+  EMOJI_TONES_ARRAY
+    .map(tone => `emojiService.emoji__tone_${tone}`)
+    .join(',');
+
+
+export const EMOJI_PROP_NAMES_TONE_TONE = (() => {
   const dependentKeys = [];
 
   EMOJI_CATEGORIES_ARRAY.forEach(category => {

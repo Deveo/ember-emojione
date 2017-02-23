@@ -14,9 +14,10 @@ import {default as EObject} from 'ember-object';
 const O = EObject.create.bind(EObject);
 
 import {
-  DEPENDENT_KEYS_FOR_EMOJI_SERVICE,
+  EMOJI_PROP_NAMES_TONE,
+  EMOJI_PROP_NAMES_TONE_TONE,
   EMOJI_CATEGORIES_ARRAY,
-} from "../utils/constants";
+} from "ember-emojione/-private/utils/constants";
 
 const EMOJI_PICKER_SCROLLABLE_ELEMENT = '.eeo-emojiPicker-scrollable';
 
@@ -52,6 +53,20 @@ export default Component.extend(ClickOutsideMixin, {
     return this.$(EMOJI_PICKER_SCROLLABLE_ELEMENT);
   }),
 
+  $filterInput: computed(function () {
+    return this.$('.eeo-emojiPicker-filter-input');
+  }),
+
+  emoji: computed(
+    'emojiService.currentSkinTone',
+    EMOJI_PROP_NAMES_TONE,
+    function () {
+      const currentSkinTone = this.get('emojiService.currentSkinTone');
+      const emojiPropName   = `emojiService.emoji__tone_${currentSkinTone}`;
+      return this.get(emojiPropName);
+    }
+  ),
+
   categorySections: computed('emojiService.categories', function () {
     const objs =
       this
@@ -68,7 +83,7 @@ export default Component.extend(ClickOutsideMixin, {
     'filterInput',
     'emojiService.currentSkinTone',
     'emojiService.categories.@each.id',
-    DEPENDENT_KEYS_FOR_EMOJI_SERVICE,
+    EMOJI_PROP_NAMES_TONE_TONE,
     function () {
       const emojiCategories = this.get('emojiService.categories');
       const filterStrs      = this.get('filterInput').split(' ');
@@ -115,13 +130,6 @@ export default Component.extend(ClickOutsideMixin, {
 
 
 
-  _applyFilterInputDebounced: observer('_filterInput', function () {
-    const filterInput = this.get('_filterInput');
-    debounce(this, this._applyFilterInput, filterInput, 200, false);
-  }),
-
-
-
   _updateScroll() {
     if (this.get('isDestroying') || this.get('isDestroyed')) return;
 
@@ -159,6 +167,11 @@ export default Component.extend(ClickOutsideMixin, {
     return this.get(emojiPropName);
   },
 
+  _focusOnSearch() {
+    if (this.get('disableAutoFocus')) return;
+    this.get('$filterInput').focus();
+  },
+
 
 
   didInsertElement() {
@@ -194,12 +207,30 @@ export default Component.extend(ClickOutsideMixin, {
 
 
 
+  _applyFilterInputDebounced: observer('_filterInput', function () {
+    const filterInput = this.get('_filterInput');
+    debounce(this, this._applyFilterInput, filterInput, 200, false);
+  }),
+
+
+
+  _restoreBarOnShow: observer('isVisible', function () {
+    if (!this.get('isVisible')) return;
+
+    next(() => {
+      this._updateScroll();
+      this._focusOnSearch();
+    });
+  }),
+
+
+
   actions: {
-    selectEmojo(emojo) {
-      this.sendAction('selectAction', emojo);
+    selectEmojo(emojo, shouldFocus = true) {
+      this.sendAction('selectAction', emojo, {shouldFocus});
 
       if (this.get('closeAction') && this.get('shouldCloseOnSelect')) {
-        this.sendAction('closeAction');
+        this.sendAction('closeAction', true);
       }
     },
 
@@ -219,7 +250,7 @@ export default Component.extend(ClickOutsideMixin, {
           return emojo = get(categoryHash, 'emoji').find(emojo => get(emojo, 'isVisible'));
         });
 
-      if (emojo) this.send('selectEmojo', emojo);
+      if (emojo) this.send('selectEmojo', emojo, false);
     },
 
     clearFilterOrClose() {
@@ -228,7 +259,7 @@ export default Component.extend(ClickOutsideMixin, {
         return;
       }
 
-      this.sendAction('closeAction');
+      this.sendAction('closeAction', true);
     }
   }
 });
