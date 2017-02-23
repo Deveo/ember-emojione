@@ -6,7 +6,7 @@
 [![license MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/Deveo/ember-emojione/blob/gen-1/LICENSE.md)
 ![ember-versions 2.4+](https://img.shields.io/badge/ember--versions-2.4%2B-yellowgreen.svg?bump)
 ![node-versions 6+](https://img.shields.io/badge/node--versions-6%2B-yellowgreen.svg?bump)
-![ember-cli 2.11.0](https://img.shields.io/badge/uses%20ember--cli-2.11.0-blue.svg?bump)
+![ember-cli 2.11.1](https://img.shields.io/badge/uses%20ember--cli-2.11.1-blue.svg?bump)
 
 `ember-emojione` is your emoji solution for Ember, based on the [EmojiOne](http://emojione.com/) project.
 
