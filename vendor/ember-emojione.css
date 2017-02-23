@@ -153,6 +153,9 @@
 
 .eeo-emojiPicker-filter-input {
   padding: 2px 22px 2px 2px; }
+  .eeo-emojiPicker-filter-input::-ms-clear {
+    width: 0;
+    height: 0; }
 
 .eeo-emojiPicker-filter-clear .emojione {
   transform: scale(0.21875);
