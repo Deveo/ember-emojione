@@ -8,9 +8,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 
 
-## [0.3.1] - 2017.02.02
-### Fixed
-- Moved Broccoli plugins into `dependencies`
+## [1.0.0] - 2017.02.23
+First stable release!
+
+### Added
+- `emoji-picker-wrapper` component
+- `emoji-typing-assistance` component
+- Build configuration is more flexible
+- Many more, see the readme for what's available
 
 
 
