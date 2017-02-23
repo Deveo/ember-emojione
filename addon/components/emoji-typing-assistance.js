@@ -3,9 +3,7 @@ import computed from 'ember-computed';
 import {next} from 'ember-runloop';
 import get/*, {getProperties}*/ from 'ember-metal/get';
 import service from 'ember-service/inject';
-// import {htmlSafe} from 'ember-string';
 import observer from 'ember-metal/observer';
-// import $ from 'jquery';
 import {assert} from 'ember-metal/utils';
 
 import layout from '../templates/components/emoji-typing-assistance';
@@ -14,7 +12,6 @@ import getCaretCoordinates from 'textarea-caret';
 import getLineHeight from 'line-height';
 import ClickOutsideMixin from 'ember-click-outside/mixins/click-outside';
 import {EMOJI_PROP_NAMES_TONE} from "ember-emojione/-private/utils/constants";
-// import {injectEmoji} from "ember-emojione/helpers/inject-emoji";
 
 
 
@@ -65,7 +62,6 @@ export default Component.extend(ClickOutsideMixin, {
 
       if (!isMinLengthMet || !$input || !emojiCount) return {display: 'none'};
 
-      // const filterInput = this.get('filterInput');
       const input       = $input.get(0);
       const position    = $input.prop('selectionStart'); // - filterInput.length + 1;
       const caretCoords = getCaretCoordinates(input, position);

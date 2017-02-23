@@ -80,9 +80,6 @@ export default Service.extend({
       .map(id => this._prepareEmojo(emojiDefs, id));
   }),
 
-  // emojiSortOrder: ['id'],
-  // emoji:          sort('emojiUnsorted', 'emojiSortOrder'),
-
   emoji__tone_default: computed('emoji.@each.id', function () {
     const emoji =
       this
@@ -103,8 +100,8 @@ export default Service.extend({
   },
 
   // Defines computed properties for each category and tone, for example:
-  // people: filterBy('emoji', 'category', 'people')
-  // people__tone_default: filterBy('emoji__tone_default', 'category', 'people')
+  // * people: filterBy('emoji', 'category', 'people')
+  // * people__tone_default: filterBy('emoji__tone_default', 'category', 'people')
   _defineEmojiComputedProperties() {
     this.get('emojiCategoryIds').forEach(category => {
       this.set(category, filterBy('emoji', 'category', category));
