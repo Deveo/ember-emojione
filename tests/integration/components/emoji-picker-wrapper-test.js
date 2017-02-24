@@ -44,10 +44,10 @@ test('it calls action with new text value', withChai(async function(expect) {
       text                = text
       inputSelector       = ".input"
       emojiInsertedAction = (action actionSpy)
-      as |emojiPicker|
+      as |h|
     }}
       {{input value=text class="input"}}
-      {{component emojiPicker}}
+      {{component h.emojiPicker}}
     {{/emoji-picker-wrapper}}
   `);
 
@@ -86,10 +86,10 @@ test('it inserts emoji at selection', withChai(async function(expect) {
       text                = text
       inputSelector       = ".input"
       emojiInsertedAction = (action actionSpy)
-      as |emojiPicker|
+      as |h|
     }}
       {{input value=text class="input"}}
-      {{component emojiPicker}}
+      {{component h.emojiPicker}}
     {{/emoji-picker-wrapper}}
   `);
 
@@ -135,10 +135,10 @@ test('it inserts emoji at selection', withChai(async function(expect) {
 //       inputSelector         = ".input"
 //       shouldSetFocusToInput = false
 //       emojiInsertedAction   = (action actionSpy)
-//       as |emojiPicker|
+//       as |h|
 //     }}
 //       {{input value=text class="input"}}
-//       {{component emojiPicker}}
+//       {{component h.emojiPicker}}
 //     {{/emoji-picker-wrapper}}
 //   `);
 //
@@ -161,13 +161,13 @@ test('it should toggle emoji picker visibility with button', withChai(async func
   this.render(hbs`
     {{#emoji-picker-wrapper 
       inputSelector = ".input"
-      as |emojiPicker emojiPickerToggler|
+      as |h|
     }}
       {{input value=text class="input"}}
-      {{#component emojiPickerToggler}}
+      {{#component h.emojiPickerToggler}}
         <span class="my-button">key</span>
       {{/component}}
-      {{component emojiPicker}}
+      {{component h.emojiPicker}}
     {{/emoji-picker-wrapper}}
   `);
 
@@ -197,10 +197,10 @@ test('it should toggle emoji picker visibility with button', withChai(async func
 //     {{#emoji-picker-wrapper
 //       text          = text
 //       inputSelector = ".input"
-//       as |emojiPicker emojiPickerToggler emojiAssist|
+//       as |h|
 //     }}
 //       {{input value=text class="input"}}
-//       {{component emojiAssist}}
+//       {{component h.emojiAssist}}
 //     {{/emoji-picker-wrapper}}
 //   `);
 //

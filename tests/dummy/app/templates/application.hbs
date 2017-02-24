@@ -44,17 +44,17 @@ inputStrHtmlSafe: computed('inputStr', function () {
   text                = inputStr
   inputSelector       = "textarea"
   emojiInsertedAction = (action (mut inputStr))
-  as |emojiPicker emojiPickerToggler emojiAssist|
+  as |h|
 }}
   &lt;span style="position: relative; display: inline-block;" class="input-wrapper">
     &#123;&#123;textarea value=inputStr}}
-    &#123;&#123;component emojiAssist}}
+    &#123;&#123;component h.emojiAssist}}
   &lt;/span>
 
 
   &lt;span class="togglePickerWrapper">
-    &#123;&#123;component emojiPickerToggler}}
+    &#123;&#123;component h.emojiPickerToggler}}
 
-    &#123;&#123;component emojiPicker}}
+    &#123;&#123;component h.emojiPicker}}
   &lt;/span>
 &#123;&#123;/emoji-picker-wrapper}}</pre>
