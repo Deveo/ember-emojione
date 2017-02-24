@@ -4,7 +4,25 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+
+
 ## [Unreleased]
+
+
+
+## [2.0.0] - 2017.02.24
+### Changed
+- :warning: `emoji-picker-wrapper` now yields a hash that contains the following properties:
+
+    | Option                 | Type      | Description                                        |
+    |:-----------------------|:----------|:---------------------------------------------------|
+    | `emojiPicker`          | Component | Preconfigured `emoji-picker` component.            |
+    | `emojiPickerToggler`   | Component | Preconfigured `emoji-picker-toggler` component.    |
+    | `emojiAssist`          | Component | Preconfigured `emoji-typing assistance` component. |
+    | `isEmojiPickerVisible` | Boolean   | Whether emoji picker is visible.                   |
+
+### Added
+- `isEmojiPickerVisible` is now available as a part of the yield value from `emoji-picker-wrapper`
 
 
 

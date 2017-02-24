@@ -14,18 +14,18 @@
   text                = inputStr
   inputSelector       = "textarea"
   emojiInsertedAction = (action (mut inputStr))
-  as |emojiPicker emojiPickerToggler emojiAssist|
+  as |h|
 }}
   <span style="position: relative; display: inline-block;" class="input-wrapper">
     {{textarea value=inputStr}}
-    {{component emojiAssist}}
+    {{component h.emojiAssist}}
   </span>
 
 
   <span class="togglePickerWrapper">
-    {{component emojiPickerToggler}}
+    {{component h.emojiPickerToggler}}
 
-    {{component emojiPicker}}
+    {{component h.emojiPicker}}
   </span>
 {{/emoji-picker-wrapper}}
 

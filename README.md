@@ -37,6 +37,7 @@ Demo: https://deveo.github.io/ember-emojione/ :sparkles:
     * [emoji-picker-wrapper usage example](#emoji-picker-wrapper-usage-example)
     * [emoji-picker-wrapper usage example breakdown](#emoji-picker-wrapper-usage-example-breakdown)
     * [emoji-picker-wrapper options](#emoji-picker-wrapper-options)
+    * [emoji-picker-wrapper yielded values](#emoji-picker-wrapper-yielded-values)
   * [emoji-picker component](#emoji-picker-component)
     * [emoji-picker options](#emoji-picker-options)
   * [emoji-picker-toggler component](#emoji-picker-toggler-component)
@@ -45,6 +46,8 @@ Demo: https://deveo.github.io/ember-emojione/ :sparkles:
     * [emoji-typing-assistance options](#emoji-typing-assistance-options)
   * [Using the emojione JS library directly](#using-the-emojione-js-library-directly)
   * [I18n](#i18n)
+* [Upgrading from older versions](#upgrading-from-older-versions)
+  * [From 1.x](#from-1x)
 * [Development](#development)
   * [Installation](#installation)
   * [Running](#running)
@@ -461,17 +464,17 @@ Here's the full example. Below it's broken down into steps.
   text                = wikiPageText
   inputSelector       = ".my-input"
   emojiInsertedAction = (action (mut wikiPageText))
-  as |emojiPicker emojiPickerToggler emojiAssist|
+  as |h|
 }}
   
   <span style="position: relative; display: inline-block;">
     {{textarea class="my-input" value=wikiPageText}}
-    {{component emojiAssist}}
+    {{component h.emojiAssist}}
   </span>
   
-  {{component emojiPickerToggler}}
+  {{component h.emojiPickerToggler}}
   
-  {{component emojiPicker}}
+  {{component h.emojiPicker}}
   
 {{/emoji-picker-wrapper}}
 ```
@@ -614,16 +617,16 @@ To understand the example, let's assemble it step by step.
       text                = wikiPageText
       inputSelector       = ".my-input"
       emojiInsertedAction = (action (mut wikiPageText))
-      as |emojiPicker emojiPickerToggler emojiAssist|
+      as |h|
     }}
       <span style="position: relative; display: inline-block;">
         {{textarea class="my-input" value=wikiPageText}}
-        {{component emojiAssist}}
+        {{component h.emojiAssist}}
       </span>
       
-      {{component emojiPicker}}
+      {{component h.emojiPicker}}
       
-      {{component emojiPickerToggler}}
+      {{component h.emojiPickerToggler}}
     {{/emoji-picker-wrapper}}
     ```
     
@@ -660,6 +663,19 @@ Here's a list of options that are preconfigured for the components. Make sure no
 | `shouldSetFocusToInput` | Boolean | `true`                   | Whether to focus on the input field after emoji insertion or closing the picker with Esc.                                        |
 | `isEmojiPickerVisible`  | Boolean | `false`                  | Lets you control picker visibility manually. Don't override this if you're using `emojiPickerToggler` which controls it for you. |
 | `emojiTypingRegex`      | RegExp  | `/(?:^|\s)(:[\w_+-]+)$/` | Regular expression to detect a fragment of emoji code typed into a text field. Must end with `$`. Must not be `g`lobal. The `(?:^|\s)` fragment of the regex requires the emoji code to either be prepended by whitespace or appear in the start of the line. Remove this fragment if you want the typing assistance popup to appear when the user types `foo:ba`, for example. |
+
+
+
+#### emoji-picker-wrapper yielded values
+
+`emoji-picker-wrapper` yields a hash that contains the following properties:
+
+| Option                 | Type      | Description                                        |
+|:-----------------------|:----------|:---------------------------------------------------|
+| `emojiPicker`          | Component | Preconfigured `emoji-picker` component.            |
+| `emojiPickerToggler`   | Component | Preconfigured `emoji-picker-toggler` component.    |
+| `emojiAssist`          | Component | Preconfigured `emoji-typing assistance` component. |
+| `isEmojiPickerVisible` | Boolean   | Whether emoji picker is visible.                   |
 
 
 
@@ -763,6 +779,39 @@ The addon itself does not integrate with any i18n solution.
 Components accept i18n strings as arguments. You can subclass components to change defaults.
 
 In order to translate emoji descriptions (visibile on some emoji on hover), you'll have to override the `emojiDefs` property on the `emoji` service.
+
+
+
+## Upgrading from older versions
+
+Some major version bumps introduce breaking changes. Read below what you need to change in your app in order to upgrade `ember-emojione`.
+
+### From 1.x
+
+`emoji-picker-wrapper` used to yield three components separately:
+
+```handlebars
+{{#emoji-picker-wrapper
+  as |emojiAssist emojiPickerToggler emojiPicker|
+}}
+  {{component emojiAssist}}
+  {{component emojiPickerToggler}}
+  {{component emojiPicker}}
+{{/emoji-picker-wrapper}}
+```
+
+In 2.0.0+, it yields a hash that contains the components:
+
+
+```handlebars
+{{#emoji-picker-wrapper
+  as |h|
+}}
+  {{component h.emojiAssist}}
+  {{component h.emojiPickerToggler}}
+  {{component h.emojiPicker}}
+{{/emoji-picker-wrapper}}
+```
 
 
 
