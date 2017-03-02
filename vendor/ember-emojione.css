@@ -8,6 +8,9 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
   .eeo-emojiAssist * {
     box-sizing: inherit; }
+  .eeo-emojiAssist .emojione {
+    position: static;
+    top: auto; }
 
 .eeo-emojiAssist-header {
   padding: 0.5em;
@@ -45,6 +48,9 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
   .eeo-emojiPicker * {
     box-sizing: inherit; }
+  .eeo-emojiPicker .emojione {
+    position: static;
+    top: auto; }
 
 .eeo-emojiPicker-nav {
   display: table;
@@ -59,7 +65,8 @@
 
 .eeo-emojiPicker-nav-item {
   position: relative;
-  overflow: hidden; }
+  overflow: hidden;
+  line-height: 1; }
   .eeo-emojiPicker-nav-item .eeo-emojiPicker-nav-item-bar {
     position: absolute;
     bottom: 0;
@@ -76,8 +83,7 @@
     transform: scale(0.4375); }
 
 .eeo-emojiPicker-nav-item-link {
-  display: inline-block;
-  padding-top: 5px; }
+  display: inline-block; }
 
 .eeo-emojiPicker-nav-item-bar {
   background-color: red;
@@ -101,7 +107,8 @@
 .eeo-emojiPicker-category-title {
   border-bottom: 1px solid lightgrey;
   text-align: left;
-  color: darkgrey; }
+  color: darkgrey;
+  line-height: 1.2; }
 
 .eeo-emojiPicker-category-emoji {
   margin-right: -10px;
@@ -129,6 +136,7 @@
 
 .eeo-emojiPicker-footer {
   padding: 5px;
+  line-height: 24px;
   background-color: #eee; }
   .eeo-emojiPicker-footer:after {
     content: " ";
@@ -148,22 +156,24 @@
     position: absolute;
     right: 4px;
     top: 50%;
-    transform: translate(0, -50%);
-    margin-top: 2px; }
+    transform: translate(0, -50%); }
 
 .eeo-emojiPicker-filter-input {
+  display: block;
+  height: 24px !important;
   padding: 2px 22px 2px 2px; }
   .eeo-emojiPicker-filter-input::-ms-clear {
     width: 0;
     height: 0; }
 
-.eeo-emojiPicker-filter-clear .emojione {
-  transform: scale(0.21875);
-  margin: -25px; }
-
-.eeo-emojiPicker-filter-clear._disabled {
-  opacity: 0.2;
-  cursor: default; }
+.eeo-emojiPicker-filter-clear {
+  line-height: 0; }
+  .eeo-emojiPicker-filter-clear .emojione {
+    transform: scale(0.21875);
+    margin: -25px; }
+  .eeo-emojiPicker-filter-clear._disabled {
+    opacity: 0.2;
+    cursor: default; }
 
 .eeo-emojiPicker-tones .eeo-emojiPicker-tone {
   vertical-align: middle; }
