@@ -4,3 +4,24 @@
 =emojione-size($target-size, $original-size: 64px)
   +emojione-size-transform($target-size, $original-size)
   margin: ($target-size - $original-size) / 2
+
+=emojione-cancel-default-styles
+  position: static
+  top:      auto
+
+=ember-emojione-cancel-scale
+  .eeo-emojiPicker-filter-input
+    height:          auto !important
+    margin-top:      0    !important
+    image-rendering: auto
+
+
+  .eeo-emojiPicker-nav-item,
+  .eeo-emojiPicker-category-emoji-emojo
+    .emojione
+      margin:    0    !important
+      transform: none !important
+
+  .eeo-emojiPicker-filter-clear .emojione
+    transform: scale(0.5) !important
+    margin:    -5px

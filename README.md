@@ -367,7 +367,7 @@ But for PNG sprites (default), that won't work.
 
 The easiest solution for PNG sprites is to use the `zoom` CSS property, but it doesn't work in Firefox.
 
-For a [cross-browser](http://caniuse.com/#feat=transforms2d) solution, use the code below. It is a Sass mixin; if you're not using Sass, you'll have to write your own version. The trick is to scale the emoji via CSS transform, then apply negative margins to remove extra whitespace.
+For a [cross-browser](http://caniuse.com/#feat=transforms2d) solution, use the code below. It is a Sass mixin; if you're not using Sass, you can compile it on [SassMeister](http://www.sassmeister.com/gist/693e21a1d198033836f64c3997b5c54e). The trick is to scale the emoji via CSS transform, then apply negative margins to remove extra whitespace.
 
 ```scss
 @mixin emojione-size ($target-size, $original-size: 64px) {
@@ -378,8 +378,17 @@ For a [cross-browser](http://caniuse.com/#feat=transforms2d) solution, use the c
 .emojione {
   @include emojione-size(20px);
 }
-
 ```
+
+:warning: Warning: this trick may produce blurry sprites in certain situations. It also causes text selection to look taller than it should:
+
+![tall text selection problem](https://i.stack.imgur.com/SyL0l.png)
+
+If this is unacceptable for you, use custom-sized PNG spritesheets. Official EmojiOne spritesheets have an unfortunate 1px padding between sprites, making it impossible to resize it with `background-size`.
+
+To resolve this problem, whe have prepared cusrom PNG spritesheets tailored to various sizes: [emojione-png-sprites](https://github.com/Deveo/emojione-png-sprites).
+
+Here's a [StackOverflow post](http://stackoverflow.com/questions/42558306/how-do-i-use-ember-emojione-with-emojione-png-sprites) explaining in detail how to use `ember-emojione` with `emojione-png-sprites`.
 
 
 
@@ -769,6 +778,12 @@ To help you stay true to the Ember way, this addon lets you import the library a
 ```js
 import emojione from 'emojione';
 ```
+
+
+
+### Using emojione-png-sprites tailored spritesheets
+
+The hack we 
 
 
 

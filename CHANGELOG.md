@@ -10,6 +10,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 
 
+## [2.1.0] - 2017.03.02
+
+## Added
+- Support for tailored `emojione-png-sprites`
+
+## Fixed
+- Minor CSS fixes for the components
+
+
+
 ## [2.0.0] - 2017.02.24
 ### Changed
 - :warning: `emoji-picker-wrapper` now yields a hash that contains the following properties:

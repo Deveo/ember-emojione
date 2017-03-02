@@ -2,8 +2,9 @@
 
   @import ../helpers/mixin
 
-  $emoji-size:        20px
-  $menu-item-padding: 10px
+  $emoji-size:          20px
+  $menu-item-padding:   10px
+  $footer-inner-height: 24px
 
   =clearfix
     &:after
@@ -29,6 +30,10 @@
     background-color: white
     border-radius:    6px
     box-shadow:       0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
+
+    // ----- Content layout -----
+    .emojione
+      +emojione-cancel-default-styles
 
 
 
@@ -58,8 +63,9 @@
     //------------------------------------------
 
     // ----- Layout -----
-    position: relative
-    overflow: hidden
+    position:    relative
+    overflow:    hidden
+    line-height: 1
 
     // ----- Content layout -----
     .eeo-emojiPicker-nav-item-bar
@@ -88,8 +94,6 @@
 
     // ----- Layout -----
     display:     inline-block
-    padding-top: 5px
-    //padding: $menu-item-padding $menu-item-padding ($menu-item-padding / 2)
 
 
 
@@ -145,8 +149,9 @@
     border-bottom: 1px solid lightgrey
 
     // ----- Text -----
-    text-align: left
-    color:      darkgrey
+    text-align:  left
+    color:       darkgrey
+    line-height: 1.2
 
 
 
@@ -201,7 +206,8 @@
 
     // ----- Layout -----
     +clearfix
-    padding:          $menu-item-padding / 2
+    padding:     $menu-item-padding / 2
+    line-height: $footer-inner-height
 
     // ----- Looks -----
     background-color: #eee
@@ -233,7 +239,6 @@
       right:      4px
       top:        50%
       transform:  translate(0, -50%)
-      margin-top: 2px // Compensate for uncentered emoji
 
 
 
@@ -242,6 +247,8 @@
     //------------------------------------------
 
     // ----- Layout -----
+    display: block
+    height:  $footer-inner-height !important
     padding: 2px 22px 2px 2px
 
     // ----- IE 11 fix -----
@@ -254,6 +261,9 @@
   ////------------------------------------------
   .eeo-emojiPicker-filter-clear
     //------------------------------------------
+
+    // ----- Layout -----
+    line-height: 0
 
     // ----- Content Layout -----
     .emojione
