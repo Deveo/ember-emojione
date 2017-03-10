@@ -32,12 +32,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
 
   _assistFilterInput: null,
-
-
-
-  $wrapper: computed(function () {
-    return this.$();
-  }),
+  $wrapper: null,
 
 
   keyPressNotifier: computed(function () {
@@ -131,6 +126,14 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
     this.set('_assistFilterInput', null);
   }),
 
+  // This is needed only for Ember < 2.11.
+  // When support for Ember 2.8 LTS is dropped, this should be replaced with:
+  //     $wrapper: computed(function () { returh this.$(); }),
+  apply$wrapper: on('didInsertElement', function () {
+    const $wrapper = this.$();
+    this.setProperties({$wrapper});
+  }),
+
 
 
   actions: {
@@ -165,5 +168,5 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
         this.get$input().focus();
       }
     },
-  }
+  },
 });

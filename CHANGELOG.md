@@ -10,7 +10,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 
 
-## [2.1.1] - 2017.03.02
+## [2.1.2] - 2017.03.10
+
+## Fixed
+- Fixed regression: broken in Ember LTS 2.8 and below
+
+
+
+
+## [2.1.1] - 2017.03.10 (yanked)
 
 ## Changed
 - jQuery collections are no longer cached under the hood, allowing for dynamic layouts
