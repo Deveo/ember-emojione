@@ -18,7 +18,8 @@ import {EMOJI_PROP_NAMES_TONE} from "ember-emojione/-private/utils/constants";
 export default Component.extend(ClickOutsideMixin, {
 
   filterInput:       undefined,
-  $input:            undefined,
+  $wrapper:          undefined,
+  inputSelector:     undefined,
   selectAction:      undefined,
   keyPressNotifier:  undefined,
   minLength:         3,
@@ -50,14 +51,28 @@ export default Component.extend(ClickOutsideMixin, {
 
 
 
+  get$input() {
+    const $wrapper = this.get('$wrapper');
+    assert("$wrapper should be provided", $wrapper);
+
+    const inputSelector = this.get('inputSelector');
+    assert("inputSelector should be provided", inputSelector);
+
+    return $wrapper.find(inputSelector);
+  },
+
+
+
   caretCoords: computed(
+    '$wrapper',
+    'inputSelector',
     'filterInput',
     'caretPosition',
     'isMinLengthMet',
     'emoji.length',
     function () {
       const isMinLengthMet = this.get('isMinLengthMet');
-      const $input         = this.get('$input');
+      const $input         = this.get$input();
       const emojiCount     = this.get('emoji.length');
 
       if (!isMinLengthMet || !$input || !emojiCount) return {display: 'none'};

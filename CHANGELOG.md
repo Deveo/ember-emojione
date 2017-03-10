@@ -10,6 +10,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 
 
+## [2.1.1] - 2017.03.02
+
+## Changed
+- jQuery collections are no longer cached under the hood, allowing for dynamic layouts
+
+
+
 ## [2.1.0] - 2017.03.02
 
 ## Added

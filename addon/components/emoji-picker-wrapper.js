@@ -35,10 +35,8 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
 
 
-  $input: computed('inputSelector', function () {
-    const inputSelector = this.get('inputSelector');
-    assert("inputSelector should be provided", inputSelector);
-    return this.$(inputSelector);
+  $wrapper: computed(function () {
+    return this.$();
   }),
 
 
@@ -50,9 +48,17 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
 
 
+  get$input() {
+    const inputSelector = this.get('inputSelector');
+    assert("inputSelector should be provided", inputSelector);
+    return this.$(inputSelector);
+  },
+
+
+
   _insertEmojoIntoText(emojoCode, {shouldReplace = false} = {}) {
     const text   = this.get("text") || "";
-    const $input = this.get("$input");
+    const $input = this.get$input();
 
     let selectionStart = $input.prop("selectionStart");
     let selectionEnd   = $input.prop("selectionEnd");
@@ -93,11 +99,12 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
   _triggerEmojiAssistOnTextChange: observer('text', function () {
     this.set('_assistFilterInput', null);
 
-    const $input = this.get('$input');
+    const $input = this.get$input();
+
     if (!$input.is(':focus')) return;
 
     const position = $input.prop('selectionStart');
-    if (position != $input.prop('selectionEnd')) return;
+    if (position !== $input.prop('selectionEnd')) return;
 
     let text = this.get('text');
     if (typeof text !== 'string') return;
@@ -133,7 +140,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
         ? get(emojoOrCode, 'shortname')
         : emojoOrCode;
 
-      const $input = this.get('$input');
+      const $input = this.get$input();
 
       const {newText, newCaretPosition} = this._insertEmojoIntoText(emojoCode, {shouldReplace});
 
@@ -155,7 +162,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
       this.set("isEmojiPickerVisible", false);
 
       if (shouldFocus && this.get('shouldSetFocusToInput')) {
-        this.get("$input").focus();
+        this.get$input().focus();
       }
     },
   }

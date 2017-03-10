@@ -12,7 +12,8 @@
 
   emojiAssist = (component 'emoji-typing-assistance'
     filterInput      = _assistFilterInput
-    $input           = $input
+    $wrapper         = $wrapper
+    inputSelector    = inputSelector
     keyPressNotifier = keyPressNotifier
     selectAction     = (action 'selectEmoji')
   )

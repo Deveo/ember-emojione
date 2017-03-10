@@ -6,7 +6,7 @@ export default function onKey(...args) {
   const keyEvents           = args.map(keyDown);
 
   return on(...keyEvents, function (event) {
-    if (!this.get('$input').is(':focus')) return;
+    if (!this.get$input().is(':focus')) return;
     if (!this.get('_assistFilterInput'))  return;
 
     event.preventDefault();
