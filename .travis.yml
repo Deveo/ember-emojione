@@ -48,3 +48,7 @@ script:
   # Usually, it's ok to finish the test scenario without reverting
   #  to the addon's original dependency state, skipping "cleanup".
   - ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
+
+notifications:
+  flowdock:
+    secure: "vcQ3/VhrgDRPNNEAMi1XOjH/BiS3KG+ifVwaWeFmiQMXL5fivsbByRQOFE+eVM+FSzSSdFxmw8mIfYX+0NMQqO0b+MIYxqN+vigksPx264NqwkBrOhmic4Y3dpznI8M1MMwnXlQq8QU+jPR6rh9Dv2AfZnDuf0mQUz1Rb8LQRCRTyd9aiiBT1hqKOCr+0EIui+r53g0ZBBEsx8Af5fMZf5llv8mMRr9+3QfZJ+88doJD9BahciN9V4fNIKTr2uMYoPTE0G7/N6xvjOnJ0GELsesLP0hVUYfbG8BbxoWYQSKhi2t136pVuQfnez+y9csKzrFraP+ZswowcfYq7KTa9t15o0nYn5ITSadNqwjM+q3NFor01B3qUWE9sDHfvyjheBE/kG0wsnrrDuhMOyHe7zhg5KZAYtQshrqIvQhyK3IyJgJRrEdQYYsRxzfZ6s+BR8QTkY8hnfYaXHw6tQRHKweO1449fd5b+WBngKvls4zE+1k8+2XKQ6RCOe/LV02n142Jl3S9qwKfouSFNrm9OYvjGGImm51lf3UvNOybQ+7u24iEzrJ8xwU40uxnCA8SkDHk1qDYh3w6iDJPyP68STWubPkCiLrjYxwhenvU2PCiChWbkOA4tk1KiNLK6+ElgYiaSIZvIIWoyj8R0cThhKxjxcvaODiQtPypX6adjVk="
