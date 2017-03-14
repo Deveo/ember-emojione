@@ -1,24 +1,22 @@
-{{#if $wrapper}}
-  {{yield (hash
-    emojiPicker = (component 'emoji-picker'
-      selectAction = (action 'selectEmoji')
-      closeAction  = (action 'closeEmojiPicker')
-      isVisible    = isEmojiPickerVisible
-    )
+{{yield (hash
+  emojiPicker = (component 'emoji-picker'
+    selectAction = (action 'selectEmoji')
+    closeAction  = (action 'closeEmojiPicker')
+    isVisible    = isEmojiPickerVisible
+  )
 
-    emojiPickerToggler = (component 'emoji-picker-toggler'
-      toggleAction         = (action 'toggleEmojiPicker')
-      isEmojiPickerVisible = isEmojiPickerVisible
-    )
-
-    emojiAssist = (component 'emoji-typing-assistance'
-      filterInput      = _assistFilterInput
-      $wrapper         = $wrapper
-      inputSelector    = inputSelector
-      keyPressNotifier = keyPressNotifier
-      selectAction     = (action 'selectEmoji')
-    )
-
+  emojiPickerToggler = (component 'emoji-picker-toggler'
+    toggleAction         = (action 'toggleEmojiPicker')
     isEmojiPickerVisible = isEmojiPickerVisible
-  )}}
-{{/if}}
+  )
+
+  emojiAssist = (component 'emoji-typing-assistance'
+    filterInput      = _assistFilterInput
+    $wrapper         = $wrapper
+    inputSelector    = inputSelector
+    keyPressNotifier = keyPressNotifier
+    selectAction     = (action 'selectEmoji')
+  )
+
+  isEmojiPickerVisible = isEmojiPickerVisible
+)}}

@@ -4,7 +4,7 @@
 [![Ember Observer Score](http://emberobserver.com/badges/ember-emojione.svg?cache_bust=1)](http://emberobserver.com/addons/ember-emojione)
 [![npm package version](https://img.shields.io/npm/v/ember-emojione.svg)](https://www.npmjs.com/package/ember-emojione)
 [![license MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/Deveo/ember-emojione/blob/gen-1/LICENSE.md)
-![ember-versions 2.4+](https://img.shields.io/badge/ember--versions-2.4%2B-yellowgreen.svg?bump)
+![ember-versions 2.11+](https://img.shields.io/badge/ember--versions-2.4%2B-yellowgreen.svg?bump)
 ![node-versions 6+](https://img.shields.io/badge/node--versions-6%2B-yellowgreen.svg?bump)
 ![ember-cli 2.11.1](https://img.shields.io/badge/uses%20ember--cli-2.11.1-blue.svg?bump)
 
@@ -801,7 +801,7 @@ In order to translate emoji descriptions (visibile on some emoji on hover), you'
 
 Some major version bumps introduce breaking changes. Read below what you need to change in your app in order to upgrade `ember-emojione`.
 
-### From 1.x
+### 1.x → 2.x
 
 `emoji-picker-wrapper` used to yield three components separately:
 
@@ -827,6 +827,12 @@ In 2.0.0+, it yields a hash that contains the components:
   {{component h.emojiPicker}}
 {{/emoji-picker-wrapper}}
 ```
+
+
+
+### 2.x → 3.x
+
+No changes required.
 
 
 

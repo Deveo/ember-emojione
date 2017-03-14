@@ -10,6 +10,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 
 
+## [3.0.0] - 2017.03.14
+
+## Changed
+- Dropped support for Ember versions below 2.11.
+
+
+
 ## [2.1.2] - 2017.03.10
 
 ## Fixed
