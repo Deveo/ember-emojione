@@ -1,10 +1,11 @@
 import Helper from 'ember-helper';
-import { htmlSafe } from 'ember-string';
-import isHTMLSafe from 'ember-string-ishtmlsafe-polyfill';
 import config from 'ember-get-config';
 import { getProperties } from 'ember-metal/get';
 import opts from 'ember-emojione/config';
 import emojione from 'emojione';
+
+import Ember from 'ember';
+const {String: {isHTMLSafe, htmlSafe}} = Ember;
 
 
 
