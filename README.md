@@ -10,6 +10,8 @@
 
 `ember-emojione` is your emoji solution for Ember, based on the [EmojiOne](http://emojione.com/) project.
 
+EmojiOne version 2 is used, which is free to use for everyone (CC BY-SA 4.0), you're only required to give appropriate credit to EmojiOne authors somewhere in your app/website. Unfortunately, EmojiOne 3 is a paid product for commercial use.
+
 Demo: https://deveo.github.io/ember-emojione/ :sparkles:
 
 
