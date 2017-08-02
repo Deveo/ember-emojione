@@ -1,6 +1,6 @@
-import Component from 'ember-component';
-import service from 'ember-service/inject';
-import computed from 'ember-computed';
+import Component from '@ember/component';
+import { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
 import templateString from 'ember-emojione/-private/cp-macros/template-string';
 
 

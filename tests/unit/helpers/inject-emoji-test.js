@@ -1,8 +1,7 @@
 import InjectEmoji, { injectEmoji } from 'dummy/helpers/inject-emoji';
 import { module, test/*, skip*/ } from 'qunit';
 import { withChai } from 'ember-cli-chai/qunit';
-import { htmlSafe } from 'ember-string';
-import isHTMLSafe from 'ember-string-ishtmlsafe-polyfill';
+import { htmlSafe, isHTMLSafe } from '@ember/string';
 import config from 'ember-get-config';
 
 

@@ -1,5 +1,5 @@
-import on from 'ember-evented/on';
-import {keyDown} from 'ember-keyboard';
+import { on } from '@ember/object/evented';
+import { keyDown } from 'ember-keyboard';
 
 export default function onKey(...args) {
   const callbackOrEventName = args.pop();

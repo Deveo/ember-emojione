@@ -1,11 +1,9 @@
-import Helper from 'ember-helper';
+import { htmlSafe, isHTMLSafe } from '@ember/string';
+import Helper from '@ember/component/helper';
+import { getProperties } from '@ember/object';
 import config from 'ember-get-config';
-import { getProperties } from 'ember-metal/get';
 import opts from 'ember-emojione/config';
 import emojione from 'emojione';
-
-import Ember from 'ember';
-const {String: {isHTMLSafe, htmlSafe}} = Ember;
 
 
 
@@ -56,11 +54,11 @@ const InjectEmoji = Helper.extend({
         imagePathSVG:        opts.shouldIncludeSvgImages ? '/ember-emojione/svg/'                 : null,
         imagePathSVGSprites: opts.shouldIncludeSvgSprite ? '/ember-emojione/emojione.sprites.svg' : null,
 
-        ...envOptions.emojione  || {},
+        ...(envOptions.emojione || {}),
 
         sprites: opts.spriteSheet,
 
-        ...overrideOptions.emojione || {},
+        ...(overrideOptions.emojione || {}),
       }
     };
   },

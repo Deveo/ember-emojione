@@ -1,7 +1,7 @@
 // Code borrowed from:
 // https://github.com/DockYard/ember-one-way-controls/blob/v2.0.0/addon/-private/dynamic-attribute-bindings.js
 
-import Mixin from 'ember-metal/mixin';
+import Mixin from '@ember/object/mixin';
 
 
 

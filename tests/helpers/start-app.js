@@ -1,4 +1,4 @@
-import run from 'ember-runloop';
+import { run } from '@ember/runloop';
 import Application from '../../app';
 import config from '../../config/environment';
 

@@ -1,16 +1,12 @@
-import Component from 'ember-component';
-import computed from 'ember-computed';
-import {htmlSafe} from 'ember-string';
-import {debounce, next, throttle} from 'ember-runloop';
+import Component from '@ember/component';
+import EObject, { computed, observer, get, set } from '@ember/object';
+import { htmlSafe } from '@ember/string';
+import { debounce, next, throttle } from '@ember/runloop';
+import { inject as service } from '@ember/service';
+import { A } from '@ember/array';
 import layout from '../templates/components/emoji-picker';
-import service from 'ember-service/inject';
-import observer from 'ember-metal/observer';
 import ClickOutsideMixin from 'ember-click-outside/mixins/click-outside';
-import get from 'ember-metal/get';
-import set from 'ember-metal/set';
 
-import {A} from 'ember-array/utils';
-import {default as EObject} from 'ember-object';
 const O = EObject.create.bind(EObject);
 
 import {

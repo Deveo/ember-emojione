@@ -1,4 +1,4 @@
-import Component from 'ember-component';
+import Component from '@ember/component';
 import layout from '../../templates/components/emoji-picker/label';
 
 export default Component.extend({

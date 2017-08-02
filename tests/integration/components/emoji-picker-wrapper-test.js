@@ -5,7 +5,6 @@ import emojiPickerWrapper from '../../pages/components/emoji-picker-wrapper';
 import { withChai } from 'ember-cli-chai/qunit';
 import sinon from 'sinon';
 import wait from 'ember-test-helpers/wait';
-// import {next} from 'ember-runloop';
 
 
 

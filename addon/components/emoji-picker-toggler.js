@@ -1,4 +1,4 @@
-import Component from 'ember-component';
+import Component from '@ember/component';
 import layout from 'ember-emojione/templates/components/emoji-picker-toggler';
 import DynamicAttributeBindingsMixin from 'ember-emojione/-private/mixins/dynamic-attribute-bindings';
 
