@@ -8,6 +8,10 @@ module.exports = function(defaults) {
       includePolyfill: true
     },
 
+    babel6: {
+      plugins: ['transform-object-rest-spread'],
+    },
+
     // "ember-emojione": {
     //   spriteSheet: false,
     // }
