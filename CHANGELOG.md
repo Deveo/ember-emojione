@@ -10,6 +10,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 
 
+## [3.0.2] - 2017.08.07
+
+## Tech debt
+- Update to Babel 6 and use New Module Imports (#47 by @Turbo87)
+
+
+
+
 ## [3.0.1] - 2017.03.16
 
 ## Fixed
