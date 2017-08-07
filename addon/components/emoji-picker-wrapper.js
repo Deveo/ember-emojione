@@ -1,13 +1,9 @@
-import Component from 'ember-component';
-import computed from 'ember-computed';
-import get from 'ember-metal/get';
+import Component from '@ember/component';
+import EObject, { computed, get, observer } from '@ember/object';
+import Evented, { on } from '@ember/object/evented';
 import layout from '../templates/components/emoji-picker-wrapper';
-import {assert} from  'ember-metal/utils';
-import {next} from 'ember-runloop';
-import observer from 'ember-metal/observer';
-import Evented from 'ember-evented';
-import on from 'ember-evented/on';
-import EObject from 'ember-object';
+import { assert } from '@ember/debug';
+import { next } from '@ember/runloop';
 import {EKMixin, EKOnInsertMixin, keyDown/*, keyUp*/} from 'ember-keyboard';
 import onKeyDown from 'ember-emojione/-private/utils/on-key';
 

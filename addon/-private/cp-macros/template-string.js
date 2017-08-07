@@ -1,6 +1,5 @@
-import computed from 'ember-computed';
-import get from 'ember-metal/get';
-import {A} from 'ember-array/utils';
+import { computed, get } from '@ember/object';
+import { A } from '@ember/array';
 
 // http://regexr.com/3e9a3
 const propertyRegEx = /\$\{([^\b]+?)\}/g;

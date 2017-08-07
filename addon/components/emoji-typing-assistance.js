@@ -1,17 +1,15 @@
-import Component from 'ember-component';
-import computed from 'ember-computed';
-import {next} from 'ember-runloop';
-import get/*, {getProperties}*/ from 'ember-metal/get';
-import service from 'ember-service/inject';
-import observer from 'ember-metal/observer';
-import {assert} from 'ember-metal/utils';
+import Component from '@ember/component';
+import { computed, observer, get } from '@ember/object';
+import { next } from '@ember/runloop';
+import { inject as service } from '@ember/service';
+import { assert } from '@ember/debug';
 
 import layout from '../templates/components/emoji-typing-assistance';
 import computedStyle from 'ember-computed-style';
 import getCaretCoordinates from 'textarea-caret';
 import getLineHeight from 'line-height';
 import ClickOutsideMixin from 'ember-click-outside/mixins/click-outside';
-import {EMOJI_PROP_NAMES_TONE} from "ember-emojione/-private/utils/constants";
+import { EMOJI_PROP_NAMES_TONE } from "ember-emojione/-private/utils/constants";
 
 
 

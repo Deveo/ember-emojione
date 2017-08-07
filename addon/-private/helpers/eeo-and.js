@@ -1,4 +1,4 @@
-import {helper} from 'ember-helper';
+import { helper } from '@ember/component/helper';
 
 export function eeoAnd(params/*, hash*/) {
   return params.reduce((result, item) => result && !!item, true);

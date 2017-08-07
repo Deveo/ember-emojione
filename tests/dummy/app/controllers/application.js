@@ -1,6 +1,6 @@
-import Controller from 'ember-controller';
-import computed from 'ember-computed';
-import { htmlSafe } from 'ember-string';
+import Controller from '@ember/controller';
+import { computed } from '@ember/object';
+import { htmlSafe } from '@ember/string';
 
 
 

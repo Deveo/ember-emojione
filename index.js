@@ -18,7 +18,11 @@ module.exports = {
 
   name: 'ember-emojione',
 
-
+  options: {
+    babel: {
+      plugins: ['transform-object-rest-spread'],
+    },
+  },
 
   /*******************
    * Public methods
