@@ -34,7 +34,7 @@
     "broccoli-json-module": "^1.0.0",
     "broccoli-merge-trees": "^1.2.1",
     "ember-auto-focus": "^1.0.5",
-    "ember-cli-babel": "^6.7.0",
+    "ember-cli-babel": "^6.8.2",
     "ember-cli-htmlbars": "^1.1.1",
     "ember-click-outside": "^0.1.5",
     "ember-computed-style": "^0.2.0",

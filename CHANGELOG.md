@@ -10,6 +10,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 
 
+## [3.0.3] - 2017.09.01
+
+## Fixed
+- Bumped ember-cli-babel to resolve [#48 @ember/string does not have a isHTMLSafe import](https://github.com/Deveo/ember-emojione/issues/48)
+
+
+
 ## [3.0.2] - 2017.08.07
 
 ## Tech debt
