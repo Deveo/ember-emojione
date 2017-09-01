@@ -1,6 +1,6 @@
 {
   "name": "ember-emojione",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "EmojiOne helper and components for your Ember App.",
   "keywords": [
     "ember-addon",
