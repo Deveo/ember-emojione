@@ -6,7 +6,7 @@
 [![license MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/Deveo/ember-emojione/blob/gen-1/LICENSE.md)
 ![ember-versions 2.11+](https://img.shields.io/badge/ember--versions-2.4%2B-yellowgreen.svg?bump)
 ![node-versions 6+](https://img.shields.io/badge/node--versions-6%2B-yellowgreen.svg?bump)
-![ember-cli 2.11.1](https://img.shields.io/badge/uses%20ember--cli-2.11.1-blue.svg?bump)
+![ember-cli 2.16.2](https://img.shields.io/badge/uses%20ember--cli-2.16.2-blue.svg?bump)
 
 `ember-emojione` is your emoji solution for Ember, based on the [EmojiOne](http://emojione.com/) project.
 
@@ -407,8 +407,7 @@ injectEmoji(inputString, options);
 It returns an html-safe string if the input was html-safe. Otherwise, it returns a regular string.
 
 ```js
-import {htmlSafe} from 'ember-string';
-import isHTMLSafe from 'ember-string-ishtmlsafe-polyfill';
+import {htmlSafe, isHTMLSafe} from '@ember/string';
 import {injectEmoji} from 'ember-emojione/helpers/inject-emoji';
 
 const options = {regexToSkip: false, emojiOne: {ascii: true}};

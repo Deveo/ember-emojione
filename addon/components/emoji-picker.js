@@ -93,8 +93,8 @@ export default Component.extend(ClickOutsideMixin, {
         emoji.forEach(emojo => {
           const isVisible =
             filterStrs
-            ? filterStrs.every(str => get(emojo, 'filterable').indexOf(str) > -1)
-            : true;
+              ? filterStrs.every(str => get(emojo, 'filterable').indexOf(str) > -1)
+              : true;
 
           set(emojo, 'isVisible', isVisible);
           if (isVisible) visibleCount++;

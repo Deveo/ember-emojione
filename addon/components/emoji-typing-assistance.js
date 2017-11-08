@@ -158,11 +158,12 @@ export default Component.extend(ClickOutsideMixin, {
     const parentHeight = $scrollable.innerHeight();
     const oldScrollTop = $scrollable.scrollTop();
 
-
+    /* eslint-disable indent */
     const scrollTop =
       top < 0                     ? oldScrollTop + top :
       top + height > parentHeight ? oldScrollTop + top + height - parentHeight :
                                     null;
+    /* eslint-enable indent */
 
     if (scrollTop === null) return;
 

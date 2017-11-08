@@ -133,8 +133,8 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
     selectEmoji(emojoOrCode, {shouldFocus = true, shouldReplace = false} = {}) {
       const emojoCode =
         typeof emojoOrCode === 'object' && emojoOrCode.shortname
-        ? get(emojoOrCode, 'shortname')
-        : emojoOrCode;
+          ? get(emojoOrCode, 'shortname')
+          : emojoOrCode;
 
       const $input = this.get$input();
 

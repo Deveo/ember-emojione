@@ -12,8 +12,8 @@ export default Mixin.create({
 
   _isKeyBoundToAttribute(key) {
     return (
-         this.NON_ATTRIBUTE_BOUND_PROPS.indexOf(key) === -1
-      && this.attributeBindings        .indexOf(key) === -1
+      this.NON_ATTRIBUTE_BOUND_PROPS.indexOf(key) === -1
+      && this.attributeBindings     .indexOf(key) === -1
     );
   },
 
