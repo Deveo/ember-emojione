@@ -9,7 +9,6 @@
 .ember-cli
 .gitignore
 .eslintrc.js
-.jshintrc
 .watchmanconfig
 .travis.yml
 bower.json

@@ -3,6 +3,22 @@ module.exports = {
   useYarn: true,
   scenarios: [
     {
+      name: 'ember-lts-2.8',
+      bower: {
+        dependencies: {
+          'ember': 'components/ember#lts-2-8'
+        },
+        resolutions: {
+          'ember': 'lts-2-8'
+        }
+      },
+      npm: {
+        devDependencies: {
+          'ember-source': null
+        }
+      }
+    },
+    {
       name: 'ember-lts-2.12',
       npm: {
         devDependencies: {
@@ -55,24 +71,6 @@ module.exports = {
       npm: {
         devDependencies: {
           'ember-source': null
-        }
-      }
-    },
-    {
-      name: 'ember-1.13',
-      bower: {
-        dependencies: {
-          'ember': 'components/ember#v1.13.13'
-        },
-        resolutions: {
-          'ember': 'v1.13.13'
-        }
-      },
-      npm: {
-        devDependencies: {
-          'ember-source': null,
-          'ember-get-helper': '1.1.0',
-          'ember-hash-helper-polyfill': '0.1.2',
         }
       }
     },
