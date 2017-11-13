@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## Tech debt
+- Updated Ember CLI to 2.16.2 + updated dependencies
+
 
 
 ## [3.0.3] - 2017.09.01
