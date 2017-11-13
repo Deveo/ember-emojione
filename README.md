@@ -1,6 +1,6 @@
 # ember-emojione
 
-[![Travis build status](https://img.shields.io/travis/Deveo/ember-emojione.svg)](https://travis-ci.org/Deveo/ember-emojione)
+[![CircleCI build status](https://img.shields.io/circleci/project/github/Deveo/ember-emojione.svg)](https://circleci.com/gh/Deveo/ember-emojione)
 [![Ember Observer Score](http://emberobserver.com/badges/ember-emojione.svg?cache_bust=1)](http://emberobserver.com/addons/ember-emojione)
 [![npm package version](https://img.shields.io/npm/v/ember-emojione.svg)](https://www.npmjs.com/package/ember-emojione)
 [![license MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/Deveo/ember-emojione/blob/gen-1/LICENSE.md)
