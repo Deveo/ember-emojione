@@ -166,8 +166,8 @@ module.exports = {
 
     const jsPath =
       opts.separatePackages
-      ? `${opts.packageNameJs}/index.js`
-      : `${opts.packageNameMain}/lib/js/emojione.js`;
+        ? `${opts.packageNameJs}/index.js`
+        : `${opts.packageNameMain}/lib/js/emojione.js`;
 
     app.import(`${app.bowerDirectory}/${jsPath}`);
 
@@ -253,8 +253,12 @@ module.exports = {
 
     if (!opts.shouldIncludeSvgSprite) return;
 
-    const packageDir = opts.separatePackages ? opts.packageNameSvgSprite : opts.packageNameMain;
-    const baseDir    = `${opts.bowerDir}/${packageDir}/assets/sprites`;
+    const packageDir =
+      opts.separatePackages
+        ? opts.packageNameSvgSprite
+        : `${opts.packageNameMain}/assets/sprites`;
+
+    const baseDir = `${opts.bowerDir}/${packageDir}`;
 
     return new Funnel(baseDir, {
       include: ['*.svg'],

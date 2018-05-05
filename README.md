@@ -179,9 +179,9 @@ Including the whole package, which is over 90 MiB large, is only reasonable if y
 
 Simply install it via:
 
-    bower install -S emojione
+    bower install -S emojione/emojione#v2.2.7
 
-Note: your app's distro size will not grow by 90 MiB. In the next installation step, you'll decide which assets to include into the distro.
+Note: your app's distro size will *not* grow by 90 MiB. In the next installation step, you'll decide which assets to include into the distro.
 
 But every clean `bower install` will be substantially slower. This may include your CI builds.
 
