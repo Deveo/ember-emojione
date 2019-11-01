@@ -3,7 +3,7 @@ import config from '../../config/environment';
 import { run } from '@ember/runloop';
 
 export default function startApp(attrs) {
-  const attributes = { ...config.APP, ...attrs };
+  const attributes = { ...config.APP, ...attrs, autoboot: true };
 
   return run(() => {
     let application = Application.create(attributes);
