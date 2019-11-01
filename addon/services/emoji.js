@@ -5,7 +5,10 @@ import emojiDefs from 'ember-emojione/emoji-defs';
 import { assert } from '@ember/debug';
 import { A } from '@ember/array';
 import { htmlSafe } from '@ember/string';
-import {EMOJI_CATEGORIES_ARRAY, EMOJI_TONES_ARRAY} from "ember-emojione/-private/utils/constants";
+import {
+  EMOJI_CATEGORIES_ARRAY,
+  EMOJI_TONES_ARRAY
+} from "ember-emojione/-private/utils/constants";
 
 const O = EObject.create.bind(EObject);
 

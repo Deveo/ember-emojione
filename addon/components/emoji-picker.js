@@ -1,5 +1,10 @@
 import Component from '@ember/component';
-import EObject, { computed, observer, get, set } from '@ember/object';
+import EObject, {
+  computed,
+  observer,
+  get,
+  set
+} from '@ember/object';
 import { htmlSafe } from '@ember/string';
 import { debounce, next, throttle } from '@ember/runloop';
 import { inject as service } from '@ember/service';

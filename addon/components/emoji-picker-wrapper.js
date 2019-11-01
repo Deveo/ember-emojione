@@ -4,7 +4,12 @@ import Evented, { on } from '@ember/object/evented';
 import layout from '../templates/components/emoji-picker-wrapper';
 import { assert } from '@ember/debug';
 import { next } from '@ember/runloop';
-import {EKMixin, EKOnInsertMixin, keyDown/*, keyUp*/} from 'ember-keyboard';
+import {
+  EKMixin,
+  EKOnInsertMixin,
+  keyDown/*,
+  keyUp*/
+} from 'ember-keyboard';
 import onKeyDown from 'ember-emojione/-private/utils/on-key';
 
 
