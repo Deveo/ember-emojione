@@ -39,6 +39,7 @@
     "ember-auto-focus": "^2.0.2",
     "ember-cli-babel": "^6.16.0",
     "ember-cli-htmlbars": "^3.0.0",
+    "ember-cli-shims": "^1.2.0",
     "ember-click-outside": "^0.1.10",
     "ember-computed-style": "^0.2.0",
     "ember-get-config": "^0.2.4",
@@ -48,7 +49,8 @@
     "textarea-caret": "^3.0.2"
   },
   "devDependencies": {
-    "@ember/optional-features": "^0.6.3",
+    "@ember/jquery": "^1.1.0",
+    "@ember/optional-features": "^1.1.0",
     "babel-eslint": "^8.0.2",
     "broccoli-asset-rev": "^2.7.0",
     "ember-ajax": "^3.1.0",
