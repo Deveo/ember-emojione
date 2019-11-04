@@ -1,5 +1,10 @@
 import Component from '@ember/component';
-import EObject, { computed, get, observer } from '@ember/object';
+import EObject, {
+  computed,
+  get,
+  observer,
+  trySet
+} from '@ember/object';
 import Evented, { on } from '@ember/object/evented';
 import layout from '../templates/components/emoji-picker-wrapper';
 import { assert } from '@ember/debug';
@@ -160,7 +165,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
 
     closeEmojiPicker(shouldFocus) {
-      this.set("isEmojiPickerVisible", false);
+      trySet(this, 'isEmojiPickerVisible', false);
 
       if (shouldFocus && this.get('shouldSetFocusToInput')) {
         this.get$input().focus();
