@@ -1,5 +1,9 @@
 import Service from '@ember/service';
-import EObject, { computed, defineProperty, setProperties } from '@ember/object';
+import EObject, {
+  computed,
+  defineProperty,
+  setProperties
+} from '@ember/object';
 import { filterBy } from '@ember/object/computed';
 import emojiDefs from 'ember-emojione/emoji-defs';
 import { assert } from '@ember/debug';
