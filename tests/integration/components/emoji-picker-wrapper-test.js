@@ -50,7 +50,7 @@ module('Integration | Component | emoji picker wrapper', function(hooks) {
       {{/emoji-picker-wrapper}}
     `);
 
-    component.emojiPicker.emoji(0).click();
+    component.emojiPicker.emoji.objectAt(0).click();
 
     m = "emojiInsertedAction should've been called once";
     expect(actionSpy.calledOnce, m).ok;
@@ -97,7 +97,7 @@ module('Integration | Component | emoji picker wrapper', function(hooks) {
     input.prop('selectionStart', 1);
     input.prop('selectionEnd',   2);
 
-    component.emojiPicker.emoji(0).click();
+    component.emojiPicker.emoji.objectAt(0).click();
 
     await settled();
 
@@ -145,7 +145,7 @@ module('Integration | Component | emoji picker wrapper', function(hooks) {
   //
   //   input.prop('selectionStart', 2);
   //   input.prop('selectionEnd',   2);
-  //   component.emojiPicker.emoji(0).click();
+  //   component.emojiPicker.emoji.objectAt(0).click();
   //
   //   await wait();
   //
@@ -158,7 +158,7 @@ module('Integration | Component | emoji picker wrapper', function(hooks) {
 
   test('it should toggle emoji picker visibility with button', withChai(async function(expect) {
     await render(hbs`
-      {{#emoji-picker-wrapper 
+      {{#emoji-picker-wrapper
         inputSelector = ".input"
         as |h|
       }}

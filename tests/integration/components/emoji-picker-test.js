@@ -40,58 +40,58 @@ module('Integration | Component | emoji picker', function(hooks) {
     expect(component.exists, m).true;
 
     m = "Should have 1369 emoji";
-    expect(component.emoji().count, m).equal(1369);
+    expect(component.emoji.length, m).equal(1369);
 
     m = "Should have 8 categories";
-    expect(component.categories().count, m).equal(8);
+    expect(component.categories.length, m).equal(8);
 
     m = "Category 0 title should be 'Smileys & People'";
-    expect(component.categories(0).title.text, m).equal('Smileys & People');
+    expect(component.categories.objectAt(0).title.text, m).equal('Smileys & People');
 
     m = "Category 0 should contain 225 emoji";
-    expect(component.categories(0).emoji().count, m).equal(225);
+    expect(component.categories.objectAt(0).emoji.length, m).equal(225);
 
     m = "Category 1 title should be 'Animals & Nature'";
-    expect(component.categories(1).title.text, m).equal('Animals & Nature');
+    expect(component.categories.objectAt(1).title.text, m).equal('Animals & Nature');
 
     m = "Category 1 should contain 225 emoji";
-    expect(component.categories(1).emoji().count, m).equal(160);
+    expect(component.categories.objectAt(1).emoji.length, m).equal(160);
 
     m = "Category 2 title should be 'Food & Drink'";
-    expect(component.categories(2).title.text, m).equal('Food & Drink');
+    expect(component.categories.objectAt(2).title.text, m).equal('Food & Drink');
 
     m = "Category 2 should contain 225 emoji";
-    expect(component.categories(2).emoji().count, m).equal(85);
+    expect(component.categories.objectAt(2).emoji.length, m).equal(85);
 
     m = "Category 3 title should be 'Activity'";
-    expect(component.categories(3).title.text, m).equal('Activity');
+    expect(component.categories.objectAt(3).title.text, m).equal('Activity');
 
     m = "Category 3 should contain 225 emoji";
-    expect(component.categories(3).emoji().count, m).equal(69);
+    expect(component.categories.objectAt(3).emoji.length, m).equal(69);
 
     m = "Category 4 title should be 'Travel & Places'";
-    expect(component.categories(4).title.text, m).equal('Travel & Places');
+    expect(component.categories.objectAt(4).title.text, m).equal('Travel & Places');
 
     m = "Category 4 should contain 225 emoji";
-    expect(component.categories(4).emoji().count, m).equal(118);
+    expect(component.categories.objectAt(4).emoji.length, m).equal(118);
 
     m = "Category 5 title should be 'Objects'";
-    expect(component.categories(5).title.text, m).equal('Objects');
+    expect(component.categories.objectAt(5).title.text, m).equal('Objects');
 
     m = "Category 5 should contain 225 emoji";
-    expect(component.categories(5).emoji().count, m).equal(180);
+    expect(component.categories.objectAt(5).emoji.length, m).equal(180);
 
     m = "Category 6 title should be 'Symbols'";
-    expect(component.categories(6).title.text, m).equal('Symbols');
+    expect(component.categories.objectAt(6).title.text, m).equal('Symbols');
 
     m = "Category 6 should contain 225 emoji";
-    expect(component.categories(6).emoji().count, m).equal(275);
+    expect(component.categories.objectAt(6).emoji.length, m).equal(275);
 
     m = "Category 7 title should be 'Flags'";
-    expect(component.categories(7).title.text, m).equal('Flags');
+    expect(component.categories.objectAt(7).title.text, m).equal('Flags');
 
     m = "Category 7 should contain 225 emoji";
-    expect(component.categories(7).emoji().count, m).equal(257);
+    expect(component.categories.objectAt(7).emoji.length, m).equal(257);
   }));
 
 
@@ -102,7 +102,7 @@ module('Integration | Component | emoji picker', function(hooks) {
 
     await render(hbs`{{emoji-picker selectAction=(action actionSpy)}}`);
 
-    component.emoji(0).click();
+    component.emoji.objectAt(0).click();
 
     m = "Action should've been called once";
     expect(actionSpy.calledOnce, m).ok;
@@ -124,7 +124,7 @@ module('Integration | Component | emoji picker', function(hooks) {
       shouldCloseOnSelect = shouldCloseOnSelect
     }}`);
 
-    component.emoji(0).click();
+    component.emoji.objectAt(0).click();
 
     m = "Select action should've been called once";
     expect(selectSpy.calledOnce, m).ok;
@@ -137,7 +137,7 @@ module('Integration | Component | emoji picker', function(hooks) {
 
     this.set('shouldCloseOnSelect', false);
 
-    component.emoji(0).click();
+    component.emoji.objectAt(0).click();
 
     m = "After second click, elect action should've been called twice";
     expect(selectSpy.calledTwice, m).ok;
@@ -167,7 +167,7 @@ module('Integration | Component | emoji picker', function(hooks) {
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v_tone4:"]'), `${m} (trying tone 4)`).false;
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v_tone5:"]'), `${m} (trying tone 5)`).false;
 
-    component.tones(1).click();
+    component.tones.objectAt(1).click();
 
     m = "Should contain tone 1 emoji after click on tone 1";
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v_tone1:"]'), m).true;
@@ -179,7 +179,7 @@ module('Integration | Component | emoji picker', function(hooks) {
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v_tone4:"]'), `${m} (trying tone 4)`).false;
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v_tone5:"]'), `${m} (trying tone 5)`).false;
 
-    component.tones(2).click();
+    component.tones.objectAt(2).click();
 
     m = "Should contain tone 1 emoji after click on tone 2";
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v_tone2:"]'), m).true;
@@ -191,7 +191,7 @@ module('Integration | Component | emoji picker', function(hooks) {
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v_tone4:"]'), `${m} (trying tone 4)`).false;
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v_tone5:"]'), `${m} (trying tone 5)`).false;
 
-    component.tones(3).click();
+    component.tones.objectAt(3).click();
 
     m = "Should contain tone 1 emoji after click on tone 3";
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v_tone3:"]'), m).true;
@@ -203,7 +203,7 @@ module('Integration | Component | emoji picker', function(hooks) {
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v_tone4:"]'), `${m} (trying tone 4)`).false;
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v_tone5:"]'), `${m} (trying tone 5)`).false;
 
-    component.tones(4).click();
+    component.tones.objectAt(4).click();
 
     m = "Should contain tone 1 emoji after click on tone 4";
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v_tone4:"]'), m).true;
@@ -215,7 +215,7 @@ module('Integration | Component | emoji picker', function(hooks) {
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v_tone3:"]'), `${m} (trying tone 3)`).false;
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v_tone5:"]'), `${m} (trying tone 5)`).false;
 
-    component.tones(5).click();
+    component.tones.objectAt(5).click();
 
     m = "Should contain tone 1 emoji after click on tone 5";
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v_tone5:"]'), m).true;
@@ -227,7 +227,7 @@ module('Integration | Component | emoji picker', function(hooks) {
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v_tone3:"]'), `${m} (trying tone 3)`).false;
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v_tone4:"]'), `${m} (trying tone 4)`).false;
 
-    component.tones(0).click();
+    component.tones.objectAt(0).click();
 
     m = "Should contain toneless emoji after clicking on tone 0";
     expect(component.contains('.eeo-emojiPicker-category-emoji-emojo[title^=":v:"]'), m).true;
@@ -249,13 +249,13 @@ module('Integration | Component | emoji picker', function(hooks) {
     await render(hbs`{{emoji-picker selectAction=(action actionSpy)}}`);
 
     m = "Initially should contain 1369 emoji";
-    expect(component.emoji().filterBy('isVisible')).length(1369);
+    expect(component.emoji.filterBy('isVisible')).length(1369);
 
     component.filterInput.fill("fo");
     await settled();
 
     m = "Should contain 93 emoji after filling 'fo' into search field";
-    expect(component.emoji().filterBy('isVisible')).length(93);
+    expect(component.emoji.filterBy('isVisible')).length(93);
   }));
 
 
@@ -269,7 +269,7 @@ module('Integration | Component | emoji picker', function(hooks) {
       toneSelectAction = (action toneActionSpy)
     }}`);
 
-    component.tones(3).click();
+    component.tones.objectAt(3).click();
 
     m = "Action should've been called once";
     expect(toneActionSpy.calledOnce, m).ok;
@@ -277,7 +277,7 @@ module('Integration | Component | emoji picker', function(hooks) {
     m = "Action should've been called with '3'";
     expect(toneActionSpy.calledWith('3'), m).ok;
 
-    component.tones(3).click();
+    component.tones.objectAt(3).click();
 
     m = "Action should not be called again if skin tone isn't changed.";
     expect(toneActionSpy.calledOnce, m).ok;
