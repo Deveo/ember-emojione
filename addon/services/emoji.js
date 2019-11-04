@@ -102,6 +102,7 @@ export default Service.extend({
   emoji__tone_5: filterEmojiBySkinToneCP(5),
 
   init() {
+    this._super(...arguments);
     this._defineEmojiComputedProperties();
   },
 
