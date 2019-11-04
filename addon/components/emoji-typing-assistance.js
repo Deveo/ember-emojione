@@ -233,7 +233,7 @@ export default Component.extend(ClickOutsideMixin, {
 
   actions: {
     selectEmojo(emojo) {
-      this.sendAction('selectAction', emojo, {shouldReplace: true});
+      this.selectAction(emojo, {shouldReplace: true});
       this.set('filterInput', null);
     }
   }

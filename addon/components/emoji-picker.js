@@ -27,8 +27,8 @@ const EMOJI_PICKER_SCROLLABLE_ELEMENT = '.eeo-emojiPicker-scrollable';
 export default Component.extend(ClickOutsideMixin, {
 
   selectAction:        undefined,
-  toneSelectAction:    undefined,
-  closeAction:         undefined,
+  toneSelectAction:    () => {},
+  closeAction:         () => {},
   shouldCloseOnSelect: false,
   disableAutoFocus:    false,
   textNoEmojiFound:    "No emoji found",
@@ -202,8 +202,7 @@ export default Component.extend(ClickOutsideMixin, {
 
 
   clickOutside() {
-    const closeAction = this.get('closeAction');
-    if (closeAction) this.sendAction('closeAction');
+    this.closeAction();
   },
 
 
@@ -228,10 +227,10 @@ export default Component.extend(ClickOutsideMixin, {
 
   actions: {
     selectEmojo(emojo, shouldFocus = true) {
-      this.sendAction('selectAction', emojo, {shouldFocus});
+      this.selectAction(emojo, {shouldFocus});
 
-      if (this.get('closeAction') && this.get('shouldCloseOnSelect')) {
-        this.sendAction('closeAction', true);
+      if (this.get('shouldCloseOnSelect')) {
+        this.closeAction(true);
       }
     },
 
@@ -260,7 +259,7 @@ export default Component.extend(ClickOutsideMixin, {
         return;
       }
 
-      this.sendAction('closeAction', true);
+      this.closeAction(true);
     }
   }
 });

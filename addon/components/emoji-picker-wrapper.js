@@ -145,7 +145,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
       const {newText, newCaretPosition} = this._insertEmojoIntoText(emojoCode, {shouldReplace});
 
-      this.sendAction('emojiInsertedAction', newText);
+      this.emojiInsertedAction(newText);
       this._setCaretPositionAndFocusToInput({ $input, newCaretPosition, shouldFocus });
 
       next(() => this.set('_assistFilterInput', null));
