@@ -18,8 +18,10 @@
 /.watchmanconfig
 /bower.json
 /config/ember-try.js
+/config/release.js
 /CONTRIBUTING.md
 /ember-cli-build.js
+/index.js
 /testem.js
 /tests/
 /yarn.lock
