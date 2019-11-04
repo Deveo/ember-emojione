@@ -8,8 +8,10 @@
 /bower_components/
 /node_modules/
 
-# misc
-/.sass-cache/
+# misc=
+/.env*
+/.pnp*
+/.sass-cache
 /connect.lock
 /coverage/
 /*.log*
