@@ -2,8 +2,8 @@ module.exports = {
   root: true,
   parser: "babel-eslint",
   parserOptions: {
-    ecmaVersion: 6,
-    sourceType: "module"
+    ecmaVersion: 2018,
+    sourceType: 'module'
   },
   plugins: [
     'ember'
@@ -56,8 +56,7 @@ module.exports = {
         'tests/dummy/app/**'
       ],
       parserOptions: {
-        sourceType: 'script',
-        ecmaVersion: 2015
+        sourceType: 'script'
       },
       env: {
         browser: false,
