@@ -1,5 +1,5 @@
 import Service from '@ember/service';
-import EObject, { computed, setProperties } from '@ember/object';
+import EObject, { computed, defineProperty, setProperties } from '@ember/object';
 import { filterBy } from '@ember/object/computed';
 import emojiDefs from 'ember-emojione/emoji-defs';
 import { assert } from '@ember/debug';
@@ -106,13 +106,13 @@ export default Service.extend({
   // * people__tone_default: filterBy('emoji__tone_default', 'category', 'people')
   _defineEmojiComputedProperties() {
     this.get('emojiCategoryIds').forEach(category => {
-      this.set(category, filterBy('emoji', 'category', category));
+      defineProperty(this, category, filterBy('emoji', 'category', category));
 
       this.get('emojiToneIds').forEach(tone => {
         const propertyName = `${category}__tone_${tone}`;
         const dependentKey = `emoji__tone_${tone}`;
 
-        this.set(propertyName, filterBy(dependentKey, 'category', category));
+        defineProperty(this, propertyName, filterBy(dependentKey, 'category', category));
       });
     });
   },
