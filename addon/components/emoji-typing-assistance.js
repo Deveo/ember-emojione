@@ -8,7 +8,7 @@ import layout from '../templates/components/emoji-typing-assistance';
 import computedStyle from 'ember-computed-style';
 import getCaretCoordinates from 'textarea-caret';
 import getLineHeight from 'line-height';
-import ClickOutsideMixin from 'ember-click-outside/mixins/click-outside';
+import ClickOutsideMixin from 'ember-click-outside/mixin';
 import { EMOJI_PROP_NAMES_TONE } from "ember-emojione/-private/utils/constants";
 
 

@@ -10,7 +10,7 @@ import { debounce, next, throttle } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 import layout from '../templates/components/emoji-picker';
-import ClickOutsideMixin from 'ember-click-outside/mixins/click-outside';
+import ClickOutsideMixin from 'ember-click-outside/mixin';
 
 const O = EObject.create.bind(EObject);
 
