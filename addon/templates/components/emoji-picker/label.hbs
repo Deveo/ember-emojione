@@ -1,9 +1,11 @@
+{{! template-lint-disable no-inline-styles }}
+
 {{#scroll-to
   class      = "eeo-emojiPicker-nav-item-link"
-  target     = (concat '.eeo-emojiPicker-category._' categoryObj.category.id)
-  scrollable = (concat '#' scrollableId)
+  target     = (concat ".eeo-emojiPicker-category._" categoryObj.category.id)
+  scrollable = (concat "#" scrollableId)
 }}
-  {{{inject-emoji categoryObj.category.icon  emojione = (hash imageTitleTag = false)}}}
+  {{inject-emoji (eeo-html-safe categoryObj.category.icon)  emojione = (hash imageTitleTag = false)}}
 {{/scroll-to}}
 
 <div
