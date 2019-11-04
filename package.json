@@ -43,7 +43,7 @@
     "ember-click-outside": "^0.1.10",
     "ember-computed-style": "^0.2.0",
     "ember-get-config": "^0.2.4",
-    "ember-keyboard": "^2.3.0",
+    "ember-keyboard": "^4.0.0",
     "ember-scroll-to-mk2": "^1.1.0",
     "line-height": "^0.3.0",
     "textarea-caret": "^3.0.2"
