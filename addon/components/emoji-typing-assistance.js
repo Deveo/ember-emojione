@@ -178,9 +178,9 @@ export default Component.extend(ClickOutsideMixin, {
     if (this.get('_keyboardNotifierActive')) return;
     this.set('_keyboardNotifierActive', true);
 
-    keyPressNotifier.on('selectEmoji',   () => this.selectEmojiFromKeyboard());
-    keyPressNotifier.on('nextEmoji',     () => this.nextEmojiFromKeyboard());
-    keyPressNotifier.on('previousEmoji', () => this.previousEmojiFromKeyboard());
+    keyPressNotifier.on('selectEmoji',   this, this.selectEmojiFromKeyboard);
+    keyPressNotifier.on('nextEmoji',     this, this.nextEmojiFromKeyboard);
+    keyPressNotifier.on('previousEmoji', this, this.previousEmojiFromKeyboard);
   },
 
 
@@ -190,9 +190,9 @@ export default Component.extend(ClickOutsideMixin, {
     const keyPressNotifier = this.get('keyPressNotifier');
     if (!keyPressNotifier) return;
 
-    keyPressNotifier.off('selectEmoji');
-    keyPressNotifier.off('nextEmoji');
-    keyPressNotifier.off('previousEmoji');
+    keyPressNotifier.off('selectEmoji',   this, this.selectEmojiFromKeyboard);
+    keyPressNotifier.off('nextEmoji',     this, this.nextEmojiFromKeyboard);
+    keyPressNotifier.off('previousEmoji', this, this.previousEmojiFromKeyboard);
   },
 
 
