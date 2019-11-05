@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@zestia/ember-auto-focus": "^3.0.9",
-    "babel-plugin-transform-object-rest-spread": "7.0.0-beta.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "broccoli-file-creator": "^1.1.1",
     "broccoli-funnel": "^2.0.1",
     "broccoli-json-module": "^1.0.0",

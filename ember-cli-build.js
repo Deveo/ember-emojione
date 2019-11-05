@@ -9,8 +9,8 @@ module.exports = function(defaults) {
       includePolyfill: true
     },
 
-    babel6: {
-      plugins: ['transform-object-rest-spread'],
+    babel: {
+      plugins: ['@babel/plugin-proposal-object-rest-spread'],
     },
 
     // "ember-emojione": {
