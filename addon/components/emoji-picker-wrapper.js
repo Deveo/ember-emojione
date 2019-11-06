@@ -9,6 +9,7 @@ import Evented, { on } from '@ember/object/evented';
 import layout from '../templates/components/emoji-picker-wrapper';
 import { assert } from '@ember/debug';
 import { next } from '@ember/runloop';
+import $ from 'jquery';
 import {
   EKMixin,
   EKOnInsertMixin,
@@ -42,7 +43,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
 
   $wrapper: computed(function () {
-    return this.$();
+    return $(this.element);
   }),
 
 
@@ -57,7 +58,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
   get$input() {
     const inputSelector = this.get('inputSelector');
     assert("inputSelector should be provided", inputSelector);
-    return this.$(inputSelector);
+    return $(this.element).find(inputSelector);
   },
 
 

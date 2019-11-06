@@ -9,6 +9,7 @@ import { htmlSafe } from '@ember/string';
 import { debounce, next, throttle } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
+import $ from 'jquery';
 import layout from '../templates/components/emoji-picker';
 import ClickOutsideMixin from 'ember-click-outside/mixin';
 
@@ -51,11 +52,11 @@ export default Component.extend(ClickOutsideMixin, {
   }),
 
   $scrollable: computed(function () {
-    return this.$(EMOJI_PICKER_SCROLLABLE_ELEMENT);
+    return $(this.element).find(EMOJI_PICKER_SCROLLABLE_ELEMENT);
   }),
 
   $filterInput: computed(function () {
-    return this.$('.eeo-emojiPicker-filter-input');
+    return $(this.element).find('.eeo-emojiPicker-filter-input');
   }),
 
   emoji: computed(
@@ -141,9 +142,8 @@ export default Component.extend(ClickOutsideMixin, {
       .get('categorySections')
       .forEach(section => {
         const id = section.category.get('id');
-        const $category = this.$(
-          `.eeo-emojiPicker-category._${id} .eeo-emojiPicker-category-emoji`
-        );
+        const $category = $(this.element)
+          .find(`.eeo-emojiPicker-category._${id} .eeo-emojiPicker-category-emoji`);
 
         if (!$category.length) {
           section.set('style', htmlSafe(''));
@@ -180,8 +180,8 @@ export default Component.extend(ClickOutsideMixin, {
 
     this._updateScroll();
 
-    this
-      .$(EMOJI_PICKER_SCROLLABLE_ELEMENT)
+    $(this.element)
+      .find(EMOJI_PICKER_SCROLLABLE_ELEMENT)
       .on('scroll.eeo', () => throttle(this, this._updateScroll, 200, false));
 
     next(() => this.addClickOutsideListener());
@@ -192,8 +192,8 @@ export default Component.extend(ClickOutsideMixin, {
   willDestroyElement() {
     this._super(...arguments);
 
-    this
-      .$(EMOJI_PICKER_SCROLLABLE_ELEMENT)
+    $(this.element)
+      .find(EMOJI_PICKER_SCROLLABLE_ELEMENT)
       .off('scroll.eeo');
 
     this.removeClickOutsideListener();

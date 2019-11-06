@@ -3,6 +3,7 @@ import { computed, observer, get } from '@ember/object';
 import { next } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { assert } from '@ember/debug';
+import $ from 'jquery';
 
 import layout from '../templates/components/emoji-typing-assistance';
 import computedStyle from 'ember-computed-style';
@@ -40,7 +41,7 @@ export default Component.extend(ClickOutsideMixin, {
 
 
   $scrollable: computed(function () {
-    return this.$('.eeo-emojiAssist-emoji');
+    return $(this.element).find('.eeo-emojiAssist-emoji');
   }),
 
   isMinLengthMet: computed('filterInput.length', 'minLength', function () {
