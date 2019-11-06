@@ -1,21 +1,10 @@
 import Component from '@ember/component';
-import EObject, {
-  computed,
-  get,
-  observer,
-  trySet
-} from '@ember/object';
+import EObject, { computed, get, observer } from '@ember/object';
 import Evented, { on } from '@ember/object/evented';
 import layout from '../templates/components/emoji-picker-wrapper';
 import { assert } from '@ember/debug';
 import { next } from '@ember/runloop';
-import $ from 'jquery';
-import {
-  EKMixin,
-  EKOnInsertMixin,
-  keyDown/*,
-  keyUp*/
-} from 'ember-keyboard';
+import {EKMixin, EKOnInsertMixin, keyDown/*, keyUp*/} from 'ember-keyboard';
 import onKeyDown from 'ember-emojione/-private/utils/on-key';
 
 
@@ -43,7 +32,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
 
   $wrapper: computed(function () {
-    return $(this.element);
+    return this.$();
   }),
 
 
@@ -58,7 +47,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
   get$input() {
     const inputSelector = this.get('inputSelector');
     assert("inputSelector should be provided", inputSelector);
-    return $(this.element).find(inputSelector);
+    return this.$(inputSelector);
   },
 
 
@@ -151,7 +140,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
       const {newText, newCaretPosition} = this._insertEmojoIntoText(emojoCode, {shouldReplace});
 
-      this.emojiInsertedAction(newText);
+      this.sendAction('emojiInsertedAction', newText);
       this._setCaretPositionAndFocusToInput({ $input, newCaretPosition, shouldFocus });
 
       next(() => this.set('_assistFilterInput', null));
@@ -166,7 +155,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
 
     closeEmojiPicker(shouldFocus) {
-      trySet(this, 'isEmojiPickerVisible', false);
+      this.set("isEmojiPickerVisible", false);
 
       if (shouldFocus && this.get('shouldSetFocusToInput')) {
         this.get$input().focus();

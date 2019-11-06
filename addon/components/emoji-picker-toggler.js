@@ -21,7 +21,7 @@ export default Component.extend(DynamicAttributeBindingsMixin, {
   tagName: 'button',
 
   click() {
-    this.toggleAction();
+    this.sendAction('toggleAction');
     return false;
   }
 });

@@ -1,17 +1,11 @@
 import Component from '@ember/component';
-import EObject, {
-  computed,
-  observer,
-  get,
-  set
-} from '@ember/object';
+import EObject, { computed, observer, get, set } from '@ember/object';
 import { htmlSafe } from '@ember/string';
 import { debounce, next, throttle } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
-import $ from 'jquery';
 import layout from '../templates/components/emoji-picker';
-import ClickOutsideMixin from 'ember-click-outside/mixin';
+import ClickOutsideMixin from 'ember-click-outside/mixins/click-outside';
 
 const O = EObject.create.bind(EObject);
 
@@ -28,8 +22,8 @@ const EMOJI_PICKER_SCROLLABLE_ELEMENT = '.eeo-emojiPicker-scrollable';
 export default Component.extend(ClickOutsideMixin, {
 
   selectAction:        undefined,
-  toneSelectAction:    () => {},
-  closeAction:         () => {},
+  toneSelectAction:    undefined,
+  closeAction:         undefined,
   shouldCloseOnSelect: false,
   disableAutoFocus:    false,
   textNoEmojiFound:    "No emoji found",
@@ -52,11 +46,11 @@ export default Component.extend(ClickOutsideMixin, {
   }),
 
   $scrollable: computed(function () {
-    return $(this.element).find(EMOJI_PICKER_SCROLLABLE_ELEMENT);
+    return this.$(EMOJI_PICKER_SCROLLABLE_ELEMENT);
   }),
 
   $filterInput: computed(function () {
-    return $(this.element).find('.eeo-emojiPicker-filter-input');
+    return this.$('.eeo-emojiPicker-filter-input');
   }),
 
   emoji: computed(
@@ -142,8 +136,9 @@ export default Component.extend(ClickOutsideMixin, {
       .get('categorySections')
       .forEach(section => {
         const id = section.category.get('id');
-        const $category = $(this.element)
-          .find(`.eeo-emojiPicker-category._${id} .eeo-emojiPicker-category-emoji`);
+        const $category = this.$(
+          `.eeo-emojiPicker-category._${id} .eeo-emojiPicker-category-emoji`
+        );
 
         if (!$category.length) {
           section.set('style', htmlSafe(''));
@@ -180,8 +175,8 @@ export default Component.extend(ClickOutsideMixin, {
 
     this._updateScroll();
 
-    $(this.element)
-      .find(EMOJI_PICKER_SCROLLABLE_ELEMENT)
+    this
+      .$(EMOJI_PICKER_SCROLLABLE_ELEMENT)
       .on('scroll.eeo', () => throttle(this, this._updateScroll, 200, false));
 
     next(() => this.addClickOutsideListener());
@@ -192,8 +187,8 @@ export default Component.extend(ClickOutsideMixin, {
   willDestroyElement() {
     this._super(...arguments);
 
-    $(this.element)
-      .find(EMOJI_PICKER_SCROLLABLE_ELEMENT)
+    this
+      .$(EMOJI_PICKER_SCROLLABLE_ELEMENT)
       .off('scroll.eeo');
 
     this.removeClickOutsideListener();
@@ -202,7 +197,8 @@ export default Component.extend(ClickOutsideMixin, {
 
 
   clickOutside() {
-    this.closeAction();
+    const closeAction = this.get('closeAction');
+    if (closeAction) this.sendAction('closeAction');
   },
 
 
@@ -227,10 +223,10 @@ export default Component.extend(ClickOutsideMixin, {
 
   actions: {
     selectEmojo(emojo, shouldFocus = true) {
-      this.selectAction(emojo, {shouldFocus});
+      this.sendAction('selectAction', emojo, {shouldFocus});
 
-      if (this.get('shouldCloseOnSelect')) {
-        this.closeAction(true);
+      if (this.get('closeAction') && this.get('shouldCloseOnSelect')) {
+        this.sendAction('closeAction', true);
       }
     },
 
@@ -259,7 +255,7 @@ export default Component.extend(ClickOutsideMixin, {
         return;
       }
 
-      this.closeAction(true);
+      this.sendAction('closeAction', true);
     }
   }
 });

@@ -7,7 +7,7 @@ import templateString from 'ember-emojione/-private/cp-macros/template-string';
 
 export default Component.extend({
   tone:             undefined,
-  toneSelectAction: () => {},
+  toneSelectAction: undefined,
 
   emojiService: service('emoji'),
 
@@ -29,6 +29,8 @@ export default Component.extend({
     if (oldSkinTone === newSkinTone) return;
 
     this.set('emojiService.currentSkinTone', newSkinTone);
-    this.toneSelectAction(newSkinTone);
+
+    const toneSelectAction = this.get('toneSelectAction');
+    if (toneSelectAction) this.sendAction('toneSelectAction', newSkinTone);
   }
 });

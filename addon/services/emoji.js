@@ -1,18 +1,11 @@
 import Service from '@ember/service';
-import EObject, {
-  computed,
-  defineProperty,
-  setProperties
-} from '@ember/object';
+import EObject, { computed, setProperties } from '@ember/object';
 import { filterBy } from '@ember/object/computed';
 import emojiDefs from 'ember-emojione/emoji-defs';
 import { assert } from '@ember/debug';
 import { A } from '@ember/array';
 import { htmlSafe } from '@ember/string';
-import {
-  EMOJI_CATEGORIES_ARRAY,
-  EMOJI_TONES_ARRAY
-} from "ember-emojione/-private/utils/constants";
+import {EMOJI_CATEGORIES_ARRAY, EMOJI_TONES_ARRAY} from "ember-emojione/-private/utils/constants";
 
 const O = EObject.create.bind(EObject);
 
@@ -102,7 +95,6 @@ export default Service.extend({
   emoji__tone_5: filterEmojiBySkinToneCP(5),
 
   init() {
-    this._super(...arguments);
     this._defineEmojiComputedProperties();
   },
 
@@ -111,13 +103,13 @@ export default Service.extend({
   // * people__tone_default: filterBy('emoji__tone_default', 'category', 'people')
   _defineEmojiComputedProperties() {
     this.get('emojiCategoryIds').forEach(category => {
-      defineProperty(this, category, filterBy('emoji', 'category', category));
+      this.set(category, filterBy('emoji', 'category', category));
 
       this.get('emojiToneIds').forEach(tone => {
         const propertyName = `${category}__tone_${tone}`;
         const dependentKey = `emoji__tone_${tone}`;
 
-        defineProperty(this, propertyName, filterBy(dependentKey, 'category', category));
+        this.set(propertyName, filterBy(dependentKey, 'category', category));
       });
     });
   },
