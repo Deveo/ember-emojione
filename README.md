@@ -4,7 +4,7 @@
 [![Ember Observer Score](http://emberobserver.com/badges/ember-emojione.svg?cache_bust=1)](http://emberobserver.com/addons/ember-emojione)
 [![npm package version](https://img.shields.io/npm/v/ember-emojione.svg)](https://www.npmjs.com/package/ember-emojione)
 [![license MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/Deveo/ember-emojione/blob/gen-1/LICENSE.md)
-![ember-versions 2.12+](https://img.shields.io/badge/ember--versions-2.12%2B-yellowgreen.svg?bump)
+![ember-versions 2.16+](https://img.shields.io/badge/ember--versions-2.16%2B-yellowgreen.svg?bump)
 ![node-versions 8+](https://img.shields.io/badge/node--versions-8%2B-yellowgreen.svg?bump)
 ![ember-cli 3.12.0](https://img.shields.io/badge/uses%20ember--cli-3.12.0-blue.svg?bump)
 
@@ -73,7 +73,7 @@ If you're having trouble using this addon in your project, please file a properl
 
 ## Requirements
 
-* Ember 2.12+
+* Ember 2.16+
 * Node 8+
 
 
