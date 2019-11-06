@@ -3,12 +3,13 @@ import { computed, observer, get } from '@ember/object';
 import { next } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { assert } from '@ember/debug';
+import $ from 'jquery';
 
 import layout from '../templates/components/emoji-typing-assistance';
 import computedStyle from 'ember-computed-style';
 import getCaretCoordinates from 'textarea-caret';
 import getLineHeight from 'line-height';
-import ClickOutsideMixin from 'ember-click-outside/mixins/click-outside';
+import ClickOutsideMixin from 'ember-click-outside/mixin';
 import { EMOJI_PROP_NAMES_TONE } from "ember-emojione/-private/utils/constants";
 
 
@@ -40,7 +41,7 @@ export default Component.extend(ClickOutsideMixin, {
 
 
   $scrollable: computed(function () {
-    return this.$('.eeo-emojiAssist-emoji');
+    return $(this.element).find('.eeo-emojiAssist-emoji');
   }),
 
   isMinLengthMet: computed('filterInput.length', 'minLength', function () {
@@ -178,9 +179,9 @@ export default Component.extend(ClickOutsideMixin, {
     if (this.get('_keyboardNotifierActive')) return;
     this.set('_keyboardNotifierActive', true);
 
-    keyPressNotifier.on('selectEmoji',   () => this.selectEmojiFromKeyboard());
-    keyPressNotifier.on('nextEmoji',     () => this.nextEmojiFromKeyboard());
-    keyPressNotifier.on('previousEmoji', () => this.previousEmojiFromKeyboard());
+    keyPressNotifier.on('selectEmoji',   this, this.selectEmojiFromKeyboard);
+    keyPressNotifier.on('nextEmoji',     this, this.nextEmojiFromKeyboard);
+    keyPressNotifier.on('previousEmoji', this, this.previousEmojiFromKeyboard);
   },
 
 
@@ -190,9 +191,9 @@ export default Component.extend(ClickOutsideMixin, {
     const keyPressNotifier = this.get('keyPressNotifier');
     if (!keyPressNotifier) return;
 
-    keyPressNotifier.off('selectEmoji');
-    keyPressNotifier.off('nextEmoji');
-    keyPressNotifier.off('previousEmoji');
+    keyPressNotifier.off('selectEmoji',   this, this.selectEmojiFromKeyboard);
+    keyPressNotifier.off('nextEmoji',     this, this.nextEmojiFromKeyboard);
+    keyPressNotifier.off('previousEmoji', this, this.previousEmojiFromKeyboard);
   },
 
 
@@ -233,7 +234,7 @@ export default Component.extend(ClickOutsideMixin, {
 
   actions: {
     selectEmojo(emojo) {
-      this.sendAction('selectAction', emojo, {shouldReplace: true});
+      this.selectAction(emojo, {shouldReplace: true});
       this.set('filterInput', null);
     }
   }

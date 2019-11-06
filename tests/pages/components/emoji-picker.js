@@ -5,27 +5,21 @@ import {
 import c from '../../helpers/page-object/component';
 
 export default c('.eeo-emojiPicker', {
-  emoji: collection({
-    itemScope: '.eeo-emojiPicker-category-emoji-emojo',
-    item:      c()
+  emoji: collection('.eeo-emojiPicker-category-emoji-emojo', {
+    ...c()
   }),
 
-  categories: collection({
-    itemScope: '.eeo-emojiPicker-category',
-    item: c({
+  categories: collection('.eeo-emojiPicker-category', {
+    ...c({
       title: c('.eeo-emojiPicker-category-title'),
-      emoji: collection({
-        scope: '.eeo-emojiPicker-category-emoji',
-        itemScope: '.eeo-emojiPicker-category-emoji-emojo',
-        item:      c()
+      emoji: collection('.eeo-emojiPicker-category-emoji-emojo', {
+        ...c()
       }),
     }),
   }),
 
-  tones: collection({
-    scope:     '.eeo-emojiPicker-tones',
-    itemScope: '.eeo-emojiPicker-tone',
-    item:      c()
+  tones: collection('.eeo-emojiPicker-tone', {
+    ...c()
   }),
 
   filterInput: c('.eeo-emojiPicker-filter-input'),
