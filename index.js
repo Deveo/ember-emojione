@@ -1,3 +1,4 @@
+/* eslint-env node */
 'use strict';
 
 const path       = require('path');
@@ -15,11 +16,11 @@ module.exports = {
    * Public properties
    *******************/
 
-  name: require('./package').name,
+  name: 'ember-emojione',
 
   options: {
     babel: {
-      plugins: ['@babel/plugin-proposal-object-rest-spread'],
+      plugins: ['transform-object-rest-spread'],
     },
   },
 
@@ -165,8 +166,8 @@ module.exports = {
 
     const jsPath =
       opts.separatePackages
-        ? `${opts.packageNameJs}/index.js`
-        : `${opts.packageNameMain}/lib/js/emojione.js`;
+      ? `${opts.packageNameJs}/index.js`
+      : `${opts.packageNameMain}/lib/js/emojione.js`;
 
     app.import(`${app.bowerDirectory}/${jsPath}`);
 
@@ -201,8 +202,8 @@ module.exports = {
 
     const cssPath =
       opts.separatePackages ? `${opts.packageNameCss}/index.css` :
-        opts.spriteSheet      ? `${opts.packageNameMain}/assets/sprites/emojione.sprites.css` :
-          `${opts.packageNameMain}/assets/css/emojione.css`;
+      opts.spriteSheet      ? `${opts.packageNameMain}/assets/sprites/emojione.sprites.css` :
+                              `${opts.packageNameMain}/assets/css/emojione.css`;
 
     app.import(`${app.bowerDirectory}/${cssPath}`);
 

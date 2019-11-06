@@ -5,13 +5,11 @@
 /tmp/
 
 # dependencies
-/bower_components/
 /node_modules/
+/bower_components/
 
-# misc=
-/.env*
-/.pnp*
-/.sass-cache
+# misc
+/.sass-cache/
 /connect.lock
 /coverage/
 /*.log*
@@ -20,8 +18,3 @@
 # IDEs
 /.idea/
 /*.iml
-
-# ember-try
-/.node_modules.ember-try/
-/bower.json.ember-try
-/package.json.ember-try

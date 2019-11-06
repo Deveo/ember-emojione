@@ -1,8 +1,8 @@
 <nav class = "eeo-emojiPicker-nav">
-  {{#each categorySections as |categoryObj|}}
+  {{#each categorySections as |categoryObj index|}}
     {{emoji-picker/label
       categoryObj  = categoryObj
-      visibleCount = (get (get emojiByCategoryIdFiltered categoryObj.category.id) "visibleCount")
+      visibleCount = (get (get emojiByCategoryIdFiltered categoryObj.category.id) 'visibleCount')
       scrollableId = scrollableId
     }}
   {{/each}}
@@ -22,7 +22,7 @@
             emoji               = emojiHash.emoji
             category            = category
             filterInput         = filterInput
-            selectAction        = (action "selectEmojo")
+            selectAction        = (action 'selectEmojo')
             closeAction         = closeAction
             shouldCloseOnSelect = shouldCloseOnSelect
           }}
@@ -47,19 +47,19 @@
         value          = _filterInput
         class          = "eeo-emojiPicker-filter-input"
         placeholder    = textSearch
-        update         = (action "inputFilteringText")
-        insert-newline = (action "selectFirstFilteredEmojo")
-        escape-press   = (action "clearFilterOrClose")
+        update         = (action 'inputFilteringText')
+        insert-newline = (action 'selectFirstFilteredEmojo')
+        escape-press   = (action 'clearFilterOrClose')
       }}
     {{/auto-focus}}
 
     <a
       href
-      class = "eeo-emojiPicker-filter-clear {{if filterInput.length "" "_disabled"}}"
+      class = "eeo-emojiPicker-filter-clear {{if filterInput.length '' '_disabled'}}"
       title = {{textClearSearch}}
-      {{action "inputFilteringText" ""}}
+      {{action 'inputFilteringText' ''}}
     >
-      {{inject-emoji (eeo-html-safe ":heavy_multiplication_x:") emojione = (hash imageTitleTag = false)}}
+      {{{inject-emoji ":heavy_multiplication_x:" emojione = (hash imageTitleTag = false)}}}
     </a>
   </div>{{! .eeo-emojiPicker-filter }}
 

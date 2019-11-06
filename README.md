@@ -4,9 +4,9 @@
 [![Ember Observer Score](http://emberobserver.com/badges/ember-emojione.svg?cache_bust=1)](http://emberobserver.com/addons/ember-emojione)
 [![npm package version](https://img.shields.io/npm/v/ember-emojione.svg)](https://www.npmjs.com/package/ember-emojione)
 [![license MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/Deveo/ember-emojione/blob/gen-1/LICENSE.md)
-![ember-versions 2.16+](https://img.shields.io/badge/ember--versions-2.16%2B-yellowgreen.svg?bump)
-![node-versions 8+](https://img.shields.io/badge/node--versions-8%2B-yellowgreen.svg?bump)
-![ember-cli 3.12.0](https://img.shields.io/badge/uses%20ember--cli-3.12.0-blue.svg?bump)
+![ember-versions 2.11+](https://img.shields.io/badge/ember--versions-2.4%2B-yellowgreen.svg?bump)
+![node-versions 6+](https://img.shields.io/badge/node--versions-6%2B-yellowgreen.svg?bump)
+![ember-cli 2.16.2](https://img.shields.io/badge/uses%20ember--cli-2.16.2-blue.svg?bump)
 
 `ember-emojione` is your emoji solution for Ember, based on the [EmojiOne](http://emojione.com/) project.
 
@@ -73,8 +73,8 @@ If you're having trouble using this addon in your project, please file a properl
 
 ## Requirements
 
-* Ember 2.16+
-* Node 8+
+* Ember 2.4+
+* Node 6+
 
 
 
@@ -122,7 +122,7 @@ This addon can be configured to include as few or as much assets and dependencie
 With npm:
 
     ember install ember-emojione
-
+    
 With Yarn:
 
     yarn add -D ember-emojione
@@ -152,9 +152,9 @@ Then include the CSS. Here you have two options.
 Normal CSS, works with individual PNGs, individual SVGs and SVG sprite sheet:
 
     bower install -S emojione-css=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/css/emojione.css
-
+ 
  Or, if you want to use PNG sprite sheet, add this CSS instead:
-
+ 
     bower install -S emojione-css=https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.css
 
 If you're gonna use the components, you'll also need emoji definitions. Definitions add 438 KiB to your distro size (54 KiB gzipped).
@@ -196,29 +196,29 @@ Values shown below are the defaults. If you're happy with them, you don't need t
     'ember-emojione': {
       // Did you install individual files or the full package?
       separatePackages: true,
-
+  
       // Do you want EmojiOne CSS to be included in your app?
       shouldImportCss: true,
-
+      
       // Are you going to use components that insert emoji?
       shouldImportDefs: true,
-
+      
       // Whether to use a sprite sheet or individual images
       spriteSheet: true,
-
+  
       // Enable one of these options if you want to include
-      // EmojiOne assets into your app's distro.
+      // EmojiOne assets into your app's distro. 
       shouldIncludePngSprite: true,
       shouldIncludeSvgSprite: false,
       shouldIncludePngImages: false,
       shouldIncludeSvgImages: false,
-
+  
       // If you chose individual images in the previous section,
       // you can customize their size and color here.
       // 'png' and 'png_bw' assets come in 64×64 px size.
       pngImagesKind: 'png', // png, png_128x128, png_512x512, png_bw
       svgImagesKind: 'svg', // svg, svg_bw
-
+  
       // You can also customize package names to import.
       // You don't need to edit this if you carefully followed
       // previous installation steps
@@ -228,7 +228,7 @@ Values shown below are the defaults. If you're happy with them, you don't need t
       packageNameDefs:        'emojione-defs',
       packageNamePngSprite:   'emojione-png',
       packageNameSvgSprite:   'emojione-svg',
-
+      
       // Whether to keep or remove `ember-emojione` components from build
       shouldIncludeComponents: true,
     },
@@ -277,14 +277,14 @@ To configure `ember-emojione` and override `emojione` options, add these options
   // Useful for Markdown code blocks. Apply after Markdown transformation.
   // Set to `false` to disable.
   regexToSkip: /<code[\s\S]*?>[\s\S]*?<\/code>/gm,
-
+  
   // EmojiOne library options
   emojione: {
     imageType:     'png', // or svg
     imageTitleTag: true,  // set to false to remove title attribute from img tag
     unicodeAlt:    true,  // use the unicode char as the alt attribute (makes copy and pasting the resulting text better)
     ascii:         false, // change to true to convert ascii smileys
-
+    
     // The following options are inferred from `ember-cli-build.js`.
     // You only need to override these options if you want to serve
     // assets from a custom CDN separate from you app's distro.
@@ -306,7 +306,7 @@ Things to note:
       background-image: url('path/to/your/emojione.sprites.png');
     }
     ```
-
+    
 * If you chose to include local SVG assets, default SVG paths will use root-relative urls, e. g. `/ember-emojione/svg/1f631.svg`. If you serve your app from a subdirectory, please override one of the SVG URL options to include the subdirectory. You don't need this if you serve SVG assets from a CDN (default).
 
 
@@ -476,16 +476,16 @@ Here's the full example. Below it's broken down into steps.
   emojiInsertedAction = (action (mut wikiPageText))
   as |h|
 }}
-
+  
   <span style="position: relative; display: inline-block;">
     {{textarea class="my-input" value=wikiPageText}}
     {{component h.emojiAssist}}
   </span>
-
+  
   {{component h.emojiPickerToggler}}
-
+  
   {{component h.emojiPicker}}
-
+  
 {{/emoji-picker-wrapper}}
 ```
 
@@ -512,9 +512,9 @@ To understand the example, let's assemble it step by step.
 
     ```handlebars
     {{textarea class="my-input" value=wikiPageText}}
-
+    
     <!-- emoji picker popup is gonna be located here -->
-
+    
     <!-- the button-that-toggles-the-popup is gonna be located here -->
     ```
 
@@ -524,24 +524,24 @@ To understand the example, let's assemble it step by step.
     <span style="position: relative; display: inline-block;">
       {{textarea class="my-input" value=wikiPageText}}
     </span>
-
+    
     <!-- emoji picker popup is gonna be located here -->
-
+    
     <!-- the button-that-toggles-the-popup is gonna be located here -->
     ```
-
+    
     In this example the HTML element uses inline styles for simplicity, but that's not a requirement.
 
-4. The emoji typing assistance popup should be located next to the textarea, within that element with `position: relative`:
+4. The emoji typing assistance popup should be located next to the textarea, within that element with `position: relative`: 
 
     ```handlebars
     <span style="position: relative; display: inline-block;">
       {{textarea class="my-input" value=wikiPageText}}
       <!-- emoji typing assistance popup is gonna be located here -->
     </span>
-
+    
     <!-- emoji picker popup is gonna be located here -->
-
+    
     <!-- the button-that-toggles-the-popup is gonna be located here -->
     ```
 
@@ -553,13 +553,13 @@ To understand the example, let's assemble it step by step.
         {{textarea class="my-input" value=wikiPageText}}
         <!-- emoji typing assistance popup is gonna be located here -->
       </span>
-
+      
       <!-- emoji picker popup is gonna be located here -->
-
+      
       <!-- the button-that-toggles-the-popup is gonna be located here -->
     {{/emoji-picker-wrapper}}
     ```
-
+    
     It should serve as a common parent for everything that we set up earlier.
 
 6. Pass the following arguments into the wrapper component:
@@ -576,19 +576,19 @@ To understand the example, let's assemble it step by step.
         {{textarea class="my-input" value=wikiPageText}}
         <!-- emoji typing assistance popup is gonna be located here -->
       </span>
-
+      
       <!-- emoji picker popup is gonna be located here -->
-
+      
       <!-- the button-that-toggles-the-popup is gonna be located here -->
     {{/emoji-picker-wrapper}}
     ```
 
 7. Implement the `emojiInsertedAction` action and pass it into the wrapper component.
-
+    
     The action receives the text updated with emoji inserted. It must update the value that you pass into both the text field and the wrapper.
-
+    
     The action could look like this:
-
+    
     ```js
     actions: {
       emojiInserted(text) {
@@ -609,19 +609,19 @@ To understand the example, let's assemble it step by step.
         {{textarea class="my-input" value=wikiPageText}}
         <!-- emoji typing assistance popup is gonna be located here -->
       </span>
-
+      
       <!-- emoji picker popup is gonna be located here -->
-
+      
       <!-- the button-that-toggles-the-popup is gonna be located here -->
     {{/emoji-picker-wrapper}}
     ```
-
+    
 8. The wrapper component will create instances of the three child components: `emojiPicker`, `emojiPickerToggler` and `emojiAssist`.
 
     These instances come preconfigured to work together, saving you a ton of boilerplate code.
-
+    
     Receive them from the wrapper component and insert into dedicated places:
-
+    
     ```handlebars
     {{#emoji-picker-wrapper
       text                = wikiPageText
@@ -633,15 +633,15 @@ To understand the example, let's assemble it step by step.
         {{textarea class="my-input" value=wikiPageText}}
         {{component h.emojiAssist}}
       </span>
-
+      
       {{component h.emojiPicker}}
-
+      
       {{component h.emojiPickerToggler}}
     {{/emoji-picker-wrapper}}
     ```
-
+    
     You can customize them if you want. Read each component's documentation below to see how you can customize them.
-
+    
 That's it!
 
 Here's a list of options that are preconfigured for the components. Make sure not to override them:
@@ -784,7 +784,7 @@ import emojione from 'emojione';
 
 ### Using emojione-png-sprites tailored spritesheets
 
-The hack we
+The hack we 
 
 
 
@@ -847,17 +847,20 @@ No changes required.
 * `yarn install` :warning:
 * `bower install`
 
+
+
 ### Running
 
-* `npm run lint:hbs`
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
+* `ember serve`
+* Visit your app at [http://localhost:4200](http://localhost:4200).
 
-### Running tests
 
-* `ember test` – Runs the test suite on the current Ember version
-* `ember test --server` – Runs the test suite in "watch mode"
-* `ember try:each` – Runs the test suite against multiple Ember versions
+
+### Running Tests
+
+* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
+* `ember test`
+* `ember test --server`
 
 
 

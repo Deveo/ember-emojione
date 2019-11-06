@@ -1,20 +1,17 @@
-import { visit } from '@ember/test-helpers';
-import { module, test } from 'qunit';
-import { setupApplicationTest } from 'ember-qunit';
+import { test } from 'qunit';
+import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
 import emojione from 'emojione';
 
-module('Acceptance | smoke test', function(hooks) {
-  setupApplicationTest(hooks);
+moduleForAcceptance('Acceptance | smoke test');
 
-  let m;
+let m;
 
-  test('visiting /', async function (assert) {
-    await visit('/');
+test('visiting /', async function (assert) {
+  await visit('/');
 
-    m = "`emojione` should be available in the global namespace";
-    assert.ok(window.emojione, m);
+  m = "`emojione` should be available in the global namespace";
+  assert.ok(window.emojione, m);
 
-    m = "`emojione` should be available as a ES import";
-    assert.ok(emojione, m);
-  });
+  m = "`emojione` should be available as a ES import";
+  assert.ok(emojione, m);
 });
