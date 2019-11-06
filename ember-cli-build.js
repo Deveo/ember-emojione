@@ -1,4 +1,3 @@
-/* eslint-env node */
 'use strict';
 
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
@@ -10,8 +9,8 @@ module.exports = function(defaults) {
       includePolyfill: true
     },
 
-    babel6: {
-      plugins: ['transform-object-rest-spread'],
+    babel: {
+      plugins: ['@babel/plugin-proposal-object-rest-spread'],
     },
 
     // "ember-emojione": {

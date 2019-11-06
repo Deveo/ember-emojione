@@ -5,7 +5,7 @@ import {
   isVisible,
   text,
   value
-} from '../../page-object';
+} from 'ember-cli-page-object';
 
 
 
