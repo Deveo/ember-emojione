@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 
 
+## [4.0.1] - 2019.11.07
+
+## Fixed
+- Resolved an issue with missing files in the published package
+
+
+
 ## [4.0.0] - 2019.11.06
 
 ## Tech debt
