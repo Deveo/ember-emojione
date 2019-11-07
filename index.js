@@ -15,7 +15,7 @@ module.exports = {
    * Public properties
    *******************/
 
-  name: require('./package').name,
+  name: 'ember-emojione',
 
   options: {
     babel: {
