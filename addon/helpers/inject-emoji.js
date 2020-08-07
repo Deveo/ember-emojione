@@ -1,6 +1,6 @@
 import { htmlSafe, isHTMLSafe } from '@ember/string';
 import Helper from '@ember/component/helper';
-import { getProperties } from '@ember/object';
+import { getProperties, set } from '@ember/object';
 import config from 'ember-get-config';
 import opts from 'ember-emojione/config';
 import emojione from 'emojione';
@@ -78,7 +78,7 @@ const InjectEmoji = Helper.extend({
       .forEach(key => {
         const value = options[key];
         if (value == null) return;
-        Ember.set(emojione, key, value);
+        set(emojione, key, value);
       });
   },
 
