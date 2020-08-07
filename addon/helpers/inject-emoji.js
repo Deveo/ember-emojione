@@ -78,7 +78,7 @@ const InjectEmoji = Helper.extend({
       .forEach(key => {
         const value = options[key];
         if (value == null) return;
-        emojione[key] = value;
+        Ember.set(emojione, key, value);
       });
   },
 
