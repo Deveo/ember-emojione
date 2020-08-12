@@ -41,7 +41,7 @@
     "ember-cli-htmlbars": "^3.0.1",
     "ember-cli-shims": "^1.2.0",
     "ember-click-outside": "^1.2.0",
-    "ember-computed-style": "^0.3.0",
+    "ember-computed-style": "joshbabier/ember-computed-style",
     "ember-get-config": "^0.2.4",
     "ember-keyboard": "^4.0.0",
     "ember-scroll-to-mk2": "^2.0.0",
