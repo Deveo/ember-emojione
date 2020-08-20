@@ -15,12 +15,10 @@ const InjectEmoji = Helper.extend({
     }
 
     const currentOptions         = this._mergeOptions(overrideOptions);
-    const initialEmojiOneOptions = this._captureEmojiOneInitialState();
     const isInputHtmlSafe        = isHTMLSafe(inputStr);
 
     this._applyOptionsToEmojiOne(currentOptions.emojione);
     const result = this._injectEmoji(inputStr.toString(), currentOptions);
-    this._applyOptionsToEmojiOne(initialEmojiOneOptions);
 
     return isInputHtmlSafe
       ? htmlSafe(result)
@@ -134,5 +132,17 @@ export function injectEmoji(input, options) {
     injectEmojiInstance = InjectEmoji.create();
   }
 
-  return injectEmojiInstance.compute([input], options);
+  const initialEmojiOneOptions = injectEmojiInstance._captureEmojiOneInitialState();
+
+  // Note: compute modifies the emojione options
+  const result = injectEmojiInstance.compute([input], options);
+
+  // Reset the emojione options to their original state
+  // Note: this must be done outside of the compute method or else we get the
+  // following error:
+  // "Attempting to update a value after using it in a computation can cause
+  // logical errors, infinite revalidation bugs, and performance issues, and is
+  // not supported."
+  injectEmojiInstance._applyOptionsToEmojiOne(initialEmojiOneOptions);
+  return result;
 }
