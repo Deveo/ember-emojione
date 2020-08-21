@@ -7,15 +7,18 @@ import config from 'ember-get-config';
 
 
 module('Unit | Helper | inject emoji', function(hooks) {
+  let initialEmojiOneOptions, m;
+
   hooks.beforeEach(function() {
     this.subject = InjectEmoji.create();
+    initialEmojiOneOptions = this.subject._captureEmojiOneInitialState();
   });
 
   hooks.afterEach(function() {
+    this.subject._applyOptionsToEmojiOne(initialEmojiOneOptions);
     delete config['ember-emojione'];
   });
 
-  let m;
 
 
 
