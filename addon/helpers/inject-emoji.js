@@ -14,15 +14,13 @@ const InjectEmoji = Helper.extend({
       return '';
     }
 
-    const currentOptions         = this._mergeOptions(overrideOptions);
-    const isInputHtmlSafe        = isHTMLSafe(inputStr);
+    const isInputHtmlSafe = isHTMLSafe(inputStr);
 
-    this._applyOptionsToEmojiOne(currentOptions.emojione);
-    const result = this._injectEmoji(inputStr.toString(), currentOptions);
+    return this._runEmojiOneWithOptionsOnce(overrideOptions, (options) => {
+      const result = this._injectEmoji(inputStr.toString(), options);
+      return isInputHtmlSafe ? htmlSafe(result) : result;
+    });
 
-    return isInputHtmlSafe
-      ? htmlSafe(result)
-      : result;
   },
 
 
@@ -80,7 +78,22 @@ const InjectEmoji = Helper.extend({
       });
   },
 
+  /**
+   * A decorator that:
+   * 1. Initializes the EmojiOne library with given options.
+   * 2. Runs it.
+   * 3. Restores its original state.
+   **/
+  _runEmojiOneWithOptionsOnce(overrideOptions, callback) {
+    const initialEmojiOneOptions = this._captureEmojiOneInitialState();
+    const currentOptions         = this._mergeOptions(overrideOptions);
 
+    this._applyOptionsToEmojiOne(currentOptions.emojione);
+    const result = callback(currentOptions);
+    this._applyOptionsToEmojiOne(initialEmojiOneOptions);
+
+    return result;
+  },
 
   _injectEmoji(inputStr, {
     regexToSkip = /<code[\s\S]*?>[\s\S]*?<\/code>/gm
@@ -132,17 +145,5 @@ export function injectEmoji(input, options) {
     injectEmojiInstance = InjectEmoji.create();
   }
 
-  const initialEmojiOneOptions = injectEmojiInstance._captureEmojiOneInitialState();
-
-  // Note: compute modifies the emojione options
-  const result = injectEmojiInstance.compute([input], options);
-
-  // Reset the emojione options to their original state
-  // Note: this must be done outside of the compute method or else we get the
-  // following error:
-  // "Attempting to update a value after using it in a computation can cause
-  // logical errors, infinite revalidation bugs, and performance issues, and is
-  // not supported."
-  injectEmojiInstance._applyOptionsToEmojiOne(initialEmojiOneOptions);
-  return result;
+  return injectEmojiInstance.compute([input], options);
 }
