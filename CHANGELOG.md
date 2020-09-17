@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 
 
+## [4.0.2] - 2020.09.17
+
+## Fixed
+- Resolved incompatibilities when used in an octane project + updated dependencies
+
+
+
 ## [4.0.1] - 2019.11.07
 
 ## Fixed
