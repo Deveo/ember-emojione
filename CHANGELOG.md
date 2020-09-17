@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 
 
-## [4.0.2] - 2020.09.17
+## [4.1.0] - 2020.09.17
 
 ## Fixed
 - Resolved incompatibilities when used in an octane project + updated dependencies
