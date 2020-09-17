@@ -1,6 +1,6 @@
 import { htmlSafe, isHTMLSafe } from '@ember/string';
 import Helper from '@ember/component/helper';
-import { getProperties, set } from '@ember/object';
+import { set } from '@ember/object';
 import config from 'ember-get-config';
 import opts from 'ember-emojione/config';
 import emojione from 'emojione';
@@ -14,13 +14,17 @@ const InjectEmoji = Helper.extend({
       return '';
     }
 
-    const isInputHtmlSafe = isHTMLSafe(inputStr);
+    const currentOptions         = this._mergeOptions(overrideOptions);
+    const initialEmojiOneOptions = this._captureEmojiOneInitialState();
+    const isInputHtmlSafe        = isHTMLSafe(inputStr);
 
-    return this._runEmojiOneWithOptionsOnce(overrideOptions, (options) => {
-      const result = this._injectEmoji(inputStr.toString(), options);
-      return isInputHtmlSafe ? htmlSafe(result) : result;
-    });
+    this._applyOptionsToEmojiOne(currentOptions.emojione);
+    const result = this._injectEmoji(inputStr.toString(), currentOptions);
+    this._applyOptionsToEmojiOne(initialEmojiOneOptions);
 
+    return isInputHtmlSafe
+      ? htmlSafe(result)
+      : result;
   },
 
 
@@ -62,10 +66,18 @@ const InjectEmoji = Helper.extend({
 
 
   _captureEmojiOneInitialState() {
-    const keys = this.get('_emojiOneOptionKeys');
-    return getProperties(emojione, keys);
-  },
+    const state = {};
 
+    this.get('_emojiOneOptionKeys').forEach((key) => {
+      const value = emojione[key];
+
+      if (value) {
+        state[key] = value;
+      }
+    });
+
+    return state;
+  },
 
 
   _applyOptionsToEmojiOne(options) {
@@ -78,22 +90,7 @@ const InjectEmoji = Helper.extend({
       });
   },
 
-  /**
-   * A decorator that:
-   * 1. Initializes the EmojiOne library with given options.
-   * 2. Runs it.
-   * 3. Restores its original state.
-   **/
-  _runEmojiOneWithOptionsOnce(overrideOptions, callback) {
-    const initialEmojiOneOptions = this._captureEmojiOneInitialState();
-    const currentOptions         = this._mergeOptions(overrideOptions);
 
-    this._applyOptionsToEmojiOne(currentOptions.emojione);
-    const result = callback(currentOptions);
-    this._applyOptionsToEmojiOne(initialEmojiOneOptions);
-
-    return result;
-  },
 
   _injectEmoji(inputStr, {
     regexToSkip = /<code[\s\S]*?>[\s\S]*?<\/code>/gm
